@@ -38,19 +38,21 @@ CREATE TABLE IF NOT EXISTS students (
 -- Create events table
 CREATE TABLE IF NOT EXISTS events (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
-    event_name VARCHAR(255),
-    event_date DATE,
+    event_name VARCHAR(255) NOT NULL,
+    event_date DATE NOT NULL,
     event_time_start TIME,
     event_time_end TIME,
     location TEXT,
     event_type ENUM('onsite', 'online', 'hybrid') DEFAULT 'onsite',
-    registration_required BOOLEAN,
+    registration_required BOOLEAN DEFAULT FALSE,
     event_status ENUM('upcoming', 'canceled', 'completed') DEFAULT 'upcoming',
     description TEXT,
     event_image_url TEXT,
     event_batch_image TEXT,
-    attendants 
-    event_restriction ENUM('public', 'members', 'officers'), 
+    attendants INT DEFAULT 0,
+    event_restriction ENUM('public', 'members', 'officers') DEFAULT 'public',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS announcements (
@@ -61,5 +63,44 @@ CREATE TABLE IF NOT EXISTS announcements (
     posted_by VARCHAR(100) DEFAULT 'Admin',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_archived BOOLEAN,
+    is_archived BOOLEAN DEFAULT FALSE
 );
+
+-- Create settings table for system configuration
+CREATE TABLE IF NOT EXISTS settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    key_name VARCHAR(100) UNIQUE NOT NULL,
+    value TEXT,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create event_registrations table for tracking registrations
+CREATE TABLE IF NOT EXISTS event_registrations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_id INT NOT NULL,
+    student_id INT NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    attendance_status ENUM('registered', 'attended', 'absent') DEFAULT 'registered',
+    FOREIGN KEY (event_id) REFERENCES events(event_id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_registration (event_id, student_id)
+);
+
+-- Create password_resets table for password recovery
+CREATE TABLE IF NOT EXISTS password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    used BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert default settings
+INSERT INTO settings (key_name, value, description) VALUES
+('school_year_code', '2526', 'Current school year code for ID generation'),
+('system_name', 'MSC Student Portal', 'Name of the system'),
+('admin_email', 'admin@example.com', 'Administrator email address')
+ON DUPLICATE KEY UPDATE value = VALUES(value);
