@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Event Model
  * Handle all event-related database operations
@@ -9,12 +10,12 @@ require_once __DIR__ . '/../config/database.php';
 class Event
 {
     private $db;
-    
+
     public function __construct()
     {
         $this->db = Database::getInstance()->getConnection();
     }
-    
+
     /**
      * Create a new event
      */
@@ -30,7 +31,7 @@ class Event
                 :location, :event_type, :registration_required, :event_status,
                 :description, :event_image_url, :event_batch_image, :event_restriction
             )";
-            
+
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 'event_name' => $data['event_name'],
@@ -46,13 +47,13 @@ class Event
                 'event_batch_image' => $data['event_batch_image'] ?? null,
                 'event_restriction' => $data['event_restriction'] ?? 'public'
             ]);
-            
+
             return $this->findById($this->db->lastInsertId());
         } catch (Exception $e) {
             throw new Exception("Failed to create event: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Find event by ID
      */
@@ -62,56 +63,56 @@ class Event
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
-    
+
     /**
      * Get all events with pagination and filters
      */
     public function getAll($page = 1, $limit = 20, $filters = [])
     {
         $offset = ($page - 1) * $limit;
-        
+
         $sql = "SELECT * FROM events WHERE 1=1";
         $params = [];
-        
+
         // Apply filters
         if (isset($filters['status'])) {
             $sql .= " AND event_status = :status";
             $params['status'] = $filters['status'];
         }
-        
+
         if (isset($filters['type'])) {
             $sql .= " AND event_type = :type";
             $params['type'] = $filters['type'];
         }
-        
+
         if (isset($filters['restriction'])) {
             $sql .= " AND event_restriction = :restriction";
             $params['restriction'] = $filters['restriction'];
         }
-        
+
         if (isset($filters['date_from'])) {
             $sql .= " AND event_date >= :date_from";
             $params['date_from'] = $filters['date_from'];
         }
-        
+
         if (isset($filters['date_to'])) {
             $sql .= " AND event_date <= :date_to";
             $params['date_to'] = $filters['date_to'];
         }
-        
+
         $sql .= " ORDER BY event_date ASC, event_time_start ASC LIMIT :limit OFFSET :offset";
-        
+
         $stmt = $this->db->prepare($sql);
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value);
         }
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        
+
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    
+
     /**
      * Update event
      */
@@ -133,7 +134,7 @@ class Event
                 event_restriction = :event_restriction,
                 updated_at = CURRENT_TIMESTAMP
                 WHERE event_id = :id";
-            
+
             $stmt = $this->db->prepare($sql);
             return $stmt->execute([
                 'id' => $id,
@@ -154,7 +155,7 @@ class Event
             throw new Exception("Failed to update event: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Delete event
      */
@@ -167,7 +168,7 @@ class Event
             throw new Exception("Failed to delete event: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Get upcoming events
      */
@@ -178,14 +179,14 @@ class Event
                 AND event_date >= CURDATE()
                 ORDER BY event_date ASC, event_time_start ASC 
                 LIMIT :limit";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
-        
+
         return $stmt->fetchAll();
     }
-    
+
     /**
      * Get events for calendar
      */
@@ -196,16 +197,16 @@ class Event
                 FROM events 
                 WHERE event_date BETWEEN :start_date AND :end_date
                 ORDER BY event_date ASC, event_time_start ASC";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             'start_date' => $startDate,
             'end_date' => $endDate
         ]);
-        
+
         return $stmt->fetchAll();
     }
-    
+
     /**
      * Register student for event
      */
@@ -217,31 +218,31 @@ class Event
             if (!$event || !$event['registration_required']) {
                 throw new Exception("Event does not require registration or does not exist");
             }
-            
+
             // Check if already registered
             $checkStmt = $this->db->prepare("SELECT id FROM event_registrations WHERE event_id = :event_id AND student_id = :student_id");
             $checkStmt->execute(['event_id' => $eventId, 'student_id' => $studentId]);
-            
+
             if ($checkStmt->fetch()) {
                 throw new Exception("Already registered for this event");
             }
-            
+
             // Register student
             $stmt = $this->db->prepare("INSERT INTO event_registrations (event_id, student_id) VALUES (:event_id, :student_id)");
             $result = $stmt->execute(['event_id' => $eventId, 'student_id' => $studentId]);
-            
+
             if ($result) {
                 // Update attendants count
                 $updateStmt = $this->db->prepare("UPDATE events SET attendants = attendants + 1 WHERE event_id = :event_id");
                 $updateStmt->execute(['event_id' => $eventId]);
             }
-            
+
             return $result;
         } catch (Exception $e) {
             throw new Exception("Failed to register for event: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Get event registrations
      */
@@ -252,13 +253,13 @@ class Event
                 JOIN students s ON er.student_id = s.id
                 WHERE er.event_id = :event_id
                 ORDER BY er.registration_date ASC";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['event_id' => $eventId]);
-        
+
         return $stmt->fetchAll();
     }
-    
+
     /**
      * Update attendance status
      */
@@ -274,5 +275,22 @@ class Event
         } catch (Exception $e) {
             throw new Exception("Failed to update attendance status: " . $e->getMessage());
         }
+    }
+
+    /**
+     * Get: Registered Events by a Student
+     */
+    public function getEventsByStudent($studentId)
+    {
+        $sql = "SELECT e.event_id, e.event_name, e.event_date, e.event_time_start, e.location, er.attendance_status
+            FROM event_registrations er
+            JOIN events e ON er.event_id = e.event_id
+            WHERE er.student_id = :student_id
+            ORDER BY e.event_date DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['student_id' => $studentId]);
+
+        return $stmt->fetchAll();
     }
 }

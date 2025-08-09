@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Event Routes
  * Handle event-related API endpoints
@@ -51,6 +52,8 @@ switch ($method) {
         } elseif ($endpoint && is_numeric($endpoint)) {
             // endpoint is actually the ID
             $eventController->getById($endpoint);
+        } elseif ($endpoint === 'student' && is_numeric($id)) {
+            $eventController->getEventsByStudent($id);
         } elseif ($endpoint === '' || $endpoint === 'all') {
             $eventController->getAll();
         } else {
@@ -58,7 +61,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'Event endpoint not found: ' . $endpoint]);
         }
         break;
-    
+
     case 'POST':
         if ($endpoint && is_numeric($endpoint) && $id === 'register') {
             // endpoint is actually the event ID, id is 'register'
@@ -70,7 +73,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'POST endpoint not found: ' . $endpoint]);
         }
         break;
-    
+
     case 'PUT':
         if ($endpoint && is_numeric($endpoint) && $id === 'attendance' && $action) {
             // endpoint is event ID, id is 'attendance', action is student ID
@@ -83,7 +86,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'PUT endpoint not found']);
         }
         break;
-    
+
     case 'DELETE':
         if ($endpoint && is_numeric($endpoint)) {
             // endpoint is actually the ID
@@ -93,7 +96,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'DELETE endpoint not found']);
         }
         break;
-    
+
     default:
         http_response_code(405);
         echo json_encode(['success' => false, 'message' => 'Method not allowed']);
