@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Student Routes
  * Handle student-related API endpoints
@@ -41,6 +42,12 @@ switch ($method) {
             $studentController->getDashboardData();
         } elseif ($endpoint === 'search') {
             $studentController->search();
+        } elseif ($endpoint === 'count') {
+            $studentController->countStudents(); //studCounter
+        } elseif ($endpoint === 'college-distribution') {
+            $studentController->countByCollege(); //chart by College
+        } elseif ($endpoint === 'yearLevel-distribution') {
+            $studentController->countByYearLevel(); //chart by Year Level
         } elseif ($endpoint && is_numeric($endpoint)) {
             // endpoint is actually the ID
             $studentController->getById($endpoint);
@@ -51,7 +58,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'Student endpoint not found: ' . $endpoint]);
         }
         break;
-    
+
     case 'PUT':
         if ($endpoint && $id === 'profile') {
             $studentController->updateProfile($endpoint);
@@ -62,7 +69,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'PUT endpoint not found']);
         }
         break;
-    
+
     case 'POST':
         if ($endpoint && $id === 'toggle-active') {
             $studentController->toggleActive($endpoint);
@@ -71,7 +78,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'POST endpoint not found']);
         }
         break;
-    
+
     default:
         http_response_code(405);
         echo json_encode(['success' => false, 'message' => 'Method not allowed']);

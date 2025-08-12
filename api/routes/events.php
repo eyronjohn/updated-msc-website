@@ -52,6 +52,8 @@ switch ($method) {
         } elseif ($endpoint && is_numeric($endpoint)) {
             // endpoint is actually the ID
             $eventController->getById($endpoint);
+        } elseif ($endpoint === 'count') {
+            $eventController->countEvents(); //eventCounter
         } elseif ($endpoint === 'student' && is_numeric($id)) {
             $eventController->getEventsByStudent($id);
         } elseif ($endpoint === '' || $endpoint === 'all') {

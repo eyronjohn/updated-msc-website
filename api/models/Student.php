@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Student Model
  * Handle all student-related database operations
@@ -9,12 +10,12 @@ require_once __DIR__ . '/../config/database.php';
 class Student
 {
     private $db;
-    
+
     public function __construct()
     {
         $this->db = Database::getInstance()->getConnection();
     }
-    
+
     /**
      * Create a new student
      */
@@ -27,14 +28,14 @@ class Student
                 'username' => $data['username'],
                 'email' => $data['email']
             ]);
-            
+
             if ($checkStmt->fetch()) {
                 throw new Exception("Username or email already exists");
             }
-            
+
             // Hash password
             $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
-            
+
             // Insert student
             $sql = "INSERT INTO students (
                 username, email, password, first_name, middle_name, last_name, name_suffix,
@@ -45,7 +46,7 @@ class Student
                 :birthdate, :gender, :student_no, :year_level, :college, :program,
                 :section, :address, :phone, :facebook_link, :role, :is_active
             )";
-            
+
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 'username' => $data['username'],
@@ -68,23 +69,22 @@ class Student
                 'role' => $data['role'] ?? 'member',
                 'is_active' => true
             ]);
-            
+
             $userId = $this->db->lastInsertId();
-            
+
             // Generate MSC ID
             $mscId = $this->generateMscId($data['role'] ?? 'member');
-            
+
             // Update student with MSC ID
             $updateStmt = $this->db->prepare("UPDATE students SET msc_id = :msc_id WHERE id = :id");
             $updateStmt->execute(['msc_id' => $mscId, 'id' => $userId]);
-            
+
             return $this->findById($userId);
-            
         } catch (Exception $e) {
             throw new Exception("Failed to create student: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Find student by ID
      */
@@ -94,7 +94,7 @@ class Student
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
-    
+
     /**
      * Find student by username
      */
@@ -104,7 +104,7 @@ class Student
         $stmt->execute(['username' => $username]);
         return $stmt->fetch();
     }
-    
+
     /**
      * Find student by email
      */
@@ -114,7 +114,7 @@ class Student
         $stmt->execute(['email' => $email]);
         return $stmt->fetch();
     }
-    
+
     /**
      * Update student profile
      */
@@ -138,7 +138,7 @@ class Student
                 facebook_link = :facebook_link,
                 profile_image_path = :profile_image_path
                 WHERE id = :id";
-            
+
             $stmt = $this->db->prepare($sql);
             return $stmt->execute([
                 'id' => $id,
@@ -162,7 +162,7 @@ class Student
             throw new Exception("Failed to update profile: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Change password
      */
@@ -176,7 +176,7 @@ class Student
             throw new Exception("Failed to change password: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Verify password
      */
@@ -184,35 +184,35 @@ class Student
     {
         return password_verify($password, $hashedPassword);
     }
-    
+
     /**
      * Get all students with pagination
      */
     public function getAll($page = 1, $limit = 20, $role = null)
     {
         $offset = ($page - 1) * $limit;
-        
+
         $sql = "SELECT * FROM students";
         $params = [];
-        
+
         if ($role) {
             $sql .= " WHERE role = :role";
             $params['role'] = $role;
         }
-        
+
         $sql .= " ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
-        
+
         $stmt = $this->db->prepare($sql);
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value);
         }
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        
+
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    
+
     /**
      * Generate MSC ID
      */
@@ -222,7 +222,7 @@ class Student
         $syStmt = $this->db->prepare("SELECT value FROM settings WHERE key_name = 'school_year_code'");
         $syStmt->execute();
         $schoolYearCode = $syStmt->fetchColumn() ?: '2526';
-        
+
         if ($role === 'officer') {
             // Count officers for this school year
             $countStmt = $this->db->prepare("SELECT COUNT(*) FROM students WHERE role = 'officer' AND msc_id LIKE CONCAT('MSC', :sy, 'EB-%')");
@@ -237,7 +237,7 @@ class Student
             return sprintf("MSC-%04d", $memberNumber);
         }
     }
-    
+
     /**
      * Toggle student active status
      */
@@ -249,5 +249,36 @@ class Student
         } catch (Exception $e) {
             throw new Exception("Failed to toggle active status: " . $e->getMessage());
         }
+    }
+
+    /*
+     * COUNT: All Students
+    */
+    public function countAll()
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM students");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+
+    /*
+     * CHART: Students by College
+    */
+    public function countByCollege()
+    {
+        $stmt = $this->db->prepare("SELECT college, COUNT(*) AS total FROM students GROUP BY college");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /*
+     * CHART: Students by Year Level
+    */
+    public function countByYearLevel()
+    {
+        $stmt = $this->db->prepare("SELECT year_level, COUNT(*) AS total FROM students GROUP BY year_level");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

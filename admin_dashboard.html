@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Use Segoe UI for the main title on all devices */
+        h1 {
+            font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        /* Use Orbitron for general headings on mobile, Veonika on desktop for some */
+        h2,
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="bg-[#060B26] text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg z-40 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
+        <div class="flex items-center justify-center h-20 border-b border-gray-700">
+            <h1 class="text-2xl font-bold text-blue-500">Admin Panel</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="admin_dashboard.html"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                <i class="fas fa-user-graduate"></i> Students
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                <i class="fas fa-calendar-alt"></i> Events
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                <i class="fas fa-bullhorn"></i> Announcements
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Toggle Button (mobile) -->
+    <button id="sidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-blue-500 text-white p-2 rounded-md">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <main class="lg:ml-64 p-6 transition-all duration-300">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800">Welcome, Admin!</h2>
+        </div>
+
+        <!-- Number Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Total Students</h3>
+                <p class="text-3xl font-bold text-blue-800" id="student-cnt"></p>
+            </div>
+
+            <div class="bg-white shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Total Events</h3>
+                <p class="text-3xl font-bold text-blue-800" id="event-cnt"></p>
+            </div>
+
+            <div class="bg-white shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Total Announcements</h3>
+                <p class="text-3xl font-bold text-blue-800" id="announcement-cnt"></p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-white shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Students per College</h3>
+                <canvas id="studentsPerCollegeChart" class="w-full h-64"></canvas>
+            </div>
+
+            <div class="bg-white shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Students per Year Level</h3>
+                <canvas id="studentsPerYearLevelChart" class="w-full h-64"></canvas>
+            </div>
+        </div>
+    </main>
+    <script>
+        const API_BASE = "http://localhost:8000/api";
+
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        async function getAllStudents() {
+            try {
+                const res = await fetch(`${API_BASE}/students/count`, { credentials: "include" });
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById("student-cnt").textContent = data.data;
+                } else {
+                    document.getElementById("student-cnt").textContent = "0";
+                    console.error("Failed to fetch student count:", data.message);
+                }
+            } catch (error) {
+                console.error("Error fetching student count:", error);
+                document.getElementById("student-cnt").textContent = "0";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", getAllStudents);
+
+        async function getAllEvents() {
+            try {
+                const res = await fetch(`${API_BASE}/events/count`, { credentials: "include" });
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById("event-cnt").textContent = data.data;
+                } else {
+                    document.getElementById("event-cnt").textContent = "0";
+                    console.error("Failed to fetch event count:", data.message);
+                }
+            } catch (error) {
+                console.error("Error fetching event count:", error);
+                document.getElementById("event-cnt").textContent = "0";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", getAllEvents);
+
+        async function getAllAnnouncements() {
+            try {
+                const res = await fetch(`${API_BASE}/announcements/count`, { credentials: "include" });
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById("announcement-cnt").textContent = data.data;
+                } else {
+                    document.getElementById("announcement-cnt").textContent = "0";
+                    console.error("Failed to fetch announcement count:", data.message);
+                }
+            } catch (error) {
+                console.error("Error fetching announcement count:", error);
+                document.getElementById("announcement-cnt").textContent = "0";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", getAllAnnouncements);
+    </script>
+
+    <!-- Charts -->
+    <script src="charts.js"></script>
+
+</body>
+
+</html>
