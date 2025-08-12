@@ -15,8 +15,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <script defer="" src="tabs.js"></script>
+    <script src="calendar.js" defer></script>
 
     <style>
         html.loading body {
@@ -187,10 +188,10 @@
                 </div>
 
                 <div class="flex justify-center gap-4 m-4">
-                    <button class="w-5/12 bg-green-600 text-m text-white py-1 px-2 rounded-full">
+                    <button class="w-5/12 bg-green-700 text-m text-white py-1 px-2 rounded-full">
                         Active
                     </button>
-                    <button class="w-5/12 bg-blue-500 text-white py-1 px-2 rounded-full">
+                    <button class="w-5/12 bg-blue-800 text-white py-1 px-2 rounded-full">
                         Member
                     </button>
                 </div>
@@ -262,9 +263,71 @@
                         <p class="text-gray-700"></p>
                     </div>
                     <div class="tab-content hidden" id="tab-calendar">
-                        <p class="text-gray-700">📅 No calendar backend yet.</p>
+                        <div class="relative max-w-4xl w-full mx-auto text-sm">
+                            <div id="calendar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+                                onclick=""></div>
+
+                            <!-- UNIV/MSC CALENCAR:  -->
+                            <div class="mt-4">
+                                <div class="flex justify-between items-center mb-4">
+                                    <button onclick="goToToday()"
+                                        class="bg-white border rounded px-3 py-1 hover:bg-gray-100 border-2 border-solid">Today</button>
+                                    <div class="flex items-center space-x-3">
+                                        <button onclick="navigateCalendar(-1)" class="text-lg">&larr;</button>
+                                        <h2 id="calendar-month-title" class="text-xl font-semibold"></h2>
+                                        <button onclick="navigateCalendar(1)" class="text-lg">&rarr;</button>
+                                    </div>
+                                    <div class="w-10"></div>
+                                </div>
+
+                                <!-- Calendar Grid -->
+                                <div class="border rounded-lg overflow-hidden">
+                                    <div
+                                        class="grid grid-cols-7 bg-gray-50 text-center text-sm font-medium text-gray-600 border-b">
+                                        <div>Sun</div>
+                                        <div>Mon</div>
+                                        <div>Tue</div>
+                                        <div>Wed</div>
+                                        <div>Thu</div>
+                                        <div>Fri</div>
+                                        <div>Sat</div>
+                                    </div>
+                                    <div id="calendar-grid" class="grid grid-cols-7 text-xs"></div>
+                                </div>
+                            </div>
+
+                            <!-- Calendar Sidebar -->
+                            <div id="calendar-sidebar"
+                                class="fixed top-0 left-0 h-full w-80 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out z-40 shadow-xl border"
+                                style="overflow-y:auto;">
+                                <div class="p-6">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h2 class="text-xl font-semibold">Event Details</h2>
+                                        <button onclick="closeCalendarSidebar()"
+                                            class="text-gray-500 hover:text-red-500">&times;</button>
+                                    </div>
+                                    <div id="calendar-event-details" class="text-sm text-gray-700 space-y-4"></div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
+                    <!-- Calendar: Event Modal -->
+                    <div id="calendar-modal-overlay"
+                        class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+                        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative animate-fadeIn">
+                            <button onclick="closeCalendarModal()"
+                                class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
+                                <i class="fas fa-times text-lg"></i>
+                            </button>
+                            <div id="calendar-modal-content" class="space-y-4 text-sm text-gray-800">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END OF CALENDAR #1-->
                 </div>
+            </div>
             </div>
 
             <script crossorigin="anonymous" src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -283,17 +346,33 @@
 
                 <!-- Registered Events List -->
                 <div id="registered-events-list" class="space-y-4 overflow-y-auto pr-2 flex-grow">
-                    <!-- Load events dynamically -->
                 </div>
             </div>
 
-            <!-- Calendar -->
+            <!-- CALENDAR #2: EMPTY -->
             <div class="w-full lg:w-8/12 h-auto lg:h-[37rem] p-4 shadow-lg rounded-lg bg-white">
-                <div class="flex justify-between">
-                    <div class="flex flex-wrap gap-4">
-                        <h2 class="text-xl font-bold">Calendar</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">Calendar</h2>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="navigateGeneralCalendar(-1)"
+                            class="text-lg text-gray-600 hover:text-black">&larr;</button>
+                        <h2 id="general-calendar-month-title" class="text-lg font-semibold text-gray-800"></h2>
+                        <button onclick="navigateGeneralCalendar(1)"
+                            class="text-lg text-gray-600 hover:text-black">&rarr;</button>
                     </div>
                 </div>
+
+                <div class="grid grid-cols-7 bg-gray-50 text-center text-sm font-medium text-gray-600 border-b">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+
+                <div id="general-calendar-grid" class="grid grid-cols-7 text-xs"></div>
             </div>
         </section>
     </main>
@@ -317,7 +396,7 @@
                 }
 
                 const user = data.data;
-                fetchEventStats(user.msc_id || user.id); //fetch user_event_stats (not yet working)
+                //fetchEventStats(user.msc_id || user.id); //fetch user_event_stats (not yet working)
 
                 // const welcomeHeading = document.querySelector("#header h2");
                 // if (welcomeHeading) {
@@ -429,7 +508,7 @@
 
                     const html = `
         <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 group">
-            <div class="w-full md:w-16 h-16 md:h-auto bg-blue-600 text-white rounded-lg flex flex-col items-center justify-center md:flex-shrink-0">
+            <div class="w-full md:w-16 h-16 md:h-auto bg-blue-700 text-white rounded-lg flex flex-col items-center justify-center md:flex-shrink-0">
                 <span class="text-xs font-semibold uppercase">${month}</span>
                 <span class="text-2xl font-bold">${day}</span>
             </div>
