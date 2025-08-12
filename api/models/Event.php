@@ -293,4 +293,15 @@ class Event
 
         return $stmt->fetchAll();
     }
+
+    /**
+     * COUNT: All Events
+     */
+    public function countAll()
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM events");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
 }

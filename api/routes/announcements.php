@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Announcement Routes
  * Handle announcement-related API endpoints
@@ -45,6 +46,8 @@ switch ($method) {
             $announcementController->getRecent();
         } elseif ($endpoint === 'search') {
             $announcementController->search();
+        } elseif ($endpoint === 'count') {
+            $announcementController->countAnnouncements(); //announcementCounter
         } elseif ($endpoint && is_numeric($endpoint)) {
             // endpoint is actually the ID
             $announcementController->getById($endpoint);
@@ -55,7 +58,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'Announcement endpoint not found: ' . $endpoint]);
         }
         break;
-    
+
     case 'POST':
         if ($endpoint === '' || $endpoint === 'create') {
             $announcementController->create();
@@ -64,7 +67,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'POST endpoint not found: ' . $endpoint]);
         }
         break;
-    
+
     case 'PUT':
         if ($endpoint && is_numeric($endpoint) && $id === 'archive') {
             // endpoint is actually the announcement ID, id is 'archive'
@@ -80,7 +83,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'PUT endpoint not found']);
         }
         break;
-    
+
     case 'DELETE':
         if ($endpoint && is_numeric($endpoint)) {
             // endpoint is actually the ID
@@ -90,7 +93,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'DELETE endpoint not found']);
         }
         break;
-    
+
     default:
         http_response_code(405);
         echo json_encode(['success' => false, 'message' => 'Method not allowed']);

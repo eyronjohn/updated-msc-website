@@ -191,4 +191,15 @@ class Announcement
         
         return $stmt->fetchColumn();
     }
+
+    /**
+     * COUNT: All Announcement
+     */
+    public function countAll()
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM announcements");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
 }

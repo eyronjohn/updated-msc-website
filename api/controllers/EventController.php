@@ -397,4 +397,19 @@ class EventController
             Response::serverError($e->getMessage());
         }
     }
+
+    /**
+     * COUNT: All Events
+     */
+    public function countEvents()
+    {
+        $event = new Event();
+
+        try {
+            $count = $event->countAll();
+            echo json_encode(['success' => true, 'data' => $count]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }
