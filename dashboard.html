@@ -113,8 +113,6 @@
                 <div class="nav-icon-wrapper">
                     <i class="fa-solid fa-gear nav-icon"></i>
                 </div>
-
-
             </div>
             <div class="md:hidden flex items-center space-x-4">
                 <button class="text-gray-300 hover:text-[#b9da05] focus:outline-none" id="mobile-menu-button">
@@ -191,30 +189,28 @@
                     <button class="w-5/12 bg-green-700 text-m text-white py-1 px-2 rounded-full">
                         Active
                     </button>
-                    <button class="w-5/12 bg-blue-800 text-white py-1 px-2 rounded-full">
-                        Member
-                    </button>
+                    <button class="w-5/12 bg-blue-800 text-white py-1 px-2 rounded-full" id="role"></button>
                 </div>
 
+                <section class="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 rounded-lg">
+                    <div class="bg-gray-100 p-3 rounded-lg">
+                        <label class="block text-xs text-custom-gray">College</label>
+                        <p id="user-college" class="font-medium text-gray-700"></p>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg">
+                        <label class="block text-xs text-custom-gray">Year Level</label>
+                        <p id="user-year-level" class="font-medium text-gray-700"></p>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg">
+                        <label class="block text-xs text-custom-gray">Membership ID</label>
+                        <p id="user-msc-id" class="font-medium text-gray-700"></p>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg">
+                        <label class="block text-xs text-custom-gray">Last Login</label>
+                        <p id="user-last-login" class="font-medium text-gray-700"></p>
+                    </div>
+                </section>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 rounded-lg">
-                    <div class="bg-gray-100 p-3 rounded-lg">
-                        <span class="block text-xs text-custom-gray">College</span>
-                        <span class="font-medium text-gray-700"></span>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded-lg">
-                        <span class="block text-xs text-custom-gray">Year Level</span>
-                        <span class="font-medium text-gray-700"></span>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded-lg">
-                        <span class="block text-xs text-custom-gray">Membership ID</span>
-                        <span class="font-medium text-gray-700"></span>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded-lg">
-                        <span class="block text-xs text-custom-gray">Last Login</span>
-                        <span class="font-medium text-gray-700"></span>
-                    </div>
-                </div>
                 <div class="w-full flex flex-col sm:flex-row gap-2 py-2">
                     <a href="edit_profile.html"
                         class="w-full sm:w-6/12 bg-[#3A59D1] text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#1f3bb3] shadow-md text-center flex items-center justify-center gap-2">
@@ -396,12 +392,7 @@
                 }
 
                 const user = data.data;
-                //fetchEventStats(user.msc_id || user.id); //fetch user_event_stats (not yet working)
-
-                // const welcomeHeading = document.querySelector("#header h2");
-                // if (welcomeHeading) {
-                //     welcomeHeading.textContent = `Welcome back, ${user.first_name} ${user.last_name}!`;
-                // }
+                fetchStudentEventStats(user.id); //Events Joined & Pre-Register counter: working
 
                 document.getElementById("welcome-msg").textContent = `Welcome back, ${user.first_name} ${user.last_name}!`;
                 document.getElementById("lastName").textContent = `${user.last_name},`;
@@ -409,13 +400,12 @@
                 document.getElementById("studentNo").textContent = user.student_no;
                 document.getElementById("program").textContent = user.program;
 
-                const statSpans = document.querySelectorAll("div.bg-gray-100 > span.font-medium");
-                if (statSpans.length >= 4) {
-                    statSpans[0].textContent = user.college || "N/A";
-                    statSpans[1].textContent = user.year_level || "N/A";
-                    statSpans[2].textContent = user.membership_id || user.student_no || "N/A";
-                    statSpans[3].textContent = new Date().toLocaleString();
-                }
+                document.getElementById("role").textContent = user.role;
+
+                document.getElementById("user-college").textContent = user.college;
+                document.getElementById("user-year-level").textContent = user.year_level;
+                document.getElementById("user-msc-id").textContent = user.msc_id;
+                document.getElementById("user-last-login").textContent = new Date().toLocaleString();
 
                 const initials = `${user.first_name?.charAt(0) || ""}${user.last_name?.charAt(0) || ""}`.toUpperCase();
                 renderProfilePicture(user.profile_picture_url, initials);
@@ -426,6 +416,38 @@
                 console.error("Failed to fetch user profile:", error);
                 //alert("Failed to load profile. Please login again.");
                 window.location.href = "login.html";
+            }
+        }
+
+        // COUNT: Events Joined & Pre-Registered
+        async function fetchStudentEventStats(user_id) {
+            try {
+                const res = await fetch(`${API_BASE}/events/student/${user_id}`, {
+                    credentials: "include"
+                });
+                const data = await res.json();
+
+                if (res.ok && data.success && Array.isArray(data.data)) {
+                    const events = data.data;
+
+                    let attendedCount = 0;
+                    let registeredCount = 0;
+
+                    events.forEach(ev => {
+                        if (ev.attendance_status === "registered") attendedCount++;
+                        if (ev.attendance_status === "registered") registeredCount++;
+                    });
+
+                    document.getElementById("attendedCount").textContent = attendedCount;
+                    document.getElementById("registeredCount").textContent = registeredCount;
+                } else {
+                    document.getElementById("attendedCount").textContent = "0";
+                    document.getElementById("registeredCount").textContent = "0";
+                }
+            } catch (err) {
+                console.error("Event stats fetch error:", err);
+                document.getElementById("attendedCount").textContent = "Err";
+                document.getElementById("registeredCount").textContent = "Err";
             }
         }
 
