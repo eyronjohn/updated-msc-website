@@ -1,0 +1,580 @@
+/*Main Background*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+:root {
+  --size: 3vmin;
+}
+
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes flicker {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.05); }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI';
+  background: #0d1117;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(
+    from 180deg at 50% 70%,
+    hsla(0, 0%, 98%, 1) 0deg,
+    #b9da05 72deg,
+    #0051ff 144deg,
+    #0095ff 216deg,
+    #b9da05 288deg,
+    hsla(0, 0%, 98%, 1) 360deg
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+  mask-image: radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px),
+              url(https://assets.codepen.io/605876/noise-mask.png);
+  mask-size: 300px 300px, 256px 256px;
+  mask-position: 50% 50%, 256px 50%;
+  mask-repeat: no-repeat, repeat;
+  mask-composite: intersect;
+  -webkit-mask-composite: destination-in;
+
+  animation: flicker 20s infinite linear;
+  z-index: -4;
+  pointer-events: none;
+}
+
+.el {
+  background: conic-gradient(
+    from 180deg at 50% 70%,
+    hsla(0, 0%, 98%, 1) 0deg,
+    #b9da05 72deg,
+    #0051ff 144deg,
+    #0095ff 216deg,
+    #b9da05 288deg,
+    hsla(0, 0%, 98%, 1) 360deg
+  );
+  width: 100%;
+  height: 100%;
+  mask: radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+        url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+  mask-composite: intersect;
+  animation: flicker 20s infinite linear;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+/* Main Header */
+.container {
+  max-width: 1120px; /* similar to max-w-7xl */
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Navbar fixed at top */
+#main-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 1rem 0;
+  background-color: rgba(0, 7, 28, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Scroll effect: add shadow and darker bg */
+#main-header.header-scrolled {
+  background-color: #00071c;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+/* Logo styles */
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.logo-link:hover {
+  color: #b9da05;
+}
+
+.logo-img {
+  height: 3rem; /* same as h-12 */
+}
+
+/* Nav links container (hidden on small screens if you want to add responsiveness later) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* spacing between links/icons */
+}
+
+/* Nav link styles */
+.nav-link {
+  font-weight: 600;
+  color: #d1d5db; /* Tailwind gray-300 */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.nav-link:hover {
+  color: #b9da05;
+}
+
+/* Nav icon wrapper */
+.nav-icon-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 0.25rem; /* optional for smooth edges */
+}
+
+.nav-icon-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Nav icon styles */
+.nav-icon {
+  color: white;
+  font-size: 1.25rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-icon-wrapper:hover .nav-icon {
+  color: #b9da05;
+  transform: scale(1.1);
+}
+
+
+@keyframes flicker {
+  to {
+    mask-position: 50% 50%, 0 50%;
+  }
+}
+
+/* Background animation keyframes */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Bulsu MSC Events*/
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* Filter Buttons */
+.event-buttons {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.filter-btn.active {
+    background: #00d1ff;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Events */
+.section-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    border-left: 4px solid #00d1ff;
+    padding-left: 10px;
+}
+
+.event-list {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.event-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.event-card .date {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 8px;
+}
+
+.event-card .excerpt {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    position: relative;
+    background: #1e2a38;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    color: #fff;
+    animation: fadeIn 0.3s ease;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.register-btn {
+    background: #00d1ff;
+    border: none;
+    color: #000;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.2s ease;
+}
+
+.register-btn:hover {
+    background: #00a4cc;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .event-card h3 {
+        font-size: 1.05rem;
+    }
+}
+
+/* Card style for header section */
+.wrapper-for-header {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-image: url('../Background/msc001.jpg');
+    background-size: cover;
+    background-repeat: no-repeat; /* No tiling */
+    background-position: center; /* Center it */
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+}
+
+.wrapper-for-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.wrapper-for-header p {
+    font-size: 1rem;
+    color: #d0d0d0;
+}
+
+/* Card style for event buttons and sections */
+.button-display {
+    max-width: 1100px;
+    width: 100%;
+    min-height: 480px;
+    max-height: 480px; /* Keep container from growing infinitely */
+    margin: 2rem auto;
+    padding: 1.5rem;
+    padding-right: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scrollbar-gutter: stable both-edges;
+    /* Make overflow scrollable */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.button-display::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+.button-display::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button-display::-webkit-scrollbar-thumb {
+    background-color: #b9da05;
+    border-radius: 10px;
+}
+
+.button-display::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+/* Keep buttons centered */
+.event-buttons {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Minimalist, glowing buttons */
+.filter-btn {
+    padding: 0.6rem 1.4rem;
+    margin: 0 0.4rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(185, 218, 5, 1);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, rgba(185, 218, 5, 1), rgba(0, 149, 255, 0.9));
+    box-shadow: 0 4px 14px rgba(0, 149, 255, 0.6);
+}
+
+
+.wrapper-container {
+  position: relative;
+  width: 100%;
+  max-width: 1100px; /* same as .container */
+  margin: 0 auto;   /* center horizontally if needed */
+}
+
+.orbit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 1.5rem;
+  overflow: visible;
+  z-index: 20;
+}
+
+.orbit-circle {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: whitesmoke;
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px whitesmoke,
+    0 0 16px whitesmoke;
+  animation: orbit-rect 15s linear infinite;
+}
+
+.orbit-segment {
+  position: absolute;
+  background: whitesmoke;
+  border-radius: 2px;
+  box-shadow:
+    0 0 6px whitesmoke,
+    0 0 12px whitesmoke;
+  opacity: 0.6;
+  animation: orbit-rect 15s linear infinite;
+  animation-fill-mode: forwards;
+}
+
+.segment1  { width: 12px; height: 4px;  animation-delay: 0s;    }
+.segment2  { width: 10px; height: 3px;  animation-delay: 0.12s; }
+.segment3  { width: 8px;  height: 2.5px; animation-delay: 0.24s; }
+.segment4  { width: 6px;  height: 2px;  animation-delay: 0.36s; }
+.segment5  { width: 4px;  height: 1.5px; animation-delay: 0.48s; }
+.segment6  { width: 4px;  height: 1.5px; animation-delay: 0.60s; }
+.segment7  { width: 4px;  height: 1.5px; animation-delay: 0.72s; }
+.segment8  { width: 4px;  height: 1.5px; animation-delay: 0.84s; }
+.segment9  { width: 4px;  height: 1.5px; animation-delay: 0.96s; }
+.segment10 { width: 4px;  height: 1.5px; animation-delay: 1.08s; }
+.segment11 { width: 4px;  height: 1.5px; animation-delay: 1.20s; }
+.segment12 { width: 4px;  height: 1.5px; animation-delay: 1.32s; }
+.segment13 { width: 4px;  height: 1.5px; animation-delay: 1.44s; }
+.segment14 { width: 4px;  height: 1.5px; animation-delay: 1.56s; }
+.segment15 { width: 4px;  height: 1.5px; animation-delay: 1.68s; }
+
+
+
+@keyframes orbit-rect {
+  0%   { top: -7px; left: -7px; } /* top-left corner */
+  25%  { top: -7px; left: calc(100% - 7px); } /* top-right */
+  50%  { top: calc(100% - 7px); left: calc(100% - 7px); } /* bottom-right */
+  75%  { top: calc(100% - 7px); left: -7px; } /* bottom-left */
+  100% { top: -7px; left: -7px; } /* back to top-left */
+}
+
+/*footer*/
+
+footer {
+  background-color: #00071c;
+  color: #d1d5db; /* Tailwind gray-300 */
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-top: 1px solid #1f2937; /* Tailwind gray-800 */
+  width: 100vw; /* Full viewport width */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* pushes footer to bottom */
+  min-height: 14vh; /* full viewport height */
+  height: 100%;
+}
+
+footer .logo-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+footer .logo-container img {
+  height: 2.5rem; /* 40px */
+  width: auto;
+}
+
+footer p {
+  color: #6b7280; /* Tailwind gray-500 */
+  font-size: 0.875rem; /* 14px */
+  margin: 0;
+}
+
+footer .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+footer .social-icons a {
+  color: #9ca3af; /* Tailwind gray-400 */
+  transition: color 0.3s ease;
+  font-size: 1.25rem; /* 20px */
+}
+
+footer .social-icons a:hover {
+  color: #b9da05;
+}
+
