@@ -310,6 +310,8 @@ input:focus, select:focus {
 
 .password-wrapper {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .toggle-password {
@@ -393,4 +395,29 @@ input:focus, select:focus {
 
 .address {
     width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #a1a1aa;
+  cursor: pointer;
+}
+
+#passwordHint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: red;
+  position: absolute;   /* take it out of layout flow */
+  top: 100%;             /* place right under input */
+  left: 0;
+  white-space: normal;
+}
+
+#regPassword {
+  padding-right: 40px; /* leave room for toggle button */
 }
