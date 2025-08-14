@@ -1,325 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link rel="icon" href="./Logos/Bulsu MSC Logo-02.png" type="image/png" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="icon" href="./Logos/Bulsu MSC Logo-02.png" type="image/png" />
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
-    <script src="tabs.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <style>
-      @font-face {
-        font-family: "Veonika";
-        src: url("https://fonts.cdnfonts.com/s/72818/veonika_free.woff")
-          format("woff");
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script src="tabs.js" defer></script>
+
+  <style>
+    @font-face {
+      font-family: "Veonika";
+      src: url("https://fonts.cdnfonts.com/s/72818/veonika_free.woff") format("woff");
+    }
+
+    /* Use Segoe UI for the main title on all devices */
+    h1 {
+      font-family: "Segoe UI", "Segoe UI Web", "Segoe UI Symbol",
+        "Helvetica Neue", "Arial", sans-serif;
+    }
+
+    /* Use Orbitron for general headings on mobile, Veonika on desktop for some */
+    h2,
+    h3 {
+      font-family: "Orbitron", sans-serif;
+    }
+
+    #main-header {
+      background-color: rgba(0, 7, 28, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    #main-header.header-scrolled {
+      background-color: #00071c;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4),
+        0 2px 4px -1px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-link {
+      color: #d1d5db;
+      /* Tailwind gray‑300 */
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #b9da05;
+    }
+
+    .nav-icon-wrapper {
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-icon-wrapper:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-icon {
+      color: white;
+      font-size: 1.25rem;
+      /* text-xl */
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    /* This triggers icon color and scale when wrapper is hovered */
+    .nav-icon-wrapper:hover .nav-icon {
+      color: #b9da05;
+      transform: scale(1.1);
+    }
+
+    /* Toast notification*/
+    @keyframes slide-in {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
       }
 
-      /* Use Segoe UI for the main title on all devices */
-      h1 {
-        font-family: "Segoe UI", "Segoe UI Web", "Segoe UI Symbol",
-          "Helvetica Neue", "Arial", sans-serif;
+      100% {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      /* Use Orbitron for general headings on mobile, Veonika on desktop for some */
-      h2,
-      h3 {
-        font-family: "Orbitron", sans-serif;
-      }
+    .animate-slide-in {
+      animation: slide-in 0.4s ease-out;
+    }
+  </style>
+</head>
 
-      #main-header {
-        background-color: rgba(0, 7, 28, 0.8);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-      #main-header.header-scrolled {
-        background-color: #00071c;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4),
-          0 2px 4px -1px rgba(0, 0, 0, 0.4);
-      }
-
-      .nav-link {
-        color: #d1d5db;
-        /* Tailwind gray‑300 */
-        transition: color 0.3s;
-      }
-
-      .nav-link:hover {
-        color: #b9da05;
-      }
-    </style>
-  </head>
-
-  <body class="bg-gray-100">
-    <nav
-      id="main-header"
-      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4"
-    >
-      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-        <a
-          href="#hero"
-          class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]"
-        >
-          <img
-            src="./Logos/Bulsu MSC Logo-02.png"
-            alt="BULSU MSC Logo"
-            class="h-12"
-          />
-        </a>
-        <div class="hidden md:flex items-center space-x-8">
-          <a
-            onclick="scrollToSection('hero')"
-            class="nav-link cursor-pointer font-semibold"
-            >Home</a
-          >
-          <a
-            onclick="scrollToSection('about')"
-            class="nav-link cursor-pointer font-semibold"
-            >Announcements</a
-          >
-          <a
-            onclick="scrollToSection('announcements')"
-            class="nav-link cursor-pointer font-semibold"
-            >Events</a
-          >
-          <!-- <a onclick="scrollToSection('events')" class="nav-link cursor-pointer font-semibold">Partners</a> -->
-          <!-- <button id="login-button-desktop"
+<body class="bg-gray-100">
+  <nav id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <a href="#hero"
+        class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]">
+        <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="h-12" />
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a onclick="scrollToSection('hero')" class="nav-link cursor-pointer font-semibold">Home</a>
+        <a onclick="scrollToSection('about')" class="nav-link cursor-pointer font-semibold">Announcements</a>
+        <a onclick="scrollToSection('announcements')" class="nav-link cursor-pointer font-semibold">Events</a>
+        <!-- <a onclick="scrollToSection('events')" class="nav-link cursor-pointer font-semibold">Partners</a> -->
+        <!-- <button id="login-button-desktop"
                     class="bg-[#b9da05] text-[#00071c] font-bold py-2 px-4 rounded-full transition-colors duration-300 hover:bg-white hover:text-[#00071c] shadow-md">
                     Login
                 </button> -->
-          <i class="fa-regular fa-house"></i>
+        <div class="nav-icon-wrapper">
+          <i class="fa-solid fa-circle-user nav-icon"></i>
         </div>
-        <div class="md:hidden flex items-center space-x-4">
-          <button
-            id="mobile-menu-button"
-            class="text-gray-300 hover:text-[#b9da05] focus:outline-none"
-          >
-            <i
-              id="mobile-menu-icon"
-              class="fas fa-bars text-2xl transition-transform duration-300"
-            ></i>
-          </button>
+
+        <div class="nav-icon-wrapper">
+          <i class="fa-solid fa-calendar-days nav-icon"></i>
+        </div>
+
+        <div class="nav-icon-wrapper">
+          <i class="fa-solid fa-gear nav-icon"></i>
         </div>
       </div>
-    </nav>
+      <div class="md:hidden flex items-center space-x-4">
+        <button id="mobile-menu-button" class="text-gray-300 hover:text-[#b9da05] focus:outline-none">
+          <i id="mobile-menu-icon" class="fas fa-bars text-2xl transition-transform duration-300"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-    <main class="pt-28 flex justify-center">
-      <section
-        id="header"
-        class="w-[96%] mx-auto mb-8 bg-transparent flex flex-col lg:flex-row gap-5 items-stretch rounded"
-      >
-        <div class="w-full lg:w-2/6 rounded-lg bg-blue-800 self-stretch">
-          <div class="px-4 sm:px-6 py-4">
-            <div class="mb-4 text-right w-full">
-              <h4
-                class="text-xs md:text-sm font-semibold uppercase tracking-wider text-blue-200 py-2 px-2"
-                id="msc_id"
-              ></h4>
+  <main class="pt-28 flex justify-center">
+    <section id="header"
+      class="w-[96%] mx-auto mb-8 bg-transparent flex flex-col lg:flex-row gap-5 items-stretch rounded">
+      <!-- Left Section: Profile -->
+      <div class="w-full lg:w-2/6 rounded-lg bg-blue-800 self-stretch">
+        <div class="px-4 sm:px-6 py-4">
+          <div class="mb-4 text-right w-full">
+            <h4 class="text-xs md:text-sm font-semibold uppercase tracking-wider text-blue-200 py-2 px-2" id="msc_id">
+            </h4>
+          </div>
+
+          <div>
+            <div class="w-28 h-28 mx-auto mb-4 rounded-full border-4 border-custom-primary shadow-md overflow-hidden"
+              id="profile-picture-container">
+              <!-- Profile pic thru user's initials -->
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center justify-center text-center">
+            <h2 class="text-3xl text-white font-bold mb-1" id="fullName"></h2>
+            <p class="text-sm text-white mb-6" id="studentID"></p>
+          </div>
+
+          <div class="w-full h-px bg-blue-700 my-4"></div>
+
+          <div class="text-center mb-6 w-full">
+            <h3 class="text-white text-lg font-bold" id="program"></h3>
+            <p class="text-white" id="college"></p>
+            <p class="text-white" id="year_level"></p>
+          </div>
+
+          <div class="flex flex-col items-center justify-center text-center">
+            <div class="mb-4 w-32 h-32 bg-white p-1 rounded-lg flex items-center justify-center">
+              <!-- Dyamic QR Code -->
+              <div id="qr-code" class="w-full h-full"></div>
             </div>
 
-            <div>
-              <div
-                class="w-28 h-28 mx-auto mb-4 rounded-full border-4 border-custom-primary shadow-md overflow-hidden"
-                id="profile-picture-container"
-              >
-                <!-- Profile pic thru user's initials -->
-              </div>
-            </div>
+            <!-- <p class="text-sm text-blue-200 mb-6">ID No. </p> -->
 
-            <div class="flex flex-col items-center justify-center text-center">
-              <h2 class="text-3xl text-white font-bold mb-1" id="fullName"></h2>
-              <p class="text-sm text-white mb-6" id="studentID"></p>
-            </div>
-
-            <div class="w-full h-px bg-blue-700 my-4"></div>
-
-            <div class="text-center mb-6 w-full">
-              <h3 class="text-white text-lg font-bold" id="program"></h3>
-              <p class="text-white" id="college"></p>
-              <p class="text-white" id="year_level"></p>
-            </div>
-
-            <div class="flex flex-col items-center justify-center text-center">
-              <div
-                class="mb-4 w-32 h-32 bg-white p-1 rounded-lg flex items-center justify-center"
-              >
-                <!-- Dyamic QR Code -->
-                <div id="qr-code" class="w-full h-full"></div>
-              </div>
-
-              <!-- <p class="text-sm text-blue-200 mb-6">ID No. </p> -->
-
-              <div class="flex gap-2 mt-4">
-                <span
-                  class="bg-green-600 text-white px-4 py-1 rounded-full text-xs"
-                >
-                  Active
-                </span>
-                <span
-                  class="bg-blue-500 text-white px-4 py-1 rounded-full text-xs"
-                >
-                  Member
-                </span>
-              </div>
+            <div class="flex gap-2 mt-4">
+              <span class="bg-green-600 text-white px-4 py-1 rounded-full text-xs">
+                Active
+              </span>
+              <span class="bg-blue-500 text-white px-4 py-1 rounded-full text-xs">
+                Member
+              </span>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Right Section -->
-        <div class="w-full lg:w-4/5 flex flex-col h-full self-stretch">
-          <!-- Personal Info -->
-          <div class="w-full rounded-lg shadow-md bg-white overflow-hidden">
-            <div
-              class="flex flex-row flex-wrap items-center justify-between px-4 sm:px-6 pt-6 pb-2 gap-2"
-            >
-              <h2 class="text-xl font-bold text-gray-800">
-                Personal Information
-              </h2>
-              <div class="flex gap-2 mt-2 sm:mt-0">
-                <button class="text-gray-400 hover:text-green-600 transition-colors">
-                  <i class="fas fa-save w-4 h-4"></i>
-                </button>
-                <!-- <button
-                  class="text-red-600 hover:text-red-800 transition-colors"
-                  aria-label="Cancel editing"
-                >
-                  <i class="fas fa-times w-4 h-4"></i>
-                </button> -->
-              </div>
-            </div>
-
-            <div class="pt-4 px-4 sm:px-6 pb-6">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Section:</h3>
-                  <input
-                    type="text"
-                    value=""
-                    class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="section"
-                  />
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Member Since:</h3>
-                  <p class="font-medium" id="member_since"></p>
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Username:</h3>
-                  <p class="font-medium" id="username"></p>
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Email:</h3>
-                  <p class="font-medium" id="email"></p>
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Date of Birth:</h3>
-                  <input
-                    type="date"
-                    value=""
-                    class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="birthdate"
-                  />
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Gender:</h3>
-                  <select
-                    class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="gender"
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male" selected>Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Address:</h3>
-                  <input
-                    type="text"
-                    value=""
-                    class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="address"
-                  />
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Phone:</h3>
-                  <input
-                    type="tel"
-                    value=""
-                    class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="phone"
-                  />
-                </div>
-
-                <div>
-                  <h3 class="text-gray-500 text-sm mb-1">Name Suffix:</h3>
-                  <input
-                    type="text"
-                    placeholder=""
-                    class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="name_suffix"
-                  />
-                </div>
-
-                <div class="col-span-1 md:col-span-2">
-                  <h3 class="text-gray-500 text-sm mb-2">Facebook Username:</h3>
-                  <input
-                    type="text"
-                    value=""
-                    placeholder="Enter Facebook username (without facebook.com/)"
-                    class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="facebook_link"
-                  />
-                </div>
-              </div>
+      <!-- Right Section: Edit Profile -->
+      <div class="w-full lg:w-4/5 flex flex-col h-full self-stretch">
+        <!-- Personal Info -->
+        <div class="w-full rounded-lg shadow-md bg-white overflow-hidden">
+          <div class="flex flex-row flex-wrap items-center justify-between px-4 sm:px-6 pt-6 pb-2 gap-2">
+            <h2 class="text-xl font-bold text-gray-800">
+              Personal Information
+            </h2>
+            <div class="flex gap-2 mt-2 sm:mt-0">
+              <button class="text-gray-400 hover:text-[#b9da05] transition-colors" onclick="updateProfile()">
+                <i class="fas fa-save w-4 h-4"></i>
+              </button>
             </div>
           </div>
 
-          <div class="h-[22rem] bg-white shadow-md rounded-xl my-6 shadow-lg">
-            <div class="pb-2 pt-6 px-6">
-              <h2 class="text-xl font-bold text-gray-800 flex items-center">
-                <span>Attended Events & Badges</span>
-              </h2>
-            </div>
+          <div class="pt-4 px-4 sm:px-6 pb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
 
-            <div class="pt-2 px-6 pb-4">
-              <div class="text-center">
-                <div
-                  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 py-2"
-                >
-                  <div
-                    class="flex flex-col items-center p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300"
-                  >
-                    <div
-                      class="w-14 h-14 flex items-center justify-center bg-yellow-100 rounded-full mb-3"
-                    >
-                      <i class="fas fa-medal text-yellow-500 text-xl"></i>
-                    </div>
-                    <h3 class="text-base font-semibold text-gray-800">
-                      Exclusive Member
-                    </h3>
-                    <p
-                      class="text-sm text-gray-500 mt-1"
-                      id="member_since2"
-                    ></p>
+              <div class="md:col-span-2">
+                <h3 class="text-gray-600 text-md font-semibold mb-2">Personal Details</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">First Name:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="firstName" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Middle Name:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="middleName" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Last Name:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="lastName" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Name Suffix:</h3>
+                    <select name=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="name_suffix">
+                      <option value="">None</option>
+                      <option value="Jr.">Jr.</option>
+                      <option value="Sr.">Sr.</option>
+                      <option value="I">I</option>
+                      <option value="II">II</option>
+                      <option value="III">III</option>
+                      <option value="IV">IV</option>
+                      <option value="V">V</option>
+                    </select>
                   </div>
                 </div>
               </div>
 
-              <!-- <div class="pt-2 pb-6 flex justify-center">
+              <!-- DIVIDER: TO BE REPLACED -->
+              ---
+
+              <div class="md:col-span-2">
+                <h3 class="text-gray-600 text-md font-semibold mb-2">Demographic Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Date of Birth:</h3>
+                    <input type="date" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="birthdate" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Gender:</h3>
+                    <select
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="gender">
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              ---
+
+              <div class="md:col-span-2">
+                <h3 class="text-gray-600 text-md font-semibold mb-2">Contact Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Email:</h3>
+                    <p class="font-medium text-gray-700" id="email"></p>
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Phone:</h3>
+                    <input type="tel" value="" placeholder="e.g., +639123456789"
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="phone" />
+                  </div>
+                  <div class="md:col-span-2">
+                    <h3 class="text-gray-500 text-sm mb-2">Address:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="address" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-2">Facebook Username:</h3>
+                    <input type="text" value="" placeholder="Enter Facebook username (without facebook.com/)"
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="facebook_link" />
+                  </div>
+                </div>
+              </div>
+
+              ---
+
+              <div class="md:col-span-2">
+                <h3 class="text-gray-600 text-md font-semibold mb-2">Academic Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">College:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="student_college" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Program:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="student_program" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Section:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      id="section" />
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Student No:</h3>
+                    <input type="text" value=""
+                      class="w-full p-2 border border-gray-300 rounded-md font-medium bg-gray-100 cursor-not-allowed"
+                      disabled id="student_no" />
+                  </div>
+                </div>
+              </div>
+
+              ---
+
+              <div class="md:col-span-2">
+                <h3 class="text-gray-600 text-md font-semibold mb-2">Account Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Username:</h3>
+                    <p class="font-medium text-gray-700" id="username"></p>
+                  </div>
+                  <div>
+                    <h3 class="text-gray-500 text-sm mb-1">Member Since:</h3>
+                    <p class="font-medium text-gray-700" id="member_since"></p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Update/Failed Modal -->
+        <!-- <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden justify-center items-center">
+          <div class="bg-white rounded-xl shadow-lg max-w-sm w-full p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2" id="modal-title">Notification</h3>
+            <p class="text-sm text-gray-600 mb-4" id="modal-message">This is a message.</p>
+            <button class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition"
+              onclick="closeModal()">
+              OK
+            </button>
+          </div>
+        </div> -->
+
+        <!-- Toast Notification: Updated/Failed -->
+        <div id="toast" class="fixed bottom-6 right-6 z-50 hidden">
+          <div id="toast-content"
+            class="flex items-center max-w-xs p-4 text-sm text-white bg-green-600 rounded-lg shadow-lg animate-slide-in"
+            role="alert">
+            <i class="fas fa-check-circle mr-2 text-white"></i>
+            <div id="toast-message">Success message</div>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-xl my-6 shadow-lg max-w-full">
+          <div class="pb-2 pt-6 px-4 sm:px-6">
+            <h2 class="text-xl font-bold text-gray-800 flex items-center justify-between">
+              <span>Attended Events & Badges</span>
+            </h2>
+          </div>
+
+          <div class="pt-2 px-4 sm:px-6 pb-4">
+            <div class="text-center">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 py-2" id="badgeContainer">
+                <div
+                  class="flex flex-col items-center p-4 sm:p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div class="w-14 h-14 flex items-center justify-center bg-yellow-100 rounded-full mb-3">
+                    <i class="fas fa-medal text-yellow-500 text-xl"></i>
+                  </div>
+                  <h3 class="text-base font-semibold text-gray-800">
+                    Exclusive Member
+                  </h3>
+                  <p class="text-sm text-gray-500 mt-1" id="member_since2"></p>
+                </div>
+                <!-- Dynamic badges to be inserted-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="pt-2 pb-6 flex justify-center">
                 <button
                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center"
                 >
@@ -327,145 +408,429 @@
                   View Badge Wallet
                 </button>
               </div> -->
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      </div>
+      </div>
+      </div>
+    </section>
+  </main>
 
-    <script>
-      const API_BASE = "http://localhost:8000/api";
+  <script>
+    const API_BASE = "http://localhost:8000/api";
 
-      async function fetchProfile() {
-        try {
-          const res = await fetch(`${API_BASE}/auth/profile`);
-          const data = await res.json();
+    async function fetchProfile() {
+      try {
+        const res = await fetch(`${API_BASE}/auth/profile`);
+        const data = await res.json();
 
-          const user = data.data;
+        const user = data.data;
+        fetchAndDisplayEventBadges(user.id);
 
-          document.getElementById("msc_id").textContent = user.msc_id;
-          // QR Code: Test
-          generateQRCode(user.msc_id || user.student_no || "UNKNOWN");
-          document.getElementById(
-            "fullName"
-          ).textContent = `${user.first_name} ${user.last_name}`;
-          document.getElementById("studentID").textContent = user.student_no;
+        document.getElementById("msc_id").textContent = user.msc_id;
+        // QR Code: Test
+        generateQRCode(user.msc_id || user.student_no || "UNKNOWN");
+        document.getElementById(
+          "fullName"
+        ).textContent = `${user.first_name} ${user.last_name}`;
+        document.getElementById("studentID").textContent = user.student_no;
 
-          document.getElementById("program").textContent = user.program;
-          document.getElementById("college").textContent = user.college;
-          document.getElementById("year_level").textContent = user.year_level;
+        document.getElementById("program").textContent = user.program;
+        document.getElementById("college").textContent = user.college;
+        document.getElementById("year_level").textContent = user.year_level;
 
-          document.getElementById("section").value = user.section;
-          //   const createdAt = user.created_at;
-          //   const date = new Date(createdAt);
-          //Format long date for Personal Info
-          const createdDate = new Date(user.created_at);
+        document.getElementById("firstName").value = user.first_name;
+        document.getElementById("lastName").value = user.last_name;
+        document.getElementById("middleName").value = user.middle_name;
+        document.getElementById("section").value = user.section;
+        document.getElementById("student_program").value = user.program;
+        document.getElementById("student_college").value = user.college;
+        document.getElementById("student_no").value = user.student_no;
+        //   const createdAt = user.created_at;
+        //   const date = new Date(createdAt);
+        //Format long date for Personal Info
+        const createdDate = new Date(user.created_at);
 
-          const longDateFormat = {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          };
-          const formattedMemberSince = createdDate.toLocaleDateString(
-            "en-US",
-            longDateFormat
-          );
+        const longDateFormat = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const formattedMemberSince = createdDate.toLocaleDateString(
+          "en-US",
+          longDateFormat
+        );
 
-          document.getElementById(
-            "member_since"
-          ).textContent = `${formattedMemberSince}`;
-          document.getElementById("username").textContent = user.username;
-          document.getElementById("email").textContent = user.email;
+        document.getElementById(
+          "member_since"
+        ).textContent = `${formattedMemberSince}`;
+        document.getElementById("username").textContent = user.username;
+        document.getElementById("email").textContent = user.email;
 
-          //   const birthdate = user.birthdate;
-          //   const date2 = new Date(birthdate);
-          const birthDate = new Date(user.birthdate);
+        //   const birthdate = user.birthdate;
+        //   const date2 = new Date(birthdate);
+        const birthDate = new Date(user.birthdate);
 
-          const birthYear = birthDate.getFullYear();
-          const birthMonth = String(birthDate.getMonth() + 1).padStart(2, "0");
-          const birthDay = String(birthDate.getDate()).padStart(2, "0");
+        const birthYear = birthDate.getFullYear();
+        const birthMonth = String(birthDate.getMonth() + 1).padStart(2, "0");
+        const birthDay = String(birthDate.getDate()).padStart(2, "0");
 
-          const formattedBirthDate = `${birthYear}-${birthMonth}-${birthDay}`;
-          document.getElementById("birthdate").value = formattedBirthDate;
+        const formattedBirthDate = `${birthYear}-${birthMonth}-${birthDay}`;
+        document.getElementById("birthdate").value = formattedBirthDate;
 
-          document.getElementById("gender").value = user.gender;
-          document.getElementById("address").value = user.address;
-          document.getElementById("phone").value = user.phone;
-          document.getElementById("name_suffix").value = user.name_suffix;
-          document.getElementById("facebook_link").value = user.facebook_link;
+        document.getElementById("gender").value = user.gender;
+        document.getElementById("address").value = user.address;
+        document.getElementById("phone").value = user.phone;
+        document.getElementById("name_suffix").value = user.name_suffix;
+        document.getElementById("facebook_link").value = user.facebook_link;
 
-          // Format short date for: Badges section
-          const shortDateFormat = {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-          };
-          const formattedBadgeDate = createdDate.toLocaleDateString(
-            "en-US",
-            shortDateFormat
-          );
-          document.getElementById("member_since2").textContent =
-            formattedBadgeDate;
+        // Format short date for: Badges section
+        const shortDateFormat = {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+        };
+        const formattedBadgeDate = createdDate.toLocaleDateString(
+          "en-US",
+          shortDateFormat
+        );
+        document.getElementById("member_since2").textContent =
+          formattedBadgeDate;
 
-          const statSpans = document.querySelectorAll(
-            "div.bg-gray-100 > span.font-medium"
-          );
-          if (statSpans.length >= 4) {
-            statSpans[0].textContent = user.college || "N/A";
-            statSpans[1].textContent = user.year_level || "N/A";
-            statSpans[2].textContent =
-              user.membership_id || user.student_no || "N/A";
-            statSpans[3].textContent = new Date().toLocaleString();
+        const statSpans = document.querySelectorAll(
+          "div.bg-gray-100 > span.font-medium"
+        );
+        if (statSpans.length >= 4) {
+          statSpans[0].textContent = user.college || "N/A";
+          statSpans[1].textContent = user.year_level || "N/A";
+          statSpans[2].textContent =
+            user.membership_id || user.student_no || "N/A";
+          statSpans[3].textContent = new Date().toLocaleString();
+        }
+
+        const initials = `${user.first_name?.charAt(0) || ""}${user.last_name?.charAt(0) || ""
+          }`.toUpperCase();
+        renderProfilePicture(user.profile_picture_url, initials);
+
+        document.documentElement.classList.remove("loading");
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+      }
+    }
+
+    // let originalProfileData = {};
+
+    // async function fetchProfile() {
+    //   try {
+    //     const res = await fetch(`${API_BASE}/auth/profile`, {
+    //       method: "GET",
+    //       credentials: "include",
+    //     });
+
+    //     const data = await res.json();
+    //     if (!res.ok || !data.success) {
+    //       window.location.href = "login.html";
+    //       return;
+    //     }
+
+    //     const user = data.data;
+    //     originalProfileData = user; // 🟢 Save it here
+
+    //     //Left Section: Profile
+    //     document.getElementById("msc_id").textContent = user.msc_id;
+    //     // QR Code: Test
+    //     generateQRCode(user.msc_id || user.student_no || "UNKNOWN");
+    //     document.getElementById(
+    //       "fullName"
+    //     ).textContent = `${user.first_name} ${user.last_name}`;
+    //     document.getElementById("studentID").textContent = user.student_no;
+
+    //     document.getElementById("program").textContent = user.program;
+    //     document.getElementById("college").textContent = user.college;
+    //     document.getElementById("year_level").textContent = user.year_level;
+
+    //     // Populate input fields
+    //     document.getElementById("firstName").value = user.first_name || "";
+    //     document.getElementById("middleName").value = user.middle_name || "";
+    //     document.getElementById("lastName").value = user.last_name || "";
+    //     document.getElementById("name_suffix").value = user.name_suffix || "";
+    //     document.getElementById("birthdate").value = user.birthdate || "";
+    //     document.getElementById("gender").value = user.gender || "";
+    //     document.getElementById("student_no").value = user.student_no || "";
+    //     document.getElementById("section").value = user.section || "";
+    //     document.getElementById("student_college").value = user.college || "";
+    //     document.getElementById("student_program").value = user.program || "";
+    //     document.getElementById("address").value = user.address || "";
+    //     document.getElementById("phone").value = user.phone || "";
+    //     document.getElementById("facebook_link").value = user.facebook_link || "";
+    //     document.getElementById("username").textContent = user.username;
+    //     document.getElementById("email").textContent = user.email;
+    //     document.getElementById("member_since").textContent = new Date(user.created_at).toLocaleDateString();
+
+    //   } catch (error) {
+    //     console.error("Failed to fetch user profile:", error);
+    //     window.location.href = "login.html";
+    //   }
+    // }
+
+    //Profile Pic Generator
+    function renderProfilePicture(profilePictureUrl, initials) {
+      const container = document.getElementById("profile-picture-container");
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      if (profilePictureUrl) {
+        const img = document.createElement("img");
+        img.src = profilePictureUrl;
+        img.alt = "Profile Picture";
+        img.className = "w-full h-full object-cover";
+        container.appendChild(img);
+      } else {
+        const div = document.createElement("div");
+        div.className =
+          "w-full h-full rounded-full bg-blue-700 text-white flex items-center justify-center text-4xl font-bold";
+        div.textContent = initials;
+        container.appendChild(div);
+      }
+    }
+
+    function generateQRCode(data) {
+      const qrContainer = document.getElementById("qr-code");
+      qrContainer.innerHTML = ""; // Clear previous QR
+
+      new QRCode(qrContainer, {
+        text: data,
+        width: 120,
+        height: 120,
+        colorDark: "#06047b",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchProfile);
+
+    async function fetchAndDisplayEventBadges(studentId) {
+      try {
+        const res = await fetch(`${API_BASE}/events/student/${studentId}`, {
+          credentials: "include",
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success && Array.isArray(data.data)) {
+          const events = data.data;
+          const badgeContainer = document.getElementById("badgeContainer");
+
+          // Preserve Exclusive Member card
+          const staticBadge = badgeContainer.firstElementChild;
+
+          // Clear other dynamic badges, but preserve the static first badge
+          while (badgeContainer.children.length > 1) {
+            badgeContainer.removeChild(badgeContainer.lastChild);
           }
 
-          const initials = `${user.first_name?.charAt(0) || ""}${
-            user.last_name?.charAt(0) || ""
-          }`.toUpperCase();
-          renderProfilePicture(user.profile_picture_url, initials);
+          const attendedEvents = events.filter(ev => ev.attendance_status === "registered");
 
-          document.documentElement.classList.remove("loading");
-        } catch (error) {
-          console.error("Failed to fetch user profile:", error);
+          const badgeIcons = [
+            { icon: "fa-certificate", color: "text-green-500", bg: "bg-green-100" },
+            { icon: "fa-trophy", color: "text-yellow-500", bg: "bg-yellow-100" },
+            { icon: "fa-star", color: "text-blue-500", bg: "bg-blue-100" },
+            { icon: "fa-medal", color: "text-purple-500", bg: "bg-purple-100" },
+          ];
+
+          attendedEvents.forEach(ev => {
+            const randomIcon = badgeIcons[Math.floor(Math.random() * badgeIcons.length)];
+
+            const card = document.createElement("div");
+            card.className =
+              "flex flex-col items-center p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300";
+
+            card.innerHTML = `
+    <div class="w-14 h-14 flex items-center justify-center ${randomIcon.bg} rounded-full mb-3">
+      <i class="fas ${randomIcon.icon} ${randomIcon.color} text-xl"></i>
+    </div>
+    <h3 class="text-base font-semibold text-gray-800 truncate">${ev.event_name}</h3>
+    <p class="text-sm text-gray-500 mt-1">${formatDate(ev.event_date)}</p>
+  `;
+            badgeContainer.appendChild(card);
+          });
+
         }
+      } catch (err) {
+        console.error("Error loading event badges:", err);
       }
+    }
 
-      //Profile Pic Generator
-      function renderProfilePicture(profilePictureUrl, initials) {
-        const container = document.getElementById("profile-picture-container");
-        if (!container) return;
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      });
+    }
 
-        container.innerHTML = "";
-
-        if (profilePictureUrl) {
-          const img = document.createElement("img");
-          img.src = profilePictureUrl;
-          img.alt = "Profile Picture";
-          img.className = "w-full h-full object-cover";
-          container.appendChild(img);
-        } else {
-          const div = document.createElement("div");
-          div.className =
-            "w-full h-full rounded-full bg-blue-700 text-white flex items-center justify-center text-4xl font-bold";
-          div.textContent = initials;
-          container.appendChild(div);
-        }
-      }
-
-      function generateQRCode(data) {
-        const qrContainer = document.getElementById("qr-code");
-        qrContainer.innerHTML = ""; // Clear previous QR
-
-        new QRCode(qrContainer, {
-          text: data,
-          width: 120,
-          height: 120,
-          colorDark: "#06047b",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H,
+    async function updateProfile() {
+      try {
+        // 1. Fetch user ID from session/profile
+        const res = await fetch(`${API_BASE}/auth/profile`, {
+          credentials: "include"
         });
+        const profileData = await res.json();
+
+        if (!res.ok || !profileData.success) {
+          alert("Session expired. Please login again.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = profileData.data;
+        const studentId = user.id;
+
+        // 2. Collect form values
+        const payload = {
+          first_name: document.getElementById("firstName").value.trim(),
+          middle_name: document.getElementById("middleName").value.trim(),
+          last_name: document.getElementById("lastName").value.trim(),
+          name_suffix: document.getElementById("name_suffix").value.trim(),
+          birthdate: document.getElementById("birthdate").value,
+          gender: document.getElementById("gender").value,
+          student_no: document.getElementById("student_no").value.trim(),
+          year_level: user.year_level, // Assuming it's not in the form
+          college: document.getElementById("student_college").value.trim(),
+          program: document.getElementById("student_program").value.trim(),
+          section: document.getElementById("section").value.trim(),
+          address: document.getElementById("address").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          facebook_link: document.getElementById("facebook_link").value.trim(),
+          profile_image_path: user.profile_image_path ?? null
+        };
+
+        // 3. Send the update request
+        const updateRes = await fetch(`${API_BASE}/students/profile/${studentId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "include",
+          body: JSON.stringify(payload)
+        });
+
+        const updateResult = await updateRes.json();
+
+        if (updateRes.ok && updateResult.success) {
+          // alert("Profile updated successfully.");
+          //showModal("Profile updated successfully!", "Success");
+          showToast("Profile updated successfully!", "success");
+
+
+        } else {
+          console.error(updateResult.message || "Unknown error");
+          //alert("Failed to update profile.");
+          //showModal("Failed to update profile", "Error");
+          showToast("Profile updated successfully!", "success");
+
+        }
+        //location.reload()
+      } catch (err) {
+        console.error("Error updating profile:", err);
+        alert("An error occurred while updating the profile.");
+      }
+    }
+
+    /*
+    async function updateProfile() {
+      const updatedData = {
+        first_name: document.getElementById("firstName").value.trim(),
+        middle_name: document.getElementById("middleName").value.trim(),
+        last_name: document.getElementById("lastName").value.trim(),
+        name_suffix: document.getElementById("name_suffix").value.trim(),
+        birthdate: document.getElementById("birthdate").value,
+        gender: document.getElementById("gender").value,
+        student_no: document.getElementById("student_no").value.trim(),
+        section: document.getElementById("section").value.trim(),
+        college: document.getElementById("student_college").value.trim(),
+        program: document.getElementById("student_program").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        facebook_link: document.getElementById("facebook_link").value.trim(),
+      };
+
+      // 🧠 Check if any value actually changed
+      const hasChanged = Object.keys(updatedData).some((key) => {
+        return (originalProfileData[key] || "") !== updatedData[key];
+      });
+
+      if (!hasChanged) {
+        showToast("No changes made.", "error");
+        return;
       }
 
-      document.addEventListener("DOMContentLoaded", fetchProfile);
-    </script>
-  </body>
+      try {
+        const userId = originalProfileData.id;
+        const res = await fetch(`${API_BASE}/students/profile/${userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(updatedData),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          showToast("Profile updated successfully!", "success");
+          originalProfileData = { ...originalProfileData, ...updatedData }; // Update saved state
+        } else {
+          showToast(data.message || "Failed to update profile.", "error");
+        }
+      } catch (error) {
+        console.error("Update error:", error);
+        showToast("Something went wrong.", "error");
+      }
+    }
+      */
+
+
+    function showModal(message, title = "Notification") {
+      document.getElementById("modal-message").textContent = message;
+      document.getElementById("modal-title").textContent = title;
+      document.getElementById("modal").classList.remove("hidden");
+      document.getElementById("modal").classList.add("flex");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+      document.getElementById("modal").classList.remove("flex");
+    }
+
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      const toastMessage = document.getElementById("toast-message");
+      const toastContent = document.getElementById("toast-content");
+
+      // Set message
+      toastMessage.textContent = message;
+
+      // Set color and icon
+      if (type === "success") {
+        toastContent.className = "flex items-center max-w-xs p-4 text-sm text-white bg-green-600 rounded-lg shadow-lg animate-slide-in";
+        toastContent.querySelector("i").className = "fas fa-check-circle mr-2 text-white";
+      } else if (type === "error") {
+        toastContent.className = "flex items-center max-w-xs p-4 text-sm text-white bg-red-600 rounded-lg shadow-lg animate-slide-in";
+        toastContent.querySelector("i").className = "fas fa-times-circle mr-2 text-white";
+      }
+
+      toast.classList.remove("hidden");
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 3000);
+    }
+
+
+  </script>
+</body>
+
 </html>

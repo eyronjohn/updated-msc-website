@@ -59,9 +59,23 @@ switch ($method) {
         }
         break;
 
+    /*ORIGINAL BACKEND CODE: Endpoint
+    */
+
+    // case 'PUT':
+    //     if ($endpoint && $id === 'profile') {
+    //         $studentController->updateProfile($endpoint);
+    //     } elseif ($endpoint && $id === 'toggle-active') {
+    //         $studentController->toggleActive($endpoint);
+    //     } else {
+    //         http_response_code(404);
+    //         echo json_encode(['success' => false, 'message' => 'PUT endpoint not found']);
+    //     }
+    //     break;
+
     case 'PUT':
-        if ($endpoint && $id === 'profile') {
-            $studentController->updateProfile($endpoint);
+        if ($endpoint === 'profile' && is_numeric($id)) {
+            $studentController->updateProfile($id);
         } elseif ($endpoint && $id === 'toggle-active') {
             $studentController->toggleActive($endpoint);
         } else {
@@ -69,6 +83,7 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'PUT endpoint not found']);
         }
         break;
+
 
     case 'POST':
         if ($endpoint && $id === 'toggle-active') {
