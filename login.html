@@ -28,26 +28,106 @@
         }
 
         body {
-            background-color: #00071c;
+            background-color: #0d1117; /* Keep this for fallback, but the pseudo-element will cover it */
             font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh; /* Ensure body takes full height for the background to show */
+            position: relative; /* Needed for absolute positioning of pseudo-element */
+            overflow-x: hidden; /* Prevent horizontal scrollbar if elements slightly exceed viewport */
         }
 
+        :root {
+            --size: 3vmin;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes flicker {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.05); }
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                from 180deg at 50% 70%,
+                hsla(0, 0%, 98%, 1) 0deg,
+                #b9da05 72deg,
+                #0051ff 144deg,
+                #0095ff 216deg,
+                #b9da05 288deg,
+                hsla(0, 0%, 98%, 1) 360deg
+            );
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            mask-image: radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px),
+                        url(https://assets.codepen.io/605876/noise-mask.png);
+            mask-size: 300px 300px, 256px 256px;
+            mask-position: 50% 50%, 256px 50%;
+            mask-repeat: no-repeat, repeat;
+            mask-composite: intersect;
+            -webkit-mask-composite: destination-in; /* For Safari */
+            animation: flicker 20s infinite linear;
+            z-index: -4; /* Ensure it's behind everything */
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+
+        .el {
+            /* This class creates an additional layer of the effect, similar to body::after */
+            background: conic-gradient(
+                from 180deg at 50% 70%,
+                hsla(0, 0%, 98%, 1) 0deg,
+                #b9da05 72deg,
+                #0051ff 144deg,
+                #0095ff 216deg,
+                #b9da05 288deg,
+                hsla(0, 0%, 98%, 1) 360deg
+            );
+            width: 100%;
+            height: 100%;
+            mask: radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+                  url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+            mask-composite: intersect;
+            animation: flicker 20s infinite linear;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Place it behind content but potentially above body::after */
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+
+        /* Header styles - kept for reference, but ensure they don't conflict with background */
         #main-header {
             background-color: rgba(0, 7, 28, 0.8);
             backdrop-filter: blur(10px);
         }
 
-        #main-header {
+        #main-header.header-scrolled { /* This class would be applied by JS on scroll */
             background-color: #00071c;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Ensure main content is above the background effects */
+        main {
+            position: relative; /* Needed to establish stacking context above background */
+            z-index: 1; /* Ensure content is visible above the background effects */
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-[#0a1a35]">
-
-    <!-- Header -->
-    <nav id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4">
+<!-- bg-[#0a1a35] -->
+<body class="min-h-screen flex flex-col">
+    <div class="el"></div> <nav id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-2 text-white hover:text-[#b9da05] transition">
                 <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="h-12" />
@@ -69,20 +149,20 @@
         </div>
     </nav>
 
-    <!-- Login Form -->
     <main class="flex-grow flex items-center justify-center pt-28 px-4">
-        <div class="w-full max-w-md bg-[#011538] text-white p-8 rounded-2xl shadow-lg border border-[#b9da05]">
+        <!-- responsible for color -->
+        <div class="w-full max-w-md bg-[#18181b] text-white p-8 rounded-2xl shadow-lg border border-[#27272a] border-2">
             <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Veonika', sans-serif;">Login</h2>
 
-            <div id="response" class="hidden mb-4 text-white border border-red-500 bg-[#1f1f1f] px-4 py-3 rounded text-sm"></div>
+            <div id="response" class="hidden mb-4 text-white border border-red-500 bg-[#27272a] px-4 py-3 rounded text-sm"></div>
 
             <label for="loginUsername" class="block text-sm font-semibold mb-1">Username</label>
             <input type="text" id="loginUsername" placeholder="Enter your username"
-                class="w-full px-4 py-3 rounded-md bg-[#00071c] border border-gray-600 text-white placeholder-gray-400 mb-4 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
+                class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 mb-4 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
 
             <label for="loginPassword" class="block text-sm font-semibold mb-1">Password</label>
             <input type="password" id="loginPassword" placeholder="Enter your password"
-                class="w-full px-4 py-3 rounded-md bg-[#00071c] border border-gray-600 text-white placeholder-gray-400 mb-6 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
+                class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 mb-6 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
 
             <button onclick="login()"
                 class="w-full bg-[#b9da05] text-[#00071c] text-m font-bold py-3 rounded-md hover:bg-[#8fae04] hover:text-[#00071c] transition-colors shadow-md">
@@ -102,7 +182,7 @@
     </main>
 
     <script>
-        const API_BASE = "http://localhost:8000/api";
+        const API_BASE = "/updated-msc-website/api";
 
         async function login() {
             const username = document.getElementById("loginUsername").value.trim();
@@ -124,7 +204,6 @@
                 if (res.ok && data.success) {
                     window.location.href = "dashboard.html";
                 } else {
-                    //responseEl.textContent = `${data.message}`; //Backend message - Invalid username/email or password
                     responseEl.textContent = "Invalid username or password.";
                     responseEl.classList.remove("hidden");
                 }
