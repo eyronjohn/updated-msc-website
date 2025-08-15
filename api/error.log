@@ -7462,3 +7462,146 @@
 
 [15-Aug-2025 14:06:17 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/
 [15-Aug-2025 14:06:17 Europe/Berlin] Found API index, resource: 
+[15-Aug-2025 14:20:12 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:20:12 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:20:12 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:20:12 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 14:20:12 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:20:12 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:20:12 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 14:20:12 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 14:20:12 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 14:37:34 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:37:34 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:37:34 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:37:34 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 14:37:34 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:37:34 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:37:34 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 14:37:34 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 14:37:34 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 14:37:48 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:37:48 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:37:48 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:37:48 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 14:37:48 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:37:48 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:37:48 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 14:37:48 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 14:37:48 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 14:38:01 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:38:01 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:38:01 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:38:01 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 14:38:01 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:38:01 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:38:01 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 14:38:01 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 14:38:01 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 14:42:26 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:42:26 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:42:26 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:42:26 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 14:42:26 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:42:26 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:42:26 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 14:42:26 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 14:42:26 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 14:43:08 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:43:08 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:43:08 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:43:08 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 14:43:08 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 14:43:08 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 14:43:08 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 14:43:08 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 14:43:08 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 14:43:08 Europe/Berlin] PHP Warning:  Undefined array key "name_suffix" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 58
+[15-Aug-2025 14:43:08 Europe/Berlin] PHP Warning:  Undefined array key "section" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 65
+[15-Aug-2025 14:43:08 Europe/Berlin] PHP Warning:  Undefined array key "address" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 66
+[15-Aug-2025 14:43:08 Europe/Berlin] PHP Warning:  Undefined array key "phone" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 67
+[15-Aug-2025 14:43:08 Europe/Berlin] PHP Warning:  Undefined array key "facebook_link" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 68
