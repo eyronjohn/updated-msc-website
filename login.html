@@ -28,11 +28,11 @@
         }
 
         body {
-            background-color: #0d1117; /* Keep this for fallback, but the pseudo-element will cover it */
+            background-color: #0d1117; 
             font-family: 'Segoe UI', sans-serif;
-            min-height: 100vh; /* Ensure body takes full height for the background to show */
-            position: relative; /* Needed for absolute positioning of pseudo-element */
-            overflow-x: hidden; /* Prevent horizontal scrollbar if elements slightly exceed viewport */
+            min-height: 100vh; 
+            position: relative; 
+            overflow-x: hidden;
         }
 
         :root {
@@ -78,12 +78,11 @@
             mask-composite: intersect;
             -webkit-mask-composite: destination-in; /* For Safari */
             animation: flicker 20s infinite linear;
-            z-index: -4; /* Ensure it's behind everything */
-            pointer-events: none; /* Allows clicks to pass through */
+            z-index: -4; 
+            pointer-events: none; 
         }
 
         .el {
-            /* This class creates an additional layer of the effect, similar to body::after */
             background: conic-gradient(
                 from 180deg at 50% 70%,
                 hsla(0, 0%, 98%, 1) 0deg,
@@ -102,25 +101,23 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: -1; /* Place it behind content but potentially above body::after */
-            pointer-events: none; /* Allows clicks to pass through */
+            z-index: -1; 
+            pointer-events: none; 
         }
 
-        /* Header styles - kept for reference, but ensure they don't conflict with background */
         #main-header {
             background-color: rgba(0, 7, 28, 0.8);
             backdrop-filter: blur(10px);
         }
 
-        #main-header.header-scrolled { /* This class would be applied by JS on scroll */
+        #main-header.header-scrolled { 
             background-color: #00071c;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
         }
 
-        /* Ensure main content is above the background effects */
         main {
-            position: relative; /* Needed to establish stacking context above background */
-            z-index: 1; /* Ensure content is visible above the background effects */
+            position: relative; 
+            z-index: 1; 
         }
     </style>
 </head>
@@ -150,7 +147,6 @@
     </nav>
 
     <main class="flex-grow flex items-center justify-center pt-28 px-4">
-        <!-- responsible for color -->
         <div class="w-full max-w-md bg-[#18181b] text-white p-8 rounded-2xl shadow-lg border border-[#27272a] border-2">
             <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Veonika', sans-serif;">Login</h2>
 
