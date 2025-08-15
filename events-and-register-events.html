@@ -9,6 +9,12 @@
     <title>BulSU MSC | Events</title>
 </head>
 <body>
+    <div id="messageModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="messageCloseBtn" class="close-btn">&times;</span>
+            <p id="messageText">This is a message</p>
+        </div>
+    </div>
     <nav id="main-header" class="main-header">
         <div class="container">
             <a href="#hero" class="logo-link">
@@ -66,30 +72,12 @@
             <!-- Upcoming Events -->
             <section id="upcomingSection" class="event-section">
                 <div class="event-list">
-                    <div class="event-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
                 </div>
             </section>
 
             <!-- Completed Events -->
             <section id="completedSection" class="event-section" style="display:none;">
                 <div class="event-list">
-                    <div class="event-card"
-                        data-title="MSC Hackathon"
-                        data-date="August 1, 2025"
-                        data-status="completed"
-                        data-content="A 12-hour hackathon where teams compete to create the best tech solution. Venue: BulSU Main Hall.">
-                        <h3>MSC Hackathon</h3>
-                        <p class="date">August 1, 2025</p>
-                        <p class="excerpt">Your registered event, now completed.</p>
-                    </div>
                 </div>
             </section>
 
@@ -204,6 +192,7 @@
         eventsArray.forEach(event => {
             const card = document.createElement("div");
             card.classList.add("event-card");
+            card.dataset.id = event.event_id;
             card.dataset.title = event.event_name;
             card.dataset.date = event.event_date;
             card.dataset.status = event.event_status;
@@ -228,7 +217,7 @@
             const events = eventsData?.data?.events || []; // safely access the array
 
             events.forEach(event => {
-            console.log(event.event_name, event.event_date, event.event_status);
+            console.log(event.event_id, event.event_name, event.event_date, event.event_status);
             });
 
 
@@ -264,6 +253,7 @@
             const upcomingCards = document.querySelectorAll("#upcoming-events .event-card");
 
             function updateCard(card, event) {
+                card.dataset.id = event.event_id || "unknown";
                 card.dataset.title = event.event_name || "Untitled Event";
                 card.dataset.date = event.event_date || "Unknown Date";
                 card.dataset.time = `${event.event_time_start || "???"} - ${event.event_time_end || "???"}`;
@@ -303,7 +293,10 @@
                     document.getElementById("modalDate").textContent = card.dataset.date;
                     document.getElementById("modalContent").textContent = card.dataset.content;
 
+                    registerBtn.dataset.eventId = card.dataset.id;
+
                     registerBtn.style.display = (card.dataset.status === "upcoming") ? "inline-block" : "none";
+                    
 
                     modal.style.display = "flex";
                 });
@@ -314,9 +307,66 @@
             modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
 
             // Register Button
-            registerBtn.addEventListener("click", () => {
-                alert("Registered successfully!");
+            registerBtn.addEventListener("click", async () => {
+                const eventId = registerBtn.dataset.eventId;
+                if (!eventId) {
+                    showMessage("Event ID not found.");
+                    return;
+                }
+
+                const result = await apiCall(`/events/${eventId}/register`, "POST", {}, `✅ Register for Event #${eventId}`);
+
+                if (result && result.success) {
+                    showMessage(result.message || "Registered successfully!");
+                    
+                    // ✅ Mark the event as registered
+                    const card = document.querySelector(`.event-card[data-id='${eventId}']`);
+                    if (card) card.dataset.registered = "true"; // flag it
+                } else {
+                    showMessage(result?.message || "Registration failed.");
+                }
             });
+
+
+            // Helper function to show messages in the modal
+            function showMessage(msg) {
+                const eventModal = document.getElementById("eventModal");
+                eventModal.style.display = "none"; // hide original modal
+
+                const messageModal = document.getElementById("messageModal");
+                const messageText = document.getElementById("messageText");
+                messageText.textContent = msg;
+                messageModal.style.display = "flex";
+
+                const closeBtn = document.getElementById("messageCloseBtn");
+                closeBtn.onclick = () => messageModal.style.display = "none";
+
+                messageModal.onclick = e => {
+                    if (e.target === messageModal) messageModal.style.display = "none";
+                };
+            }
+
+            function checkEventStatus() {
+            const now = new Date();
+
+            document.querySelectorAll(".event-card[data-registered='true']").forEach(card => {
+                const eventEnd = new Date(`${card.dataset.date}T${card.dataset.time.split(' - ')[1]}`);
+                if (now > eventEnd) {
+                    // Move the card to the completed section
+                    const completedSection = document.querySelector("#completed-events .event-list");
+                    completedSection.appendChild(card);
+
+                    // Optionally update the card dataset
+                    card.dataset.status = "completed";
+                    registerBtn.style.display = (card.dataset.status === "upcoming" && !card.dataset.registered) ? "inline-block" : "none";
+
+                }
+            });
+        }
+
+        // Check every 30 seconds (adjust as needed)
+        setInterval(checkEventStatus, 30000);
+
 
             // Filter Button Logic
             document.querySelectorAll(".filter-btn").forEach(btn => {
