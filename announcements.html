@@ -60,69 +60,6 @@
             <!-- Announcements -->
             <section id="upcomingSection" class="Announcement-section">
                 <div class="announcement-list">
-                    <div class="announcement-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
-                    <div class="announcement-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
-                    <div class="announcement-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
-                    <div class="announcement-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
-                    <div class="announcement-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
-                    <div class="announcement-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
-                    <div class="announcement-card"
-                        data-title="Tech Talk Series"
-                        data-date="September 3, 2025"
-                        data-status="upcoming"
-                        data-content="Join our Tech Talk Series focusing on AI in education. Venue: BulSU Auditorium.">
-                        <h3>Tech Talk Series</h3>
-                        <p class="date">September 3, 2025</p>
-                        <p class="excerpt">Learn about AI in education...</p>
-                    </div>
                 </div>
             </section>
         </main>
@@ -161,26 +98,89 @@
         </footer>
     </div>
     <script>
-        const modal = document.getElementById("eventModal");
-        const closeBtn = document.querySelector(".close-btn");
+    const API_BASE = "/updated-msc-website/api";
 
-        // Show Modal
-        document.querySelectorAll(".announcement-card").forEach(card => {
-            card.addEventListener("click", () => {
-                document.getElementById("modalTitle").textContent = card.dataset.title;
-                document.getElementById("modalDate").textContent = card.dataset.date;
-                document.getElementById("modalContent").textContent = card.dataset.content;
+    // Reuse apiCall from api_tester
+    async function apiCall(endpoint, method = "GET", data = null, title = "") {
+        try {
+            const options = {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            };
+            if (data) options.body = JSON.stringify(data);
 
-                modal.style.display = "flex";
+            console.log(`🚀 ${method} ${endpoint}`, data || "");
+            const response = await fetch(`${API_BASE}${endpoint}`, options);
+            const result = await response.json();
+
+            if (!response.ok) {
+                console.error(`❌ API Error [${response.status}]:`, result);
+            }
+
+            return result;
+        } catch (err) {
+            console.error("Network/API Error:", err);
+            return null;
+        }
+    }
+
+    // Load recent announcements and render dynamically
+    async function loadAnnouncements() {
+        try {
+            const response = await apiCall("/announcements/recent", "GET", null, "🔥 Load Recent Announcements");
+            const announcements = response?.data || []; // adjust based on your API response
+
+            if (!announcements.length) {
+                console.warn("⚠ No recent announcements found");
+                return;
+            }
+
+            const listContainer = document.querySelector(".announcement-list");
+            listContainer.innerHTML = ""; // clear existing static cards
+
+            announcements.forEach(announcement => {
+                const card = document.createElement("div");
+                card.classList.add("announcement-card");
+                card.dataset.title = announcement.title;
+                card.dataset.date = new Date(announcement.date_posted).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+                card.dataset.content = announcement.content;
+
+                card.innerHTML = `
+                    <h3>${announcement.title}</h3>
+                    <p class="date">${new Date(announcement.date_posted).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</p>
+                    <p class="excerpt">${announcement.content.substring(0, 50)}...</p>
+                `;
+
+                listContainer.appendChild(card);
             });
-        });
 
-        // Close Modal
-        closeBtn.addEventListener("click", () => modal.style.display = "none");
-        modal.addEventListener("click", e => {
-            if (e.target === modal) modal.style.display = "none";
-        });
+            console.log(`✅ Rendered ${announcements.length} announcements`);
 
+            // Attach modal click logic
+            const modal = document.getElementById("eventModal");
+            const closeBtn = document.querySelector(".close-btn");
+
+            document.querySelectorAll(".announcement-card").forEach(card => {
+                card.addEventListener("click", () => {
+                    document.getElementById("modalTitle").textContent = card.dataset.title;
+                    document.getElementById("modalDate").textContent = card.dataset.date;
+                    document.getElementById("modalContent").textContent = card.dataset.content;
+                    modal.style.display = "flex";
+                });
+            });
+
+            closeBtn.addEventListener("click", () => modal.style.display = "none");
+            modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+
+        } catch (err) {
+            console.error("Error loading announcements:", err);
+        }
+    }
+
+    // Load on page ready
+    window.addEventListener("DOMContentLoaded", loadAnnouncements);
     </script>
+
 </body>
 </html>
