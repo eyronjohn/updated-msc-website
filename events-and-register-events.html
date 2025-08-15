@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
+    <link rel="stylesheet" href="/updated-msc-website/css/event_members.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>BulSU MSC | Events</title>
+</head>
+<body>
+    <div id="messageModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="messageCloseBtn" class="close-btn">&times;</span>
+            <p id="messageText">This is a message</p>
+        </div>
+    </div>
+    <nav id="main-header" class="main-header">
+        <div class="container">
+            <a href="#hero" class="logo-link">
+            <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="logo-img" />
+            </a>
+            <div class="nav-links">
+            <a class="nav-link" onclick="window.location.href='index.html'">Home</a>
+            <a class="nav-link" onclick="window.location.href='announcements.html'">Announcements</a>
+            <a class="nav-link" onclick="window.location.href='events-and-register-events.html'">Events</a>
+
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-circle-user nav-icon"></i></div>
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-calendar-days nav-icon"></i></div>
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-gear nav-icon"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="el"></div>
+    <div class="wrapper-container">
+        <div class="wrapper-for-header">
+            <header>
+            <h1>BulSU MSC Events</h1>
+                <p>Track your upcoming, completed, and past events</p>
+            </header>
+            <div class="orbit">
+                <div class="orbit-circle"></div>
+                <div class="orbit-segment segment1"></div>
+                <div class="orbit-segment segment2"></div>
+                <div class="orbit-segment segment3"></div>
+                <div class="orbit-segment segment4"></div>
+                <div class="orbit-segment segment5"></div>
+                <div class="orbit-segment segment6"></div>
+                <div class="orbit-segment segment7"></div>
+                <div class="orbit-segment segment8"></div>
+                <div class="orbit-segment segment9"></div>
+                <div class="orbit-segment segment10"></div>
+                <div class="orbit-segment segment11"></div>
+                <div class="orbit-segment segment11"></div>
+                <div class="orbit-segment segment12"></div>
+                <div class="orbit-segment segment13"></div>
+                <div class="orbit-segment segment14"></div>
+                <div class="orbit-segment segment15"></div>
+            </div>
+        </div>
+    </div>
+    <div class="button-display">
+        <!-- Filter Buttons -->
+        <div class="event-buttons">
+            <button class="filter-btn active" data-section="upcomingSection">Upcoming</button>
+            <button class="filter-btn" data-section="completedSection">Completed</button>
+            <button class="filter-btn" data-section="pastSection">Past</button>
+        </div>
+
+        <main>
+            <!-- Upcoming Events -->
+            <section id="upcomingSection" class="event-section">
+                <div class="event-list">
+                </div>
+            </section>
+
+            <!-- Completed Events -->
+            <section id="completedSection" class="event-section" style="display:none;">
+                <div class="event-list">
+                </div>
+            </section>
+
+            <!-- Past Events -->
+            <section id="pastSection" class="event-section" style="display:none;">
+                <div class="event-list">
+                    <div class="event-card"
+                        data-title="General Assembly 2024"
+                        data-date="August 20, 2024"
+                        data-status="past"
+                        data-content="Our annual general assembly with games, activities, and networking.">
+                        <h3>General Assembly 2024</h3>
+                        <p class="date">August 20, 2024</p>
+                        <p class="excerpt">Past event you did not register for.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal -->
+        <div class="modal" id="eventModal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <p class="date" id="modalDate"></p>
+                <p id="modalContent"></p>
+                <button id="registerBtn" class="register-btn" style="display:none;">Register Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-container">
+        <footer>
+            <div class="logo-container">
+                <a href="https://www.bulsu.edu.ph" target="_blank" rel="noopener noreferrer">
+                <img src="./Logos/BulSU.png" alt="Bulacan State University Logo" />
+                </a>
+                <a href="https://www.facebook.com/osobulsu" target="_blank" rel="noopener noreferrer">
+                <img src="./Logos/OSOA.png" alt="Bulacan State University OSOA Logo" style="width: 40px; height: 40px;" />
+                </a>
+            </div>
+            <p>&copy; 2025 BulSU Microsoft Student Community. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/bulsu.officialmsc" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/bulsumsc/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.threads.com/@bulsumsc" target="_blank"><i class="fab fa-threads"></i></a>
+                <a href="https://www.tiktok.com/@bulsumsc" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.linkedin.com/company/bulsumsc/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.github.com/bulsumsc" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </footer>
+    </div>
+    <script>
+    const API_BASE = "/updated-msc-website/api";
+
+    // This must come first
+    async function apiCall(endpoint, method = "GET", data = null, title = "") {
+        try {
+            const options = {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            };
+            if (data) options.body = JSON.stringify(data);
+
+            const response = await fetch(`${API_BASE}${endpoint}`, options);
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.error("API Error:", error);
+            return null;
+        }
+    }
+
+    // Now your loadEvents() and other logic can safely use apiCall()
+    async function loadEvents() {
+        try {
+            const response = await apiCall("/events?page=1&limit=100", "GET");
+            const events = response?.data?.events || [];
+            if (!events.length) return;
+
+            const today = new Date();
+            const upcomingEvents = [];
+            const completedEvents = [];
+            const pastEvents = [];
+
+            events.forEach(event => {
+                const eventDate = new Date(event.event_date);
+
+                if (event.event_status?.toLowerCase() === "upcoming") {
+                    upcomingEvents.push(event);
+                } else if (event.event_status?.toLowerCase() === "completed") {
+                    completedEvents.push(event);
+                } else if (eventDate < today) {
+                    pastEvents.push(event);
+                }
+            });
+
+            renderEvents(upcomingEvents, "upcomingSection");
+            renderEvents(completedEvents, "completedSection");
+            renderEvents(pastEvents, "pastSection");
+
+            attachCardListeners();
+        } catch (err) {
+            console.error("Error loading events:", err);
+        }
+    }
+
+    function renderEvents(eventsArray, sectionId) {
+        const section = document.getElementById(sectionId).querySelector(".event-list");
+        section.innerHTML = "";
+        eventsArray.forEach(event => {
+            const card = document.createElement("div");
+            card.classList.add("event-card");
+            card.dataset.id = event.event_id;
+            card.dataset.title = event.event_name;
+            card.dataset.date = event.event_date;
+            card.dataset.status = event.event_status;
+            card.dataset.content = event.description;
+
+            card.innerHTML = `
+                <h3>${event.event_name}</h3>
+                <p class="date">${event.event_date}</p>
+                <p class="excerpt">${event.description.substring(0, 50)}...</p>
+            `;
+            section.appendChild(card);
+        });
+    }
+
+    window.addEventListener("DOMContentLoaded", loadEvents);
+    </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            // 1️⃣ Fetch all events from backend
+            const eventsData = await apiCall("/events?page=1&limit=100", "GET");
+            const events = eventsData?.data?.events || []; // safely access the array
+
+            events.forEach(event => {
+            console.log(event.event_id, event.event_name, event.event_date, event.event_status);
+            });
+
+
+            if (!eventsData || !eventsData.data) {
+                console.error("❌ No event data received");
+                return;
+            }
+
+            const today = new Date();
+
+            // 2️⃣ Sort events into categories
+            const pastEvents = [];
+            const completedEvents = [];
+            const upcomingEvents = [];
+
+
+            events.forEach(event => {
+                const now = new Date();
+                const eventEnd = new Date(`${event.event_date}T${event.event_time_end}`);
+                if (eventEnd > now) {
+                    upcomingEvents.push(event);
+                } else if (event.event_status && event.event_status.toLowerCase() === "completed") {
+                    completedEvents.push(event);
+                } else {
+                    pastEvents.push(event);
+                }
+            });
+
+
+            // 3️⃣ Inject events into HTML without touching modal script
+            const pastCards = document.querySelectorAll("#past-events .event-card");
+            const completedCards = document.querySelectorAll("#completed-events .event-card");
+            const upcomingCards = document.querySelectorAll("#upcoming-events .event-card");
+
+            function updateCard(card, event) {
+                card.dataset.id = event.event_id || "unknown";
+                card.dataset.title = event.event_name || "Untitled Event";
+                card.dataset.date = event.event_date || "Unknown Date";
+                card.dataset.time = `${event.event_time_start || "???"} - ${event.event_time_end || "???"}`;
+                card.dataset.location = event.location || "TBA";
+                card.dataset.description = event.description || "No description available.";
+                card.querySelector("h3").textContent = event.event_name || "Untitled Event";
+                card.querySelector("p").textContent = event.event_date || "Unknown Date";
+            }
+
+            pastEvents.forEach((event, i) => {
+                if (pastCards[i]) updateCard(pastCards[i], event);
+            });
+
+            completedEvents.forEach((event, i) => {
+                if (completedCards[i]) updateCard(completedCards[i], event);
+            });
+
+            upcomingEvents.forEach((event, i) => {
+                if (upcomingCards[i]) updateCard(upcomingCards[i], event);
+            });
+
+        } catch (err) {
+            console.error("⚠ Error loading events:", err);
+        }
+    });
+    </script>
+    <script>
+        function attachCardListeners() {
+            const modal = document.getElementById("eventModal");
+            const closeBtn = document.querySelector(".close-btn");
+            const registerBtn = document.getElementById("registerBtn");
+
+            // Show Modal
+            document.querySelectorAll(".event-card").forEach(card => {
+                card.addEventListener("click", () => {
+                    document.getElementById("modalTitle").textContent = card.dataset.title;
+                    document.getElementById("modalDate").textContent = card.dataset.date;
+                    document.getElementById("modalContent").textContent = card.dataset.content;
+
+                    registerBtn.dataset.eventId = card.dataset.id;
+
+                    registerBtn.style.display = (card.dataset.status === "upcoming") ? "inline-block" : "none";
+                    
+
+                    modal.style.display = "flex";
+                });
+            });
+
+            // Close Modal
+            closeBtn.addEventListener("click", () => modal.style.display = "none");
+            modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+
+            // Register Button
+            registerBtn.addEventListener("click", async () => {
+                const eventId = registerBtn.dataset.eventId;
+                if (!eventId) {
+                    showMessage("Event ID not found.");
+                    return;
+                }
+
+                const result = await apiCall(`/events/${eventId}/register`, "POST", {}, `✅ Register for Event #${eventId}`);
+
+                if (result && result.success) {
+                    showMessage(result.message || "Registered successfully!");
+                    
+                    // ✅ Mark the event as registered
+                    const card = document.querySelector(`.event-card[data-id='${eventId}']`);
+                    if (card) card.dataset.registered = "true"; // flag it
+                } else {
+                    showMessage(result?.message || "Registration failed.");
+                }
+            });
+
+
+            // Helper function to show messages in the modal
+            function showMessage(msg) {
+                const eventModal = document.getElementById("eventModal");
+                eventModal.style.display = "none"; // hide original modal
+
+                const messageModal = document.getElementById("messageModal");
+                const messageText = document.getElementById("messageText");
+                messageText.textContent = msg;
+                messageModal.style.display = "flex";
+
+                const closeBtn = document.getElementById("messageCloseBtn");
+                closeBtn.onclick = () => messageModal.style.display = "none";
+
+                messageModal.onclick = e => {
+                    if (e.target === messageModal) messageModal.style.display = "none";
+                };
+            }
+
+            function checkEventStatus() {
+            const now = new Date();
+
+            document.querySelectorAll(".event-card[data-registered='true']").forEach(card => {
+                const eventEnd = new Date(`${card.dataset.date}T${card.dataset.time.split(' - ')[1]}`);
+                if (now > eventEnd) {
+                    // Move the card to the completed section
+                    const completedSection = document.querySelector("#completed-events .event-list");
+                    completedSection.appendChild(card);
+
+                    // Optionally update the card dataset
+                    card.dataset.status = "completed";
+                }
+            });
+        }
+
+        // Check every 30 seconds (adjust as needed)
+        setInterval(checkEventStatus, 30000);
+
+
+            // Filter Button Logic
+            document.querySelectorAll(".filter-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    document.querySelectorAll(".event-section").forEach(section => section.style.display = "none");
+                    document.getElementById(btn.dataset.section).style.display = "block";
+                });
+            });
+        }
+    </script>
+</body>
+</html>

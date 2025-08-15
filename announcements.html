@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
+    <link rel="stylesheet" href="/updated-msc-website/css/announcements_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>BulSU MSC | Announcements</title>
+</head>
+<body>
+    <nav id="main-header" class="main-header">
+        <div class="container">
+            <a href="#hero" class="logo-link">
+            <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="logo-img" />
+            </a>
+            <div class="nav-links">
+            <a class="nav-link" onclick="window.location.href='index.html'">Home</a>
+            <a class="nav-link" onclick="window.location.href='announcements.html'">Announcements</a>
+            <a class="nav-link" onclick="window.location.href='events-and-register-events.html'">Events</a>
+
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-circle-user nav-icon"></i></div>
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-calendar-days nav-icon"></i></div>
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-gear nav-icon"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="el"></div>
+    <div class="wrapper-container">
+        <div class="wrapper-for-header">
+            <header>
+            <h1>BulSU MSC Announcements</h1>
+                <p>Stay updated with the latest from BulSU MSC</p>
+            </header>
+            <div class="orbit">
+                <div class="orbit-circle"></div>
+                <div class="orbit-segment segment1"></div>
+                <div class="orbit-segment segment2"></div>
+                <div class="orbit-segment segment3"></div>
+                <div class="orbit-segment segment4"></div>
+                <div class="orbit-segment segment5"></div>
+                <div class="orbit-segment segment6"></div>
+                <div class="orbit-segment segment7"></div>
+                <div class="orbit-segment segment8"></div>
+                <div class="orbit-segment segment9"></div>
+                <div class="orbit-segment segment10"></div>
+                <div class="orbit-segment segment11"></div>
+                <div class="orbit-segment segment11"></div>
+                <div class="orbit-segment segment12"></div>
+                <div class="orbit-segment segment13"></div>
+                <div class="orbit-segment segment14"></div>
+                <div class="orbit-segment segment15"></div>
+            </div>
+        </div>
+    </div>
+    <div class="announcement-container">
+
+        <main>
+            <!-- Announcements -->
+            <section id="upcomingSection" class="Announcement-section">
+                <div class="announcement-list">
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal -->
+        <div class="modal" id="eventModal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <p class="date" id="modalDate"></p>
+                <p id="modalContent"></p>
+                <button id="registerBtn" class="register-btn" style="display:none;">Register Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-container">
+        <footer>
+            <div class="logo-container">
+                <a href="https://www.bulsu.edu.ph" target="_blank" rel="noopener noreferrer">
+                <img src="./Logos/BulSU.png" alt="Bulacan State University Logo" />
+                </a>
+                <a href="https://www.facebook.com/osobulsu" target="_blank" rel="noopener noreferrer">
+                <img src="./Logos/OSOA.png" alt="Bulacan State University OSOA Logo" style="width: 40px; height: 40px;" />
+                </a>
+            </div>
+            <p>&copy; 2025 BulSU Microsoft Student Community. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/bulsu.officialmsc" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/bulsumsc/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.threads.com/@bulsumsc" target="_blank"><i class="fab fa-threads"></i></a>
+                <a href="https://www.tiktok.com/@bulsumsc" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.linkedin.com/company/bulsumsc/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.github.com/bulsumsc" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </footer>
+    </div>
+    <script>
+    const API_BASE = "/updated-msc-website/api";
+
+    // Reuse apiCall from api_tester
+    async function apiCall(endpoint, method = "GET", data = null, title = "") {
+        try {
+            const options = {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            };
+            if (data) options.body = JSON.stringify(data);
+
+            console.log(`🚀 ${method} ${endpoint}`, data || "");
+            const response = await fetch(`${API_BASE}${endpoint}`, options);
+            const result = await response.json();
+
+            if (!response.ok) {
+                console.error(`❌ API Error [${response.status}]:`, result);
+            }
+
+            return result;
+        } catch (err) {
+            console.error("Network/API Error:", err);
+            return null;
+        }
+    }
+
+    // Load recent announcements and render dynamically
+    async function loadAnnouncements() {
+        try {
+            const response = await apiCall("/announcements/recent", "GET", null, "🔥 Load Recent Announcements");
+            const announcements = response?.data || []; // adjust based on your API response
+
+            if (!announcements.length) {
+                console.warn("⚠ No recent announcements found");
+                return;
+            }
+
+            const listContainer = document.querySelector(".announcement-list");
+            listContainer.innerHTML = ""; // clear existing static cards
+
+            announcements.forEach(announcement => {
+                const card = document.createElement("div");
+                card.classList.add("announcement-card");
+                card.dataset.title = announcement.title;
+                card.dataset.date = new Date(announcement.date_posted).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+                card.dataset.content = announcement.content;
+
+                card.innerHTML = `
+                    <h3>${announcement.title}</h3>
+                    <p class="date">${new Date(announcement.date_posted).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</p>
+                    <p class="excerpt">${announcement.content.substring(0, 50)}...</p>
+                `;
+
+                listContainer.appendChild(card);
+            });
+
+            console.log(`✅ Rendered ${announcements.length} announcements`);
+
+            // Attach modal click logic
+            const modal = document.getElementById("eventModal");
+            const closeBtn = document.querySelector(".close-btn");
+
+            document.querySelectorAll(".announcement-card").forEach(card => {
+                card.addEventListener("click", () => {
+                    document.getElementById("modalTitle").textContent = card.dataset.title;
+                    document.getElementById("modalDate").textContent = card.dataset.date;
+                    document.getElementById("modalContent").textContent = card.dataset.content;
+                    modal.style.display = "flex";
+                });
+            });
+
+            closeBtn.addEventListener("click", () => modal.style.display = "none");
+            modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+
+        } catch (err) {
+            console.error("Error loading announcements:", err);
+        }
+    }
+
+    // Load on page ready
+    window.addEventListener("DOMContentLoaded", loadAnnouncements);
+    </script>
+
+</body>
+</html>
