@@ -74,14 +74,23 @@ function renderUniversityCalendar() {
 
     const dayLabel = document.createElement("div");
     dayLabel.textContent = day;
-    dayLabel.classList.add("w-7", "h-7", "flex", "items-center", "justify-center",
-      "font-semibold", "text-sm", "text-gray-700", "mx-auto", "rounded-full");
-    cell.appendChild(dayLabel);
 
     const today = new Date();
-    if (date.toDateString() === today.toDateString()) {
-      dayLabel.classList.add("bg-blue-800", "text-white");
+    const isToday = date.toDateString() === today.toDateString();
+
+    dayLabel.classList.add(
+      "w-7", "h-7", "flex", "items-center", "justify-center",
+      "font-semibold", "text-sm", "mx-auto", "rounded-full"
+    );
+
+    if (isToday) {
+      dayLabel.classList.add("bg-[#03378f]", "text-white");
+    } else {
+      dayLabel.classList.add("text-gray-700");
     }
+
+    cell.appendChild(dayLabel);
+
 
     events.forEach(e => {
       const badge = document.createElement("div");
@@ -97,8 +106,10 @@ function renderUniversityCalendar() {
   }
 }
 
+/*
 function openCalendarModal(event) {
-  const overlay = document.getElementById("calendar-modal-overlay");
+  //const overlay = document.getElementById("calendar-modal-overlay");
+  const overlay = document.getElementById("modal-overlay");
   const content = document.getElementById("calendar-modal-content");
 
   overlay.classList.remove("hidden");
@@ -112,14 +123,42 @@ function openCalendarModal(event) {
     <p class="text-gray-600 text-sm"><strong>Description:</strong> ${event.description || "No description provided."}</p>
   `;
 }
+  */
+
+// function closeCalendarModal() {
+//   document.getElementById("calendar-modal-overlay").classList.add("hidden");
+// }
+
+function openCalendarModal(event) {
+  document.getElementById("modal-title").textContent = event.title;
+  document.getElementById("modal-overlay").classList.remove("hidden");
+
+  const dateTimeString = `${event.date}T${event.time}`; 
+  const date = new Date(dateTimeString);
+
+  const formattedDate = date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  const formattedTime = date.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+
+  document.getElementById("event-day-time").textContent = `${formattedDate} - ${formattedTime}`;
+  document.getElementById("event-location").textContent = event.location;
+}
 
 function closeCalendarModal() {
-  document.getElementById("calendar-modal-overlay").classList.add("hidden");
+  document.getElementById("modal-overlay").classList.add("hidden");
 }
 
 function goToToday() {
-  currentCalendarDate = new Date(); 
-  fetchCalendarEvents(); 
+  currentCalendarDate = new Date();
+  fetchCalendarEvents();
 }
 
 document.addEventListener("DOMContentLoaded", fetchCalendarEvents);
@@ -157,7 +196,7 @@ function renderGeneralCalendar() {
 
     const daySpan = document.createElement("span");
     daySpan.textContent = day;
-    daySpan.className = `text-sm inline-flex items-center justify-center w-8 h-8 ${isToday ? "bg-blue-800 text-white font-bold rounded-full" : ""
+    daySpan.className = `text-sm inline-flex items-center justify-center w-8 h-8 ${isToday ? "bg-[#03378f] text-white font-bold rounded-full" : ""
       }`;
 
     div.appendChild(daySpan);

@@ -16,13 +16,20 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <script defer="" src="tabs.js"></script>
-    <script src="calendar.js" defer></script>
+    <script defer="" src="js/tabs.js"></script>
+    <script src="js/calendar.js" defer></script>
 
     <style>
         html.loading body {
             display: none;
         }
+
+        body.modal-open {
+            overflow: hidden;
+            padding-right: 0.5rem;
+            /* Adjust depending on scrollbar width */
+        }
+
 
         @font-face {
             font-family: 'Veonika';
@@ -91,7 +98,7 @@
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100" id="main-body">
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4" id="main-header">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <a class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]"
@@ -99,20 +106,20 @@
                 <img alt="BULSU MSC Logo" class="h-12" src="./Logos/Bulsu MSC Logo-02.png" />
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <a class="nav-link cursor-pointer font-semibold" onclick="scrollToSection('hero')">Home</a>
-                <a class="nav-link cursor-pointer font-semibold" onclick="scrollToSection('about')">Announcements</a>
-                <a class="nav-link cursor-pointer font-semibold" onclick="scrollToSection('announcements')">Events</a>
-                <div class="nav-icon-wrapper">
+                <a class="nav-link cursor-pointer font-semibold">About</a>
+                <a class="nav-link cursor-pointer font-semibold">Events</a>
+
+                <a href="dashboard.html" class="nav-icon-wrapper">
                     <i class="fa-solid fa-circle-user nav-icon"></i>
-                </div>
+                </a>
 
-                <div class="nav-icon-wrapper">
+                <a href="calendar.html" class="nav-icon-wrapper">
                     <i class="fa-solid fa-calendar-days nav-icon"></i>
-                </div>
+                </a>
 
-                <div class="nav-icon-wrapper">
+                <a href="" class="nav-icon-wrapper">
                     <i class="fa-solid fa-gear nav-icon"></i>
-                </div>
+                </a>
             </div>
             <div class="md:hidden flex items-center space-x-4">
                 <button class="text-gray-300 hover:text-[#b9da05] focus:outline-none" id="mobile-menu-button">
@@ -123,7 +130,7 @@
     </nav>
     <main class="pt-28 flex-row justify-center">
         <section
-            class="relative w-11/12 max-w-6xl mx-auto p-6 md:p-8 bg-blue-900 text-white rounded-2xl shadow-2xl transition transform hover:-translate-y-1"
+            class="relative w-11/12 max-w-6xl mx-auto p-6 md:p-8 bg-[#011c4a] text-white rounded-2xl shadow-2xl transition transform hover:-translate-y-1"
             id="dashboard-header">
             <div class="absolute inset-0 bg-gradient-to-r from-custom-primary via-custom-secondary to-custom-primary-light rounded-2xl opacity-70 animate-glowing"
                 style="filter: blur(15px); background-size: 400% 400%; z-index: -1;"></div>
@@ -186,10 +193,8 @@
                 </div>
 
                 <div class="flex justify-center gap-4 m-4">
-                    <button class="w-5/12 bg-green-700 text-m text-white py-1 px-2 rounded-full">
-                        Active
-                    </button>
-                    <button class="w-5/12 bg-blue-800 text-white py-1 px-2 rounded-full" id="role"></button>
+                    <span class="w-5/12 bg-[#03850a] text-m text-white py-1 px-2 rounded-full text-center">Active</span>
+                    <span class="w-5/12 bg-[#03378f] text-white py-1 px-2 rounded-full text-center" id="role"></span>
                 </div>
 
                 <section class="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 rounded-lg">
@@ -213,20 +218,20 @@
 
                 <div class="w-full flex flex-col sm:flex-row gap-2 py-2">
                     <a href="edit_profile.html"
-                        class="w-full sm:w-6/12 bg-[#3A59D1] text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#1f3bb3] shadow-md text-center flex items-center justify-center gap-2">
+                        class="w-full sm:w-6/12 bg-[#023c9e] text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#012769] shadow-md text-center flex items-center justify-center gap-2">
                         <i class="fa-solid fa-user-pen"></i>
                         Edit Profile
                     </a>
 
                     <!-- change_pass.html -->
                     <a href="change_passwordform.html"
-                        class="w-full sm:w-6/12 bg-[#3A59D1] text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#1f3bb3] shadow-md text-center flex items-center justify-center gap-2">
+                        class="w-full sm:w-6/12 bg-[#023c9e] text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#012769] shadow-md text-center flex items-center justify-center gap-2">
                         <i class="fa-solid fa-unlock-keyhole text-white"></i>
                         Change Password
                     </a>
                 </div>
                 <button
-                    class="w-full bg-[#FB4141] text-white py-2 px-2 rounded-lg transition-colors duration-300 hover:bg-[#b03030] shadow-md">
+                    class="w-full bg-[#d60202] text-white py-2 px-2 rounded-lg transition-colors duration-300 hover:bg-[#b03030] shadow-md">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
                 </button>
             </div>
@@ -310,7 +315,7 @@
                     </div>
 
                     <!-- Calendar: Event Modal -->
-                    <div id="calendar-modal-overlay"
+                    <!-- <div id="calendar-modal-overlay"
                         class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
                         <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative animate-fadeIn">
                             <button onclick="closeCalendarModal()"
@@ -320,10 +325,55 @@
                             <div id="calendar-modal-content" class="space-y-4 text-sm text-gray-800">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- END OF CALENDAR #1-->
+
+                    <!-- NEW EVENT MODAL: TEST -->
+                    <!-- <div id="modal-overlay"
+                        class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden"> -->
+                    <!-- Modal Box -->
+                    <!-- <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative animate-fadeIn">
+                            <button onclick=""
+                                class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
+                                <i class="fas fa-times text-lg"></i>
+                            </button>
+                            <div id="calendar-modal-content" class="space-y-4 text-sm text-gray-800">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div id="modal-overlay"
+                        class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+                        <!-- Modal Box -->
+                        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative animate-fadeIn">
+                            <!-- Close Button -->
+                            <button onclick="closeCalendarModal()"
+                                class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
+                                <i class="fas fa-times text-lg"></i>
+                            </button>
+
+                            <div class="space-y-4 text-sm text-gray-800">
+                                <h3 id="modal-title" class="text-xl font-semibold text-gray-800"></h3>
+
+                                <div class="border-b border-gray-200"></div>
+
+                                <div id="modal-content" class="space-y-3">
+                                    <div class="flex gap-3 items-start">
+                                        <i class="fa-solid fa-clock text-blue-600 pt-2 w-8 text-center"></i>
+                                        <p id="event-day-time" class="text-lg text-gray-700 mt-0.5"></p>
+                                    </div>
+
+                                    <div class="flex gap-3 items-start">
+                                        <i class="fa-solid fa-location-dot text-red-500 p-2 w-8 text-center"></i>
+                                        <p id="event-location" class="text-lg text-gray-700 mt-0.5"></p>
+                                    </div>
+
+                                    <button
+                                        class="p-2 bg-blue-600 text-white w-full rounded-sm hover:bg-blue-900">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
             </div>
 
             <script crossorigin="anonymous" src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -464,7 +514,7 @@
             } else {
                 const div = document.createElement("div");
                 div.className =
-                    "w-full h-full rounded-full bg-blue-700 text-white flex items-center justify-center text-4xl font-bold";
+                    "w-full h-full rounded-full bg-[#03378f] text-white flex items-center justify-center text-4xl font-bold";
                 div.textContent = initials;
                 container.appendChild(div);
             }
@@ -530,13 +580,13 @@
 
                     const html = `
         <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 group">
-            <div class="w-full md:w-16 h-16 md:h-auto bg-blue-700 text-white rounded-lg flex flex-col items-center justify-center md:flex-shrink-0">
+            <div class="w-full md:w-16 h-16 md:h-auto bg-[#03378f] text-white rounded-lg flex flex-col items-center justify-center md:flex-shrink-0">
                 <span class="text-xs font-semibold uppercase">${month}</span>
                 <span class="text-2xl font-bold">${day}</span>
             </div>
             <div class="flex-grow">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-700 transition-colors">${event.event_name}</h3>
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-800 transition-colors">${event.event_name}</h3>
                     <span class="inline-block text-xs font-semibold px-2 py-1 rounded-full
                         ${event.attendance_status === 'attended'
                             ? 'bg-green-100 text-green-700'
@@ -547,10 +597,10 @@
                     </span>
                 </div>
                 <p class="text-sm text-gray-600 mt-2 flex items-center gap-2">
-                    <i class="fa-solid fa-clock text-blue-500"></i> ${event.event_time_start || "TBA"}
+                    <i class="fa-solid fa-clock text-blue-700"></i> ${event.event_time_start || "TBA"}
                 </p>
                 <p class="text-sm text-gray-600 mt-1 flex items-center gap-2">
-                    <i class="fa-solid fa-location-dot text-red-500"></i> ${event.location || "TBA"}
+                    <i class="fa-solid fa-location-dot text-red-700"></i> ${event.location || "TBA"}
                 </p>
             </div>
         </div>
@@ -647,22 +697,22 @@
 
                     const html = `
                 <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 group">
-                    <div class="w-full md:w-16 h-16 md:h-auto bg-blue-600 text-white rounded-lg flex flex-col items-center justify-center md:flex-shrink-0">
+                    <div class="w-full md:w-16 h-16 md:h-auto bg-[#03378f] text-white rounded-lg flex flex-col items-center justify-center md:flex-shrink-0">
                         <span class="text-xs font-semibold uppercase">${month}</span>
                         <span class="text-2xl font-bold">${day}</span>
                     </div>
                     <div class="flex-grow">
                         <div class="flex justify-between items-start">
-                            <h3 class="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-700 transition-colors">${evt.event_name}</h3>
-                            <span class="inline-block text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-600 rounded-full">
-                                ${evt.event_type || "General"}
+                            <h3 class="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-900 transition-colors">${evt.event_name}</h3>
+                            <span class="inline-block text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-900 rounded-full">
+                                ${evt.event_type}
                             </span>
                         </div>
                         <p class="text-sm text-gray-600 mt-2 flex items-center gap-2">
-                            <i class="fa-solid fa-clock text-blue-500"></i> ${evt.event_time_start || "TBA"}
+                            <i class="fa-solid fa-clock text-blue-700"></i> ${evt.event_time_start || "TBA"}
                         </p>
                         <p class="text-sm text-gray-600 mt-1 flex items-center gap-2">
-                            <i class="fa-solid fa-location-dot text-red-500"></i> ${evt.location || "Location TBA"}
+                            <i class="fa-solid fa-location-dot text-red-700"></i> ${evt.location || "Location TBA"}
                         </p>
                         <p class="text-xs text-gray-400 mt-3 italic">
                             Description: ${evt.description || "BulSU MSC - Test Only"}
