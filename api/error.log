@@ -6946,3 +6946,519 @@
 [15-Aug-2025 06:46:34 Europe/Berlin] Announcement route - Endpoint: recent
 [15-Aug-2025 06:46:34 Europe/Berlin] Announcement route - ID: null
 [15-Aug-2025 06:46:34 Europe/Berlin] Announcement route - Action: null
+[15-Aug-2025 11:34:13 Europe/Berlin] Request path: /updated-msc-website/api/
+[15-Aug-2025 11:34:13 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+)
+
+[15-Aug-2025 11:34:13 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/
+[15-Aug-2025 11:34:13 Europe/Berlin] Found API index, resource: 
+[15-Aug-2025 11:34:13 Europe/Berlin] Request path: /updated-msc-website/api/
+[15-Aug-2025 11:34:13 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+)
+
+[15-Aug-2025 11:34:13 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/
+[15-Aug-2025 11:34:13 Europe/Berlin] Found API index, resource: 
+[15-Aug-2025 11:34:13 Europe/Berlin] Request path: /updated-msc-website/api/
+[15-Aug-2025 11:34:13 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+)
+
+[15-Aug-2025 11:34:13 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/
+[15-Aug-2025 11:34:13 Europe/Berlin] Found API index, resource: 
+[15-Aug-2025 11:44:31 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:44:31 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:44:31 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:44:31 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 11:44:31 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:44:31 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:44:31 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 11:44:31 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 11:44:31 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 11:44:31 Europe/Berlin] PHP Warning:  Undefined array key "name_suffix" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 58
+[15-Aug-2025 11:44:31 Europe/Berlin] PHP Warning:  Undefined array key "section" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 65
+[15-Aug-2025 11:44:31 Europe/Berlin] PHP Warning:  Undefined array key "address" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 66
+[15-Aug-2025 11:44:31 Europe/Berlin] PHP Warning:  Undefined array key "phone" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 67
+[15-Aug-2025 11:44:31 Europe/Berlin] PHP Warning:  Undefined array key "facebook_link" in C:\xampp\htdocs\updated-msc-website\api\models\Student.php on line 68
+[15-Aug-2025 11:47:22 Europe/Berlin] Request path: /updated-msc-website/api/students
+[15-Aug-2025 11:47:22 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => students
+)
+
+[15-Aug-2025 11:47:22 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/students?page=1&limit=20
+[15-Aug-2025 11:47:22 Europe/Berlin] Found API index, resource: students
+[15-Aug-2025 11:47:22 Europe/Berlin] Student route - Path: /updated-msc-website/api/students
+[15-Aug-2025 11:47:22 Europe/Berlin] Student route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => students
+)
+
+[15-Aug-2025 11:47:22 Europe/Berlin] Student route - Endpoint: 
+[15-Aug-2025 11:47:22 Europe/Berlin] Student route - ID: null
+[15-Aug-2025 11:48:10 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:48:10 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:48:10 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:48:10 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 11:48:10 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:48:10 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:48:10 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 11:48:10 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 11:48:10 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 11:54:05 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:54:05 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:54:05 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:54:05 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 11:54:05 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:54:05 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:54:05 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 11:54:05 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 11:54:05 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 11:55:49 Europe/Berlin] Request path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:55:49 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:55:49 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:55:49 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 11:55:49 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/register
+[15-Aug-2025 11:55:49 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => register
+)
+
+[15-Aug-2025 11:55:49 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 11:55:49 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 11:55:49 Europe/Berlin] Auth route - Endpoint: register
+[15-Aug-2025 11:56:19 Europe/Berlin] Request path: /updated-msc-website/api/auth/logout
+[15-Aug-2025 11:56:19 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => logout
+)
+
+[15-Aug-2025 11:56:19 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/logout
+[15-Aug-2025 11:56:19 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 11:56:19 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/logout
+[15-Aug-2025 11:56:19 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => logout
+)
+
+[15-Aug-2025 11:56:19 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 11:56:19 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 11:56:19 Europe/Berlin] Auth route - Endpoint: logout
+[15-Aug-2025 11:57:00 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 11:57:00 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 11:57:00 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 11:57:00 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 11:57:00 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 11:57:00 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 11:57:00 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 11:57:00 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 11:57:00 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 11:57:07 Europe/Berlin] Request path: /updated-msc-website/api/auth/logout
+[15-Aug-2025 11:57:07 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => logout
+)
+
+[15-Aug-2025 11:57:07 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/logout
+[15-Aug-2025 11:57:07 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 11:57:07 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/logout
+[15-Aug-2025 11:57:07 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => logout
+)
+
+[15-Aug-2025 11:57:07 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 11:57:07 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 11:57:07 Europe/Berlin] Auth route - Endpoint: logout
+[15-Aug-2025 12:06:27 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:06:27 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:06:27 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:06:27 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:06:27 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:06:27 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:06:27 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:06:27 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:06:27 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:08:54 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:08:54 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:08:54 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:08:54 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:08:54 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:08:54 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:08:54 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:08:54 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:08:54 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:08:59 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:08:59 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:08:59 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:08:59 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:08:59 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:08:59 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:08:59 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:08:59 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:08:59 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:10 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:10 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:10 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:10 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:10 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:10 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:10 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:10 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:10 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:30 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:30 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:30 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:30 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:30 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:30 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:30 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:30 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:30 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:36 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:36 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:36 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:36 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:36 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:36 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:36 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:36 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:36 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:41 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:41 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:41 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:41 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:41 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:41 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:41 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:41 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:41 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:45 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:45 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:45 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:45 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:45 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:45 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:45 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:45 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:45 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:50 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:50 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:50 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:50 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:50 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:50 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:50 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:50 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:50 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:54 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:54 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:54 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:54 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:54 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:54 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:54 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:54 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:54 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:09:56 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:56 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:56 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:56 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:09:56 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:09:56 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:09:56 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:09:56 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:09:56 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 12:10:01 Europe/Berlin] Request path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:10:01 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:10:01 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:10:01 Europe/Berlin] Found API index, resource: auth
+[15-Aug-2025 12:10:01 Europe/Berlin] Auth route - Path: /updated-msc-website/api/auth/login
+[15-Aug-2025 12:10:01 Europe/Berlin] Auth route - Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+    [2] => auth
+    [3] => login
+)
+
+[15-Aug-2025 12:10:01 Europe/Berlin] Auth route - API Index: 1
+[15-Aug-2025 12:10:01 Europe/Berlin] Auth route - Auth Index: 2
+[15-Aug-2025 12:10:01 Europe/Berlin] Auth route - Endpoint: login
+[15-Aug-2025 14:06:17 Europe/Berlin] Request path: /updated-msc-website/api/
+[15-Aug-2025 14:06:17 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+)
+
+[15-Aug-2025 14:06:17 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/
+[15-Aug-2025 14:06:17 Europe/Berlin] Found API index, resource: 
+[15-Aug-2025 14:06:17 Europe/Berlin] Request path: /updated-msc-website/api/
+[15-Aug-2025 14:06:17 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+)
+
+[15-Aug-2025 14:06:17 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/
+[15-Aug-2025 14:06:17 Europe/Berlin] Found API index, resource: 
+[15-Aug-2025 14:06:17 Europe/Berlin] Request path: /updated-msc-website/api/
+[15-Aug-2025 14:06:17 Europe/Berlin] Path segments: Array
+(
+    [0] => updated-msc-website
+    [1] => api
+)
+
+[15-Aug-2025 14:06:17 Europe/Berlin] Original REQUEST_URI: /updated-msc-website/api/
+[15-Aug-2025 14:06:17 Europe/Berlin] Found API index, resource: 

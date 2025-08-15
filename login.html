@@ -53,7 +53,7 @@
                 <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="h-12" />
             </a>
             <div class="hidden md:flex items-center space-x-6">
-                <a onclick="scrollToSection('hero')"
+                <a onclick="window.location.href='index.html'"
                     class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Home</a>
                 <a onclick="scrollToSection('about')"
                     class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
@@ -92,17 +92,17 @@
             <div class="flex flex-col items-center text-center mt-4">
                 <div class="flex justify-center items-center gap-1">
                     <p>Don't have an account yet?</p>
-                    <a href="#" class="text-[#b9da05] hover:underline">Register Here</a>
+                    <a href="registration_forms.html" class="text-[#b9da05] hover:underline">Register Here</a>
                 </div>
                 <div>
-                    <a href="#" class="text-[#b9da05] hover:underline mt-2">Forgot your password?</a>
+                    <a href="forgot_passwordform.html" class="text-[#b9da05] hover:underline mt-2">Forgot your password?</a>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        const API_BASE = "http://localhost:8000/api";
+        const API_BASE = "/updated-msc-website/api";
 
         async function login() {
             const username = document.getElementById("loginUsername").value.trim();
