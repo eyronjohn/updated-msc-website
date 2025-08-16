@@ -118,6 +118,7 @@ class Student
     /**
      * Update student profile
      */
+    /*
     public function updateProfile($id, $data)
     {
         try {
@@ -158,6 +159,49 @@ class Student
                 'facebook_link' => $data['facebook_link'],
                 'profile_image_path' => $data['profile_image_path'] ?? null
             ]);
+        } catch (Exception $e) {
+            throw new Exception("Failed to update profile: " . $e->getMessage());
+        }
+    }
+        */
+    public function updateProfile($id, $data)
+    {
+        try {
+            $fields = [
+                'first_name',
+                'middle_name',
+                'last_name',
+                'name_suffix',
+                'birthdate',
+                'gender',
+                'student_no',
+                'year_level',
+                'college',
+                'program',
+                'section',
+                'address',
+                'phone',
+                'facebook_link',
+                'profile_image_path'
+            ];
+
+            $setParts = [];
+            $params = ['id' => $id];
+
+            foreach ($fields as $field) {
+                if (array_key_exists($field, $data)) {
+                    $setParts[] = "$field = :$field";
+                    $params[$field] = $data[$field];
+                }
+            }
+
+            if (empty($setParts)) {
+                throw new Exception("No data provided for update.");
+            }
+
+            $sql = "UPDATE students SET " . implode(", ", $setParts) . " WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute($params);
         } catch (Exception $e) {
             throw new Exception("Failed to update profile: " . $e->getMessage());
         }

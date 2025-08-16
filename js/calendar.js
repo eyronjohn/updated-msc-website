@@ -21,7 +21,7 @@ async function fetchCalendarEvents() {
   const endDate = new Date(year, month + 1, 0).toISOString().split('T')[0];
 
   try {
-    const res = await fetch(`http://localhost:8000/api/events/calendar?start=${startDate}&end=${endDate}`, {
+    const res = await fetch(`${API_BASE}/${startDate}&end=${endDate}`, {
       credentials: "include"
     });
 
