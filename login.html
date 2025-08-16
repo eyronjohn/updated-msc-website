@@ -28,10 +28,10 @@
         }
 
         body {
-            background-color: #0d1117; 
+            background-color: #0d1117;
             font-family: 'Segoe UI', sans-serif;
-            min-height: 100vh; 
-            position: relative; 
+            min-height: 100vh;
+            position: relative;
             overflow-x: hidden;
         }
 
@@ -40,14 +40,29 @@
         }
 
         @keyframes gradientBackground {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @keyframes flicker {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.05); }
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.05);
+            }
         }
 
         body::after {
@@ -57,52 +72,49 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: conic-gradient(
-                from 180deg at 50% 70%,
-                hsla(0, 0%, 98%, 1) 0deg,
-                #b9da05 72deg,
-                #0051ff 144deg,
-                #0095ff 216deg,
-                #b9da05 288deg,
-                hsla(0, 0%, 98%, 1) 360deg
-            );
+            background: conic-gradient(from 180deg at 50% 70%,
+                    hsla(0, 0%, 98%, 1) 0deg,
+                    #b9da05 72deg,
+                    #0051ff 144deg,
+                    #0095ff 216deg,
+                    #b9da05 288deg,
+                    hsla(0, 0%, 98%, 1) 360deg);
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
             mask-image: radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px),
-                        url(https://assets.codepen.io/605876/noise-mask.png);
+                url(https://assets.codepen.io/605876/noise-mask.png);
             mask-size: 300px 300px, 256px 256px;
             mask-position: 50% 50%, 256px 50%;
             mask-repeat: no-repeat, repeat;
             mask-composite: intersect;
-            -webkit-mask-composite: destination-in; /* For Safari */
+            -webkit-mask-composite: destination-in;
+            /* For Safari */
             animation: flicker 20s infinite linear;
-            z-index: -4; 
-            pointer-events: none; 
+            z-index: -4;
+            pointer-events: none;
         }
 
         .el {
-            background: conic-gradient(
-                from 180deg at 50% 70%,
-                hsla(0, 0%, 98%, 1) 0deg,
-                #b9da05 72deg,
-                #0051ff 144deg,
-                #0095ff 216deg,
-                #b9da05 288deg,
-                hsla(0, 0%, 98%, 1) 360deg
-            );
+            background: conic-gradient(from 180deg at 50% 70%,
+                    hsla(0, 0%, 98%, 1) 0deg,
+                    #b9da05 72deg,
+                    #0051ff 144deg,
+                    #0095ff 216deg,
+                    #b9da05 288deg,
+                    hsla(0, 0%, 98%, 1) 360deg);
             width: 100%;
             height: 100%;
             mask: radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
-                  url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+                url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
             mask-composite: intersect;
             animation: flicker 20s infinite linear;
             position: fixed;
             top: 0;
             left: 0;
-            z-index: -1; 
-            pointer-events: none; 
+            z-index: -1;
+            pointer-events: none;
         }
 
         #main-header {
@@ -110,34 +122,33 @@
             backdrop-filter: blur(10px);
         }
 
-        #main-header.header-scrolled { 
+        #main-header.header-scrolled {
             background-color: #00071c;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
         }
 
         main {
-            position: relative; 
-            z-index: 1; 
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 
 <!-- bg-[#0a1a35] -->
+
 <body class="min-h-screen flex flex-col">
-    <div class="el"></div> <nav id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4">
+    <div class="el"></div>
+    <nav id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-2 text-white hover:text-[#b9da05] transition">
                 <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="h-12" />
             </a>
             <div class="hidden md:flex items-center space-x-6">
-                <a onclick="scrollToSection('hero')"
+                <a href="index.html"
                     class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Home</a>
-                <a onclick="scrollToSection('about')"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
-                <a onclick="scrollToSection('team')"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
-                <a onclick="scrollToSection('partners')"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
+                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
+                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
+                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
                 <button id="login-button-desktop"
                     class="bg-[#b9da05] text-[#00071c] font-bold py-2 px-4 rounded-full transition-colors duration-300 hover:bg-white hover:text-[#00071c] shadow-md">
                     Login
@@ -150,7 +161,8 @@
         <div class="w-full max-w-md bg-[#18181b] text-white p-8 rounded-2xl shadow-lg border border-[#27272a] border-2">
             <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Veonika', sans-serif;">Login</h2>
 
-            <div id="response" class="hidden mb-4 text-white border border-red-500 bg-[#27272a] px-4 py-3 rounded text-sm"></div>
+            <div id="response"
+                class="hidden mb-4 text-white border border-red-500 bg-[#27272a] px-4 py-3 rounded text-sm"></div>
 
             <label for="loginUsername" class="block text-sm font-semibold mb-1">Username</label>
             <input type="text" id="loginUsername" placeholder="Enter your username"
@@ -168,10 +180,10 @@
             <div class="flex flex-col items-center text-center mt-4">
                 <div class="flex justify-center items-center gap-1">
                     <p>Don't have an account yet?</p>
-                    <a href="#" class="text-[#b9da05] hover:underline">Register Here</a>
+                    <a href="registration_forms.html" class="text-[#b9da05] hover:underline">Register Here</a>
                 </div>
                 <div>
-                    <a href="#" class="text-[#b9da05] hover:underline mt-2">Forgot your password?</a>
+                    <a href="forgot_passwordform.html" class="text-[#b9da05] hover:underline mt-2">Forgot your password?</a>
                 </div>
             </div>
         </div>
