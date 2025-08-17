@@ -92,7 +92,7 @@
             <div class="flex flex-col items-center text-center mt-4">
                 <div class="flex justify-center items-center gap-1">
                     <p>Don't have an account yet?</p>
-                    <a href="registration_forms.html" class="text-[#b9da05] hover:underline">Register Here</a>
+                    <a href="register.html" class="text-[#b9da05] hover:underline">Register Here</a>
                 </div>
                 <div>
                     <a href="forgot_passwordform.html" class="text-[#b9da05] hover:underline mt-2">Forgot your password?</a>
@@ -102,37 +102,56 @@
     </main>
 
     <script>
-        const API_BASE = "/updated-msc-website/api";
+    const API_BASE = "/updated-msc-website/api";
 
-        async function login() {
-            const username = document.getElementById("loginUsername").value.trim();
-            const password = document.getElementById("loginPassword").value;
-            const responseEl = document.getElementById("response");
+    async function apiCall(endpoint, method = "GET", data = null, title = "") {
+        try {
+            const options = {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            };
 
-            responseEl.classList.add("hidden");
-
-            try {
-                const res = await fetch(`${API_BASE}/auth/login`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    credentials: "include",
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await res.json();
-
-                if (res.ok && data.success) {
-                    window.location.href = "dashboard.html";
-                } else {
-                    //responseEl.textContent = `${data.message}`; //Backend message - Invalid username/email or password
-                    responseEl.textContent = "Invalid username or password.";
-                    responseEl.classList.remove("hidden");
-                }
-            } catch (err) {
-                responseEl.textContent = `Network error: ${err.message}`;
-                responseEl.classList.remove("hidden");
+            if (data) {
+                options.body = JSON.stringify(data);
             }
+
+            console.log(`🚀 ${method} ${endpoint}:`, data);
+
+            const response = await fetch(`${API_BASE}${endpoint}`, options);
+            const result = await response.json();
+
+            return result;
+        } catch (error) {
+            console.error("API Error:", error);
+            return null;
         }
+    }
+
+    async function login() {
+        const username = document.getElementById("loginUsername").value.trim();
+        const password = document.getElementById("loginPassword").value;
+        const responseEl = document.getElementById("response");
+
+        responseEl.classList.add("hidden");
+
+        const result = await apiCall(
+            "/auth/login",
+            "POST",
+            { username, password },
+            "🔑 User Login"
+        );
+
+        if (result && result.success) {
+            currentUser = result.user || result.data;
+            window.location.href = "dashboard.html";
+        } else {
+            responseEl.textContent = "Invalid username or password.";
+            responseEl.classList.remove("hidden");
+        }
+    }
     </script>
 
 </body>

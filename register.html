@@ -234,6 +234,7 @@
         openStatusModal("❌ " + title + " Failed", result.message || `${title} failed`, false);
         } else {
         openStatusModal("✅ " + title + " Successful", result.message || `${title} successful`, true);
+        window.location.href = "login.html"; // Redirect to login after successful registration
         }
 
         return result;
