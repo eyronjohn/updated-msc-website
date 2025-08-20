@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard</title>
+    <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @font-face {
+            font-family: 'Veonika';
+            src: url('https://fonts.cdnfonts.com/s/72818/veonika_free.woff') format('woff');
+        }
+
+        h1 {
+            font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        h2,
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        #main-header {
+            background-color: rgba(0, 7, 28, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        #main-header.header-scrolled {
+            background-color: #00071c;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-link {
+            color: #d1d5db;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #b9da05;
+        }
+
+        .nav-icon-wrapper {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-icon-wrapper:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-icon {
+            color: white;
+            font-size: 1.25rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .nav-icon-wrapper:hover .nav-icon {
+            color: #b9da05;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100" id="main-body">
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]"
+                href="#hero">
+                <img alt="BULSU MSC Logo" class="h-12" src="./Logos/Bulsu MSC Logo-02.png" />
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="dashboard.html" class="nav-link cursor-pointer font-semibold">Home</a>
+                <a href="announcements.html" class="nav-link cursor-pointer font-semibold">Announcements</a>
+                <a href="events-and-register-events.html" class="nav-link cursor-pointer font-semibold">Events</a>
+
+                <a href="dashboard.html" class="nav-icon-wrapper">
+                    <i class="fa-solid fa-house nav-icon"></i>
+                </a>
+
+                <a href="edit_profile.html" class="nav-icon-wrapper">
+                    <i class="fa-solid fa-circle-user nav-icon"></i>
+                </a>
+
+                <a href="calendar.html" class="nav-icon-wrapper">
+                    <i class="fa-solid fa-calendar-days nav-icon"></i>
+                </a>
+
+                <a href="#" class="nav-icon-wrapper">
+                    <i class="fa-solid fa-gear nav-icon"></i>
+                </a>
+            </div>
+            <div class="md:hidden flex items-center space-x-4">
+                <button class="text-gray-300 hover:text-[#b9da05] focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl transition-transform duration-300" id="mobile-menu-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="min-h-screen flex pt-[100px] flex-col items-center md:justify-center">
+        <div class="bg-white rounded-lg shadow-md p-6 mt-8 w-11/12 max-w-5xl">
+            <h2 class="text-2xl font-bold mb-6 text-blue-900">Settings</h2>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-4 rounded shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Edit Personal Information</h3>
+                    <p class="text-base text-gray-600 mb-2">
+                        Update your name, birthday, contact info, and and academic info.
+                    </p>
+                    <a href="edit_profile.html" class="text-blue-600 hover:underline text-base">
+                        Go to Edit Personal Info
+                    </a>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Change Password</h3>
+                    <p class="text-base text-gray-600 mb-2">
+                        Update your account password for security.
+                    </p>
+                    <a href="change_passwordform.html" class="text-blue-600 hover:underline text-base">
+                        Go to Change Password
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

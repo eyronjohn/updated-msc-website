@@ -88,6 +88,8 @@ switch ($method) {
     case 'POST':
         if ($endpoint && $id === 'toggle-active') {
             $studentController->toggleActive($endpoint);
+        } else if ($endpoint === 'upload-profile' && is_numeric($id)) {
+            $studentController->uploadProfilePicture($id);
         } else {
             http_response_code(404);
             echo json_encode(['success' => false, 'message' => 'POST endpoint not found']);

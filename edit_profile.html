@@ -111,10 +111,15 @@
         <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="h-12" />
       </a>
       <div class="hidden md:flex items-center space-x-8">
-        <a class="nav-link cursor-pointer font-semibold">About</a>
-        <a class="nav-link cursor-pointer font-semibold">Events</a>
+        <a href="dashboard.html" class="nav-link cursor-pointer font-semibold">Home</a>
+        <a href="announcements.html" class="nav-link cursor-pointer font-semibold">Announcements</a>
+        <a href="events-and-register-events.html" class="nav-link cursor-pointer font-semibold">Events</a>
 
         <a href="dashboard.html" class="nav-icon-wrapper">
+          <i class="fa-solid fa-house nav-icon"></i>
+        </a>
+
+        <a href="#" class="nav-icon-wrapper">
           <i class="fa-solid fa-circle-user nav-icon"></i>
         </a>
 
@@ -122,7 +127,7 @@
           <i class="fa-solid fa-calendar-days nav-icon"></i>
         </a>
 
-        <a href="" class="nav-icon-wrapper">
+        <a href="settings.html" class="nav-icon-wrapper">
           <i class="fa-solid fa-gear nav-icon"></i>
         </a>
 
@@ -134,6 +139,55 @@
       </div>
     </div>
   </nav>
+
+  <!-- Mobile Sidebar -->
+  <div id="mobile-sidebar"
+    class="fixed top-[64px] left-0 w-64 h-[calc(100%-64px)] bg-[#00071c] bg-opacity-90 backdrop-blur-md z-40 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="p-6 space-y-4 text-white font-semibold">
+      <a href="dashboard.html"
+        class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+        <i
+          class="fa-solid fa-house text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+        </i>
+        <span>Home</span>
+      </a>
+
+      <a href="announcements.html"
+        class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+        <i
+          class="fa-solid fa-bell text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+        <span>Announcements</span>
+      </a>
+
+      <a href="events-and-register-events.html"
+        class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+        <i
+          class="fa-solid fa-calendar-alt text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+        <span>Events</span>
+      </a>
+
+      <a href="3"
+        class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+        <i
+          class="fa-solid fa-user-circle text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+        <span>Edit Profile</span>
+      </a>
+
+      <a href="calendar.html"
+        class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+        <i
+          class="fa-solid fa-calendar-days text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+        <span>Calendar</span>
+      </a>
+
+      <a href="settings.html"
+        class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+        <i
+          class="fa-solid fa-gear text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+        <span>Settings</span>
+      </a>
+    </div>
+  </div>
 
   <main class="pt-28 flex justify-center">
     <section id="header"
@@ -193,11 +247,6 @@
             <h2 class="text-xl font-bold text-gray-800">
               Personal Information
             </h2>
-            <!-- <div class="flex gap-2 mt-2 sm:mt-0">
-              <button class="text-gray-400 hover:text-[#b9da05] transition-colors" onclick="updateProfile()">
-                <i class="fas fa-save w-4 h-4"></i>
-              </button>
-            </div> -->
 
             <!-- Save Button: disabled (default) -->
             <div class="flex gap-2 mt-2 sm:mt-0">
@@ -252,8 +301,7 @@
                 </div>
               </div>
 
-              <!-- DIVIDER: TO BE REPLACED -->
-              ---
+              <div class="md:col-span-2 border-t border-gray-200 my-1"></div>
 
               <div class="md:col-span-2">
                 <h3 class="text-gray-600 text-md font-semibold mb-2">Demographic Information</h3>
@@ -277,15 +325,11 @@
                 </div>
               </div>
 
-              ---
+              <div class="md:col-span-2 border-t border-gray-200 my-1"></div>
 
               <div class="md:col-span-2">
                 <h3 class="text-gray-600 text-md font-semibold mb-2">Contact Information</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
-                  <!-- <div>
-                    <h3 class="text-gray-500 text-sm mb-1">Email:</h3>
-                    <p class="font-medium text-gray-700" id="email"></p>
-                  </div> -->
                   <div>
                     <h3 class="text-gray-500 text-sm mb-1">Email:</h3>
                     <input type="" value="" placeholder=""
@@ -313,23 +357,11 @@
                 </div>
               </div>
 
-              ---
+              <div class="md:col-span-2 border-t border-gray-200 my-1"></div>
 
               <div class="md:col-span-2">
                 <h3 class="text-gray-600 text-md font-semibold mb-2">Academic Information</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
-                  <!-- <div>
-                    <h3 class="text-gray-500 text-sm mb-1">College:</h3>
-                    <input type="text" value=""
-                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      id="student_college" />
-                  </div>
-                  <div>
-                    <h3 class="text-gray-500 text-sm mb-1">Program:</h3>
-                    <input type="text" value=""
-                      class="w-full p-2 border border-gray-300 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      id="student_program" />
-                  </div> -->
                   <div>
                     <h3 class="text-gray-500 text-sm mb-1">College:</h3>
                     <select id="student_college"
@@ -361,15 +393,11 @@
                 </div>
               </div>
 
-              ---
+              <div class="md:col-span-2 border-t border-gray-200 my-1"></div>
 
               <div class="md:col-span-2">
                 <h3 class="text-gray-600 text-md font-semibold mb-2">Account Information</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
-                  <!-- <div>
-                    <h3 class="text-gray-500 text-sm mb-1">Username:</h3>
-                    <p class="font-medium text-gray-700" id="username"></p>
-                  </div> -->
                   <div>
                     <h3 class="text-gray-500 text-sm mb-1">Username:</h3>
                     <input type="" value="" placeholder=""
@@ -380,24 +408,22 @@
                     <h3 class="text-gray-500 text-sm mb-1">Member Since:</h3>
                     <p class="font-medium text-gray-700" id="member_since"></p>
                   </div>
+
+                  <div class="space-y-2">
+                    <label for="profile" class="text-gray-500 text-sm mb-1 block">
+                      Change Profile Picture:
+                    </label>
+                    <input type="file" id="profile" class="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4
+           file:rounded-md file:border-0 file:text-sm file:font-semibold
+           file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100
+           transition duration-150 ease-in-out" accept="image/*" />
+                  </div>
                 </div>
               </div>
 
             </div>
           </div>
         </div>
-
-        <!-- Update/Failed Modal -->
-        <!-- <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 justify-center items-center">
-          <div class="bg-white rounded-xl shadow-lg max-w-sm w-full p-6 text-center">
-            <h3 class="text-lg font-semibold text-gray-800 mb-2" id="modal-title">Notification</h3>
-            <p class="text-sm text-gray-600 mb-4" id="modal-message">This is a message.</p>
-            <button class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition"
-              onclick="closeModal()">
-              OK
-            </button>
-          </div>
-        </div> -->
 
         <!-- Toast Notification: Updated/Failed -->
         <div id="toast" class="fixed bottom-6 right-6 z-50 hidden">
@@ -429,7 +455,7 @@
                   </h3>
                   <p class="text-sm text-gray-500 mt-1" id="member_since2"></p>
                 </div>
-                <!-- Dynamic badges to be inserted-->
+                <!-- Attended/Event Badges-->
               </div>
             </div>
           </div>
@@ -449,7 +475,24 @@
   </main>
 
   <script>
-    const API_BASE = "http://localhost:8000/api";
+    const API_BASE = "/updated-msc-website/api";
+
+    //Mobile View: Sidebar
+    const menuButton = document.getElementById("mobile-menu-button");
+    const mobileSidebar = document.getElementById("mobile-sidebar");
+
+    menuButton.addEventListener("click", () => {
+      mobileSidebar.classList.toggle("-translate-x-full");
+    });
+
+    document.addEventListener("click", function (event) {
+      const isClickInsideSidebar = mobileSidebar.contains(event.target);
+      const isClickOnMenu = menuButton.contains(event.target);
+
+      if (!isClickInsideSidebar && !isClickOnMenu) {
+        mobileSidebar.classList.add("-translate-x-full");
+      }
+    });
 
     let originalProfile = {};
     const collegeProgramMap = {
@@ -544,7 +587,6 @@
     const collegeSelect = document.getElementById('student_college');
     const programSelect = document.getElementById('student_program');
 
-    // Populate the College dropdown
     function populateColleges(selectedCollege = "") {
       collegeSelect.innerHTML = '<option value="">Select College</option>';
       Object.keys(collegeProgramMap).forEach(college => {
@@ -556,7 +598,6 @@
       });
     }
 
-    // Populate the Program dropdown based on selected College
     function populatePrograms(selectedCollege, selectedProgram = "") {
       programSelect.innerHTML = '<option value="">Select Program</option>';
 
@@ -571,7 +612,6 @@
       }
     }
 
-    // College dropdown triggers program update
     collegeSelect.addEventListener('change', (e) => {
       populatePrograms(e.target.value);
     });
@@ -624,7 +664,7 @@
 
         // Profile picture initials
         const initials = `${user.first_name?.charAt(0) || ""}${user.last_name?.charAt(0) || ""}`.toUpperCase();
-        renderProfilePicture(user.profile_picture_url, initials);
+        renderProfilePicture(user.profile_image_path, initials);
 
         attachChangeListeners();
         document.documentElement.classList.remove("loading");
@@ -633,70 +673,6 @@
       }
     }
 
-    /*
-    async function fetchProfile() {
-      try {
-        const res = await fetch(`${API_BASE}/auth/profile`, {
-          credentials: "include"
-        });
-        const data = await res.json();
-
-        const user = data.data;
-        originalProfile = { ...user }; // 🔁 Store for change detection
-
-        // Event badges
-        fetchAndDisplayEventBadges(user.id);
-
-        // Display info
-        document.getElementById("msc_id").textContent = user.msc_id;
-        generateQRCode(user.msc_id || user.student_no || "UNKNOWN");
-        document.getElementById("fullName").textContent = `${user.first_name} ${user.last_name}`;
-        document.getElementById("studentID").textContent = user.student_no;
-        document.getElementById("program").textContent = user.program;
-        document.getElementById("college").textContent = user.college;
-        document.getElementById("year_level").textContent = user.year_level;
-        document.getElementById("role").textContent = user.role;
-
-        // Fill input fields
-        document.getElementById("firstName").value = user.first_name || "";
-        document.getElementById("middleName").value = user.middle_name || "";
-        document.getElementById("lastName").value = user.last_name || "";
-        document.getElementById("name_suffix").value = user.name_suffix || "";
-        document.getElementById("birthdate").value = formatDateInput(user.birthdate);
-        document.getElementById("gender").value = user.gender || "";
-        document.getElementById("student_no").value = user.student_no || "";
-        document.getElementById("section").value = user.section || "";
-        document.getElementById("student_college").value = user.college || "";
-        document.getElementById("student_program").value = user.program || "";
-        document.getElementById("address").value = user.address || "";
-        document.getElementById("phone").value = user.phone || "";
-        document.getElementById("facebook_link").value = user.facebook_link || "";
-        document.getElementById("username").value = user.username || "";
-        document.getElementById("email").value = user.email || "";
-
-        // Member since
-        const createdDate = new Date(user.created_at);
-        const formattedMemberSince = createdDate.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-        document.getElementById("member_since").textContent = formattedMemberSince;
-        document.getElementById("member_since2").textContent = createdDate.toLocaleDateString("en-US");
-
-        // Profile picture initials
-        const initials = `${user.first_name?.charAt(0) || ""}${user.last_name?.charAt(0) || ""}`.toUpperCase();
-        renderProfilePicture(user.profile_picture_url, initials);
-
-        attachChangeListeners(); // 🔁 Attach after fill
-        document.documentElement.classList.remove("loading");
-      } catch (err) {
-        console.error("Failed to fetch user profile:", err);
-      }
-    }
-    */
-
-    // Format YYYY-MM-DD
     function formatDateInput(dateStr) {
       if (!dateStr) return "";
       const date = new Date(dateStr);
@@ -704,7 +680,9 @@
     }
 
     function hasProfileChanged() {
-      return [
+      const imageChanged = document.getElementById("profile")?.files.length > 0;
+
+      const fieldChanged = [
         ["firstName", "first_name"],
         ["middleName", "middle_name"],
         ["lastName", "last_name"],
@@ -724,6 +702,8 @@
         const originalValue = (originalProfile[field] || "").trim();
         return currentValue !== originalValue;
       });
+
+      return fieldChanged || imageChanged;
     }
 
     function attachChangeListeners() {
@@ -739,6 +719,29 @@
           }
         });
       });
+
+      // Detect file change (for image)
+      const fileInput = document.getElementById("profile");
+      if (fileInput) {
+        fileInput.addEventListener("change", () => {
+          if (hasProfileChanged()) {
+            saveBtn.classList.remove("pointer-events-none", "opacity-50");
+          } else {
+            saveBtn.classList.add("pointer-events-none", "opacity-50");
+          }
+
+          // Preview the image
+          const file = fileInput.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const container = document.getElementById("profile-picture-container");
+              container.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover" />`;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
     }
 
     async function updateProfile() {
@@ -764,6 +767,29 @@
         const user = profileData.data;
         const studentId = user.id;
 
+        // 1. Upload profile picture if selected
+        const fileInput = document.getElementById("profile");
+        let uploadedImagePath = user.profile_image_path;
+
+        if (fileInput.files.length > 0) {
+          const formData = new FormData();
+          formData.append("profile", fileInput.files[0]);
+
+          const uploadRes = await fetch(`${API_BASE}/students/upload-profile/${studentId}`, {
+            method: "POST",
+            body: formData,
+            credentials: "include"
+          });
+
+          const uploadResult = await uploadRes.json();
+          if (uploadRes.ok && uploadResult.success) {
+            uploadedImagePath = uploadResult.data.path;
+          } else {
+            showToast("Failed to upload image", "error");
+            return;
+          }
+        }
+
         const payload = {
           first_name: document.getElementById("firstName").value.trim(),
           middle_name: document.getElementById("middleName").value.trim(),
@@ -779,7 +805,7 @@
           address: document.getElementById("address").value.trim(),
           phone: document.getElementById("phone").value.trim(),
           facebook_link: document.getElementById("facebook_link").value.trim(),
-          profile_image_path: user.profile_image_path ?? null
+          profile_image_path: uploadedImagePath
         };
 
         const updateRes = await fetch(`${API_BASE}/students/profile/${studentId}`, {
@@ -795,19 +821,13 @@
 
         if (updateRes.ok && updateResult.success) {
           showToast("Profile updated successfully!", "success");
-          // originalProfile = { ...originalProfile, ...payload }; // Update original reference
-          // saveBtn.classList.add("pointer-events-none", "opacity-50");
 
-          // Update original profile
           originalProfile = { ...originalProfile, ...payload };
-
-          // Disable Save button
           saveBtn.classList.add("pointer-events-none", "opacity-50");
 
-          // Reload (after toast disappears)
           setTimeout(() => {
             location.reload();
-          }, 1000); // match the toast timeout
+          }, 1500);
         } else {
           console.error(updateResult.message || "Unknown error");
           showToast("Failed to update profile.", "error");
@@ -819,7 +839,6 @@
       }
     }
 
-    //Profile Pic Generator
     function renderProfilePicture(profilePictureUrl, initials) {
       const container = document.getElementById("profile-picture-container");
       if (!container) return;
@@ -828,7 +847,13 @@
 
       if (profilePictureUrl) {
         const img = document.createElement("img");
-        img.src = profilePictureUrl;
+
+        let fullUrl = profilePictureUrl;
+        if (profilePictureUrl.startsWith("/uploads")) {
+          fullUrl = `${API_BASE.replace("/api", "")}${profilePictureUrl}`;
+        }
+
+        img.src = fullUrl;
         img.alt = "Profile Picture";
         img.className = "w-full h-full object-cover";
         container.appendChild(img);
@@ -917,87 +942,13 @@
       });
     }
 
-    async function updateProfile() {
-      const saveBtn = document.getElementById("saveBtn");
-
-      if (!hasProfileChanged()) {
-        showToast("No changes made to profile.", "error");
-        return;
-      }
-
-      try {
-        const res = await fetch(`${API_BASE}/auth/profile`, {
-          credentials: "include"
-        });
-        const profileData = await res.json();
-
-        if (!res.ok || !profileData.success) {
-          alert("Session expired. Please login again.");
-          window.location.href = "login.html";
-          return;
-        }
-
-        const user = profileData.data;
-        const studentId = user.id;
-
-        const payload = {
-          first_name: document.getElementById("firstName").value.trim(),
-          middle_name: document.getElementById("middleName").value.trim(),
-          last_name: document.getElementById("lastName").value.trim(),
-          name_suffix: document.getElementById("name_suffix").value.trim(),
-          birthdate: document.getElementById("birthdate").value,
-          gender: document.getElementById("gender").value,
-          student_no: document.getElementById("student_no").value.trim(),
-          year_level: user.year_level,
-          college: document.getElementById("student_college").value.trim(),
-          program: document.getElementById("student_program").value.trim(),
-          section: document.getElementById("section").value.trim(),
-          address: document.getElementById("address").value.trim(),
-          phone: document.getElementById("phone").value.trim(),
-          facebook_link: document.getElementById("facebook_link").value.trim(),
-          profile_image_path: user.profile_image_path ?? null
-        };
-
-        const updateRes = await fetch(`${API_BASE}/students/profile/${studentId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          credentials: "include",
-          body: JSON.stringify(payload)
-        });
-
-        const updateResult = await updateRes.json();
-
-        if (updateRes.ok && updateResult.success) {
-          showToast("Profile updated successfully!", "success");
-          originalProfile = { ...originalProfile, ...payload };
-          saveBtn.classList.add("pointer-events-none", "opacity-50");
-
-          // Auto-reload 
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-        } else {
-          console.error(updateResult.message || "Unknown error");
-          showToast("Failed to update profile.", "error");
-        }
-
-      } catch (err) {
-        console.error("Error updating profile:", err);
-        showToast("An error occurred while updating profile.", "error");
-      }
-    }
-
     function showToast(message, type = "success") {
       const toast = document.getElementById("toast");
       const toastMessage = document.getElementById("toast-message");
       const toastContent = document.getElementById("toast-content");
 
-      // Set message
       toastMessage.textContent = message;
 
-      // Set color and icon
       if (type === "success") {
         toastContent.className = "flex items-center max-w-xs p-4 text-sm text-white bg-green-600 rounded-lg shadow-lg animate-slide-in";
         toastContent.querySelector("i").className = "fas fa-check-circle mr-2 text-white";
@@ -1008,10 +959,33 @@
 
       toast.classList.remove("hidden");
 
-      // Auto-hide after 3 seconds
       setTimeout(() => {
         toast.classList.add("hidden");
       }, 1000);
+    }
+
+    async function uploadProfilePicture(studentId) {
+      const fileInput = document.getElementById("profileInput");
+      const file = fileInput?.files?.[0];
+      if (!file) return null;
+
+      const formData = new FormData();
+      formData.append("profile", file);
+
+      const res = await fetch(`${API_BASE}/students/upload-profile/${studentId}`, {
+        method: "POST",
+        credentials: "include",
+        body: formData
+      });
+
+      const result = await res.json();
+
+      if (res.ok && result.success) {
+        return result.data.path;
+      } else {
+        console.error(result.message || "Profile image upload failed.");
+        return null;
+      }
     }
   </script>
 </body>
