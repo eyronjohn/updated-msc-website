@@ -26,8 +26,12 @@
             font-family: 'Orbitron', sans-serif;
         }
 
+        main{
+            background-color: #011538;
+        }
+
         #main-header {
-            background-color: rgba(0, 7, 28, 0.8);
+            background-color: #00071c;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -82,9 +86,17 @@
                 <img alt="BULSU MSC Logo" class="h-12" src="./Logos/Bulsu MSC Logo-02.png" />
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="dashboard.html" class="nav-link cursor-pointer font-semibold">Home</a>
+                <!-- <a href="dashboard.html" class="nav-link cursor-pointer font-semibold">Home</a>
                 <a href="announcements.html" class="nav-link cursor-pointer font-semibold">Announcements</a>
-                <a href="events-and-register-events.html" class="nav-link cursor-pointer font-semibold">Events</a>
+                <a href="events-and-register-events.html" class="nav-link cursor-pointer font-semibold">Events</a> -->
+                <a onclick="scrollToSection('hero')"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Home</a>
+                <a onclick="scrollToSection('about')"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
+                <a onclick="scrollToSection('team')"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
+                <a onclick="scrollToSection('partners')"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
 
                 <a href="dashboard.html" class="nav-icon-wrapper">
                     <i class="fa-solid fa-house nav-icon"></i>
@@ -111,32 +123,101 @@
     </nav>
 
     <main class="min-h-screen flex pt-[100px] flex-col items-center md:justify-center">
-        <div class="bg-white rounded-lg shadow-md p-6 mt-8 w-11/12 max-w-5xl">
-            <h2 class="text-2xl font-bold mb-6 text-blue-900">Settings</h2>
+        <div class="bg-[#011538] border-2 border-[#b9da05] rounded-lg shadow-md p-6 mt-8 w-11/12 max-w-5xl text-white">
+            <h2 class="text-2xl font-bold mb-6 text-[#b9da05]">Settings</h2>
 
             <div class="space-y-6">
-                <div class="bg-gray-50 p-4 rounded shadow-sm">
-                    <h3 class="text-xl font-semibold mb-2">Edit Personal Information</h3>
-                    <p class="text-base text-gray-600 mb-2">
-                        Update your name, birthday, contact info, and and academic info.
-                    </p>
-                    <a href="edit_profile.html" class="text-blue-600 hover:underline text-base">
-                        Go to Edit Personal Info
+                <!-- Edit Personal Information -->
+                <div class="bg-[#011538] border border-white/20 p-4 rounded shadow-sm">
+                    <a href="edit_profile.html" class="text-xl font-semibold mb-2 text-[#b9da05] hover:underline block">
+                        Edit Personal Information
                     </a>
+                    <p class="text-base text-gray-200">
+                        Update your name, birthday, contact info, and academic info.
+                    </p>
                 </div>
 
-                <div class="bg-gray-50 p-4 rounded shadow-sm">
-                    <h3 class="text-xl font-semibold mb-2">Change Password</h3>
-                    <p class="text-base text-gray-600 mb-2">
+                <!-- Change Password -->
+                <div class="bg-[#011538] border border-white/20 p-4 rounded shadow-sm">
+                    <a href="change_passwordform.html"
+                        class="text-xl font-semibold mb-2 text-[#b9da05] hover:underline block">
+                        Change Password
+                    </a>
+                    <p class="text-base text-gray-200">
                         Update your account password for security.
                     </p>
-                    <a href="change_passwordform.html" class="text-blue-600 hover:underline text-base">
-                        Go to Change Password
-                    </a>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Mobile Sidebar -->
+    <div id="mobile-sidebar"
+        class="fixed top-[64px] left-0 w-64 h-[calc(100%-64px)] bg-[#00071c] bg-opacity-90 backdrop-blur-md z-40 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="p-6 space-y-4 text-white font-semibold">
+            <a href="dashboard.html"
+                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+                <i
+                    class="fa-solid fa-house text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
+                <span>Home</span>
+            </a>
+
+            <a href="announcements.html"
+                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+                <i
+                    class="fa-solid fa-bell text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                <span>Announcements</span>
+            </a>
+
+            <a href="events-and-register-events.html"
+                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+                <i
+                    class="fa-solid fa-calendar-alt text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                <span>Events</span>
+            </a>
+
+            <a href="edit_profile.html"
+                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+                <i
+                    class="fa-solid fa-user-circle text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                <span>Edit Profile</span>
+            </a>
+
+            <a href="calendar.html"
+                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+                <i
+                    class="fa-solid fa-calendar-days text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                <span>Calendar</span>
+            </a>
+
+            <a href="settings.html"
+                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
+                <i
+                    class="fa-solid fa-gear text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        //Mobile View: Sidebar
+        const menuButton = document.getElementById("mobile-menu-button");
+        const mobileSidebar = document.getElementById("mobile-sidebar");
+
+        menuButton.addEventListener("click", () => {
+            mobileSidebar.classList.toggle("-translate-x-full");
+        });
+
+        document.addEventListener("click", function (event) {
+            const isClickInsideSidebar = mobileSidebar.contains(event.target);
+            const isClickOnMenu = menuButton.contains(event.target);
+
+            if (!isClickInsideSidebar && !isClickOnMenu) {
+                mobileSidebar.classList.add("-translate-x-full");
+            }
+        });
+    </script>
 
 </body>
 
