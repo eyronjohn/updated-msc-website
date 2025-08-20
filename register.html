@@ -1,272 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Account</title>
-    <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
-    <link rel="stylesheet" href="/updated-msc-website/css/register_style.css">
+    <title>Register | BulSU MSC</title>
+    <link rel="icon" href="./Logos/Bulsu MSC Logo-02.png" type="image/png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        @font-face {
+            font-family: 'Veonika';
+            src: url('https://fonts.cdnfonts.com/s/72818/veonika_free.woff') format('woff');
+        }
 
+        h1,
+        h2,
+        h3 {
+            font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
+            background-color: #00071c;
+            scroll-behavior: smooth;
+        }
+        
+        .el {
+            background: conic-gradient(from 180deg at 50% 70%,hsla(0,0%,98%,1) 0deg,#b9da05 72.0000010728836deg,#0051ff 144.0000021457672deg,#0095ff 216.00000858306885deg,#b9da05 288.0000042915344deg,hsla(0,0%,98%,1) 1turn);
+            width: 100%;
+            height: 100%;
+            mask:
+                radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+                url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+            mask-composite: intersect;
+            animation: flicker 20s infinite linear;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        @keyframes flicker {
+            to {
+                mask-position: 50% 50%, 0 50%;
+            }
+        }
+
+        #main-header {
+            background-color: rgba(0, 7, 28, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        #main-header.header-scrolled {
+            background-color: #00071c;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1-px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-link {
+            color: #d1d5db;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #b9da05;
+        }
+
+        :root {
+            --size: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .toggle-password:hover {
+            color: #b9da05;
+        }
+    </style>
 </head>
-<body>
-    <nav id="main-header" class="main-header">
-        <div class="container">
-            <a href="index.html" class="logo-link">
-            <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="logo-img" />
-            </a>
-            <div class="nav-links">
-            <a class="nav-link" onclick="window.location.href='index.html'">Home</a>
-            <a class="nav-link" onclick="window.location.href='announcements.html'">Announcements</a>
-            <a class="nav-link" onclick="window.location.href='events-and-register-events.html'">Events</a>
 
-            <div class="nav-icon-wrapper"><i class="fa-solid fa-circle-user nav-icon"></i></div>
-            <div class="nav-icon-wrapper"><i class="fa-solid fa-calendar-days nav-icon"></i></div>
-            <div class="nav-icon-wrapper"><i class="fa-solid fa-gear nav-icon"></i></div>
+<body class="min-h-screen flex flex-col">
+    <div class="el"></div>
+    <nav id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]">
+                <img src="./Logos/Bulsu MSC Logo-02.png" alt="BULSU MSC Logo" class="h-12">
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Home</a>
+                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
+                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
+                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
+                <button id="login-button-desktop" class="bg-[#b9da05] text-[#00071c] font-bold py-2 px-4 rounded-full transition-colors duration-300 hover:bg-white hover:text-[#00071c] shadow-md">Login</button>
+            </div>
+            <div class="md:hidden flex items-center space-x-4">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-[#b9da05] focus:outline-none">
+                    <i id="mobile-menu-icon" class="fas fa-bars text-2xl transition-transform duration-300"></i>
+                </button>
             </div>
         </div>
     </nav>
-    <div class="card-wrapper">
-        <div class="card">
-            <div class="card-header">
-                <h2>Create Your Account</h2>
-            </div>
 
-            <div class="card-content">
-                <div id="error-box" class="error-box hidden"></div>
-
-                <form id="registrationForm">
-                    <!-- Personal Information -->
-                    <div class="grid">
-                        <div class="form-group">
-                            <label for="regFirstName">First Name</label>
-                            <input id="regFirstName" type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="regMiddleName">Middle Name</label>
-                            <input id="regMiddleName" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label for="regLastName">Last Name</label>
-                            <input id="regLastName" type="text" required>
-                        </div>
+    <main class="flex-grow flex items-center justify-center pt-28 px-4">
+        <div class="w-full max-w-4xl bg-[#18181b] text-white p-8 rounded-2xl shadow-lg border border-[#27272a] border-2">
+            <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Veonika', sans-serif;">Create Your Account</h2>
+            <div id="error-box" class="hidden mb-4 text-white border border-red-500 bg-[#27272a] px-4 py-3 rounded text-sm"></div>
+            <form id="registrationForm">
+                <div class="form-grid mb-6">
+                    <div>
+                        <label for="regFirstName" class="block text-sm font-semibold mb-1">First Name</label>
+                        <input id="regFirstName" type="text" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
                     </div>
-
-                    <!-- Account Credentials -->
-                    <div class="grid mt">
-                        <div class="form-group">
-                            <label for="regUsername">Username</label>
-                            <input id="regUsername" type="text" required>
-                            <p class="hint">Must be at least 3 characters</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="regEmail">Email Address</label>
-                            <input id="regEmail" type="email" required>
-                            <p class="hint">Please enter a valid email address</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="regRole">Registering as</label>
-                            <select id="regRole" class="position" required>
-                                <option value="member">Member</option>
-                                <option value="officer">Officer</option>
-                            </select>
-                        </div>
-                        <div class="form-group password-group">
-                            <label for="regPassword">Password</label>
-                            <div class="password-wrapper">
-                                <input type="password" id="regPassword" placeholder="Enter your password" required>
-                                <button type="button" class="toggle-password" data-target="regPassword">👁</button>
-                                
-                                
-                            </div>
-                            <small id="passwordHint" style="color: red; display: none;">
-                                Password must contain at least one uppercase letter, one lowercase<br/>letter, and one number.
-                                </small>
-                                <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    const regPassword = document.getElementById("regPassword");
-                                    const hint = document.getElementById("passwordHint");
-
-                                    regPassword.addEventListener("input", function () {
-                                        const password = this.value;
-
-                                        // Regex: at least 1 uppercase, 1 lowercase, 1 digit, min length 8
-                                        const valid = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/.test(password);
-
-                                        if (!valid) {
-                                            hint.style.display = "block";
-                                        } else {
-                                            hint.style.display = "none";
-                                        }
-                                    });
-                                });
-                                </script>
-                            <p class="hint">Must be at least 8 characters</p>
-                        </div>
-                        <div class="form-group password-group">
-                            <label for="confirmPassword">Confirm Password</label>
-                            <div class="password-wrapper">
-                                <input id="confirmPassword" type="password" required>
-                                <button type="button" class="toggle-password" data-target="confirmPassword">👁</button>
-                            </div>
-                            <p class="hint">Please re-enter your password</p>
-                        </div>
+                    <div>
+                        <label for="regMiddleName" class="block text-sm font-semibold mb-1">Middle Name</label>
+                        <input id="regMiddleName" type="text" class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
                     </div>
-        
-                    <!-- Personal Details -->
-                    <div class="grid mt">
-                        <div class="form-group">
-                            <label for="regBirthdate">Birthdate</label>
-                            <input id="regBirthdate" type="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="regGender">Gender</label>
-                            <select id="regGender" class="selectors" required>
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
+                    <div>
+                        <label for="regLastName" class="block text-sm font-semibold mb-1">Last Name</label>
+                        <input id="regLastName" type="text" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
                     </div>
+                </div>
 
-                    <!-- Academic Information -->
-                    <div class="grid mt">
-                        <div class="form-group">
-                            <label for="regStudentNo">Student No.</label>
-                            <input id="regStudentNo" type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="regYearLevel">Year Level</label>
-                            <select id="regYearLevel" class="selectors" required>
-                                <option value="">Select Year Level</option>
-                                <option value="1st Year">1st Year</option>
-                                <option value="2nd Year">2nd Year</option>
-                                <option value="3rd Year">3rd Year</option>
-                                <option value="4th Year">4th Year</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="regCollege">College</label>
-                            <select id="regCollege" class="selectors" required>
-                                <option value="">Select College</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="regProgram">Program</label>
-                            <select id="regProgram" class="selectors" required>
-                                <option value="">Select a College first</option>
-                            </select>
-                        </div>
+                <div class="form-grid mb-6">
+                    <div>
+                        <label for="regUsername" class="block text-sm font-semibold mb-1">Username</label>
+                        <input id="regUsername" type="text" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                        <p class="text-xs text-gray-400 mt-1">Must be at least 3 characters</p>
                     </div>
-
-                    <!-- Terms -->
-                    <div class="terms mt">
-                        <input type="checkbox" id="terms">
-                        <label for="terms" class="label-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+                    <div>
+                        <label for="regEmail" class="block text-sm font-semibold mb-1">Email Address</label>
+                        <input id="regEmail" type="email" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                        <p class="text-xs text-gray-400 mt-1">Please enter a valid email address</p>
                     </div>
+                    <div>
+                        <label for="regRole" class="block text-sm font-semibold mb-1">Registering as</label>
+                        <select id="regRole" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                            <option value="member">Member</option>
+                            <option value="officer">Officer</option>
+                        </select>
+                    </div>
+                </div>
 
-                    <button type="submit" class="submit-btn mt">Create Account</button>
-                </form>
-            </div>
+                <div class="form-grid-2 mb-6">
+                    <div>
+                        <label for="regPassword" class="block text-sm font-semibold mb-1">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="regPassword" placeholder="Enter your password" required class="w-full px-4 py-3 pr-12 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                            <button type="button" class="toggle-password" data-target="regPassword">👁</button>
+                        </div>
+                        <small id="passwordHint" style="color: red; display: none;" class="text-xs">Password must contain at least one uppercase letter, one lowercase letter, and one number.</small>
+                        <p class="text-xs text-gray-400 mt-1">Must be at least 8 characters</p>
+                    </div>
+                    <div>
+                        <label for="confirmPassword" class="block text-sm font-semibold mb-1">Confirm Password</label>
+                        <div class="password-wrapper">
+                            <input id="confirmPassword" type="password" required class="w-full px-4 py-3 pr-12 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                            <button type="button" class="toggle-password" data-target="confirmPassword">👁</button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Please re-enter your password</p>
+                    </div>
+                </div>
 
-            <div class="card-footer">
-                <p>Already have an account? <a href="login.html">Sign in here</a></p>
-                <small>Powered by <b>BulSU MSC</b></small>
+                <div class="form-grid-2 mb-6">
+                    <div>
+                        <label for="regBirthdate" class="block text-sm font-semibold mb-1">Birthdate</label>
+                        <input id="regBirthdate" type="date" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                    </div>
+                    <div>
+                        <label for="regGender" class="block text-sm font-semibold mb-1">Gender</label>
+                        <select id="regGender" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid mb-6">
+                    <div>
+                        <label for="regStudentNo" class="block text-sm font-semibold mb-1">Student No.</label>
+                        <input id="regStudentNo" type="text" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                    </div>
+                    <div>
+                        <label for="regYearLevel" class="block text-sm font-semibold mb-1">Year Level</label>
+                        <select id="regYearLevel" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                            <option value="">Select Year Level</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="regCollege" class="block text-sm font-semibold mb-1">College</label>
+                        <select id="regCollege" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                            <option value="">Select College</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="regProgram" class="block text-sm font-semibold mb-1">Program</label>
+                        <select id="regProgram" required class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05]">
+                            <option value="">Select a College first</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-start mb-6">
+                    <input type="checkbox" id="terms" class="mt-1 mr-2 accent-[#b9da05]">
+                    <label for="terms" class="text-sm text-gray-300">I agree to the <a href="#" class="text-[#b9da05] hover:underline">Terms of Service</a> and <a href="#" class="text-[#b9da05] hover:underline">Privacy Policy</a>.</label>
+                </div>
+
+                <button type="submit" class="w-full bg-[#b9da05] text-[#00071c] text-m font-bold py-3 rounded-md hover:bg-[#8fae04] hover:text-[#00071c] transition-colors shadow-md">Create Account</button>
+            </form>
+
+            <div class="flex flex-col items-center text-center mt-6">
+                <div class="flex justify-center items-center gap-1">
+                    <p>Already have an account?</p>
+                    <a href="login.html" class="text-[#b9da05] hover:underline">Sign in here</a>
+                </div>
+                <small class="text-gray-400 mt-2">Powered by <b>BulSU MSC</b></small>
             </div>
         </div>
-    </div>
-    <!-- Status Modal -->
+    </main>
+
     <div id="statusModal" class="status-modal">
-    <div class="status-modal-content">
-        <span id="statusModalClose" class="status-modal-close">&times;</span>
-        <h3 id="statusModalTitle"></h3>
-        <p id="statusModalMessage"></p>
+        <div class="status-modal-content">
+            <span id="statusModalClose" class="status-modal-close">&times;</span>
+            <h3 id="statusModalTitle"></h3>
+            <p id="statusModalMessage"></p>
+        </div>
     </div>
-    </div>
+
     <script src="program-and-course.js"></script>
     <script>
-    const API_BASE = "/updated-msc-website/api";
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetInput = document.getElementById(targetId);
+                
+                if (targetInput.type === 'password') {
+                    targetInput.type = 'text';
+                    this.textContent = '🙈';
+                } else {
+                    targetInput.type = 'password';
+                    this.textContent = '👁';
+                }
+            });
+        });
 
-    // Function to open modal
-    function openStatusModal(title, message, isSuccess) {
-    const modal = document.getElementById("statusModal");
-    document.getElementById("statusModalTitle").innerText = title;
-    document.getElementById("statusModalMessage").innerText = message;
-    
-    // Change title color depending on success/fail
-    document.getElementById("statusModalTitle").style.color = isSuccess ? "green" : "red";
-    
-    modal.style.display = "flex";
-    }
+        document.addEventListener("DOMContentLoaded", () => {
+            const regPassword = document.getElementById("regPassword");
+            const hint = document.getElementById("passwordHint");
 
-    // Close modal when clicking X or outside
-    document.getElementById("statusModalClose").onclick = function() {
-    document.getElementById("statusModal").style.display = "none";
-    };
-    window.onclick = function(e) {
-    if (e.target === document.getElementById("statusModal")) {
-        document.getElementById("statusModal").style.display = "none";
-    }
-    };
+            regPassword.addEventListener("input", function () {
+                const password = this.value;
+                const valid = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/.test(password);
 
-    async function apiCall(endpoint, method = "GET", data = null, title = "") {
-    try {
-        const options = {
-        method: method,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
+                if (!valid && password.length > 0) {
+                    hint.style.display = "block";
+                } else {
+                    hint.style.display = "none";
+                }
+            });
+        });
+
+        const API_BASE = "/updated-msc-website/api";
+
+        function openStatusModal(title, message, isSuccess) {
+            const modal = document.getElementById("statusModal");
+            document.getElementById("statusModalTitle").innerText = title;
+            document.getElementById("statusModalMessage").innerText = message;
+            document.getElementById("statusModalTitle").style.color = isSuccess ? "green" : "red";
+            modal.style.display = "flex";
+        }
+
+        document.getElementById("statusModalClose").onclick = function() {
+            document.getElementById("statusModal").style.display = "none";
         };
 
-        if (data) {
-        options.body = JSON.stringify(data);
+        window.onclick = function(e) {
+            if (e.target === document.getElementById("statusModal")) {
+                document.getElementById("statusModal").style.display = "none";
+            }
+        };
+
+        async function apiCall(endpoint, method = "GET", data = null, title = "") {
+            try {
+                const options = {
+                    method: method,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                };
+
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+
+                console.log(`🚀 ${method} ${endpoint}:`, data);
+
+                const response = await fetch(`${API_BASE}${endpoint}`, options);
+                const result = await response.json();
+                console.log(result);
+
+                if (!response.ok) {
+                    openStatusModal("❌ " + title + " Failed", result.message || `${title} failed`, false);
+                } else {
+                    openStatusModal("✅ " + title + " Successful", result.message || `${title} successful`, true);
+                    window.location.href = "login.html";
+                }
+
+                return result;
+            } catch (error) {
+                console.error("API Error:", error);
+                openStatusModal("⚠ Network Error", `Network error during ${title}`, false);
+                return null;
+            }
         }
 
-        console.log(`🚀 ${method} ${endpoint}:`, data);
-
-        const response = await fetch(`${API_BASE}${endpoint}`, options);
-        const result = await response.json();
-        console.log(result);
-
-        if (!response.ok) {
-        openStatusModal("❌ " + title + " Failed", result.message || `${title} failed`, false);
-        } else {
-        openStatusModal("✅ " + title + " Successful", result.message || `${title} successful`, true);
-        window.location.href = "login.html"; // Redirect to login after successful registration
+        async function testRegister() {
+            const data = {
+                username: document.getElementById("regUsername").value,
+                email: document.getElementById("regEmail").value,
+                password: document.getElementById("regPassword").value,
+                first_name: document.getElementById("regFirstName").value,
+                middle_name: document.getElementById("regMiddleName").value,
+                last_name: document.getElementById("regLastName").value,
+                birthdate: document.getElementById("regBirthdate").value,
+                gender: document.getElementById("regGender").value,
+                role: document.getElementById("regRole").value,
+                student_no: document.getElementById("regStudentNo").value,
+                year_level: document.getElementById("regYearLevel").value,
+                college: document.getElementById("regCollege").value,
+                program: document.getElementById("regProgram").value,
+            };
+            await apiCall("/auth/register", "POST", data, "📝 User Registration");
         }
 
-        return result;
-    } catch (error) {
-        console.error("API Error:", error);
-        openStatusModal("⚠ Network Error", `Network error during ${title}`, false);
-        return null;
-    }
-    }
-
-    async function testRegister() {
-    const data = {
-        username: document.getElementById("regUsername").value,
-        email: document.getElementById("regEmail").value,
-        password: document.getElementById("regPassword").value,
-        first_name: document.getElementById("regFirstName").value,
-        middle_name: document.getElementById("regMiddleName").value,
-        last_name: document.getElementById("regLastName").value,
-        birthdate: document.getElementById("regBirthdate").value,
-        gender: document.getElementById("regGender").value,
-        role: document.getElementById("regRole").value,
-        student_no: document.getElementById("regStudentNo").value,
-        year_level: document.getElementById("regYearLevel").value,
-        college: document.getElementById("regCollege").value,
-        program: document.getElementById("regProgram").value,
-    };
-    await apiCall("/auth/register", "POST", data, "📝 User Registration");
-    }
-
-    document.getElementById("registrationForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    testRegister();
-    });
+        document.getElementById("registrationForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            testRegister();
+        });
     </script>
 </body>
 </html>
