@@ -6,6 +6,7 @@ function navigateCalendar(monthOffset) {
   fetchCalendarEvents();
 }
 
+/*
 function getColorByType(type) {
   switch (type) {
     case 'onsite': return 'bg-blue-500';
@@ -13,6 +14,15 @@ function getColorByType(type) {
     default: return 'bg-gray-400';
   }
 }
+  */
+ function getColorByType(type) {
+  switch (type) {
+    case 'onsite': return 'bg-[#b9da05] text-[#011538]'; // yellow pill
+    case 'online': return 'bg-blue-600 text-white';      // navy-blue pill
+    default: return 'bg-white/20 text-white';            // neutral
+  }
+}
+
 
 async function fetchCalendarEvents() {
   const year = currentCalendarDate.getFullYear();
@@ -59,6 +69,71 @@ function renderUniversityCalendar() {
   monthTitle.textContent = currentCalendarDate.toLocaleString("default", { month: "long", year: "numeric" });
   grid.innerHTML = "";
 
+  // Empty cells before the first day
+  for (let i = 0; i < firstDay; i++) {
+    const cell = document.createElement("div");
+    grid.appendChild(cell);
+  }
+
+  // Days
+  for (let day = 1; day <= daysInMonth; day++) {
+    const cell = document.createElement("div");
+    const date = new Date(year, month, day);
+    const dateStr = date.toISOString().split('T')[0];
+    const events = calendarEvents.filter(e => e.date === dateStr);
+
+    // Dark navy styling
+    cell.classList.add(
+      "p-2", "border", "border-white/10", "relative", "h-20",
+      "bg-[#011538]", "hover:bg-white/10", "transition-colors"
+    );
+
+    const dayLabel = document.createElement("div");
+    dayLabel.textContent = day;
+
+    const today = new Date();
+    const isToday = date.toDateString() === today.toDateString();
+
+    dayLabel.classList.add(
+      "w-7", "h-7", "flex", "items-center", "justify-center",
+      "font-semibold", "text-sm", "mx-auto", "rounded-full"
+    );
+
+    if (isToday) {
+      dayLabel.classList.add("bg-[#b9da05]", "text-[#011538]");
+    } else {
+      dayLabel.classList.add("text-white");
+    }
+
+    cell.appendChild(dayLabel);
+
+    // Event badges
+    events.forEach(e => {
+      const badge = document.createElement("div");
+      badge.className = `mt-1 text-white text-xs px-2 py-1 rounded ${e.color} cursor-pointer truncate`;
+      badge.textContent = e.title;
+
+      badge.addEventListener("click", () => openCalendarModal(e));
+      cell.appendChild(badge);
+    });
+
+    grid.appendChild(cell);
+  }
+}
+
+/*
+function renderUniversityCalendar() {
+  const grid = document.getElementById("calendar-grid");
+  const monthTitle = document.getElementById("calendar-month-title");
+  const month = currentCalendarDate.getMonth();
+  const year = currentCalendarDate.getFullYear();
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  monthTitle.textContent = currentCalendarDate.toLocaleString("default", { month: "long", year: "numeric" });
+  grid.innerHTML = "";
+
   for (let i = 0; i < firstDay; i++) {
     const cell = document.createElement("div");
     grid.appendChild(cell);
@@ -84,7 +159,7 @@ function renderUniversityCalendar() {
     );
 
     if (isToday) {
-      dayLabel.classList.add("bg-[#03378f]", "text-white");
+      dayLabel.classList.add("bg-[#011538]", "text-white");
     } else {
       dayLabel.classList.add("text-gray-700");
     }
@@ -105,6 +180,7 @@ function renderUniversityCalendar() {
     grid.appendChild(cell);
   }
 }
+  */
 
 /*
 function openCalendarModal(event) {
@@ -180,6 +256,7 @@ function renderGeneralCalendar() {
   grid.innerHTML = "";
   monthTitle.textContent = generalCalendarDate.toLocaleString("default", { month: "long", year: "numeric" });
 
+  // Empty cells before first day
   for (let i = 0; i < firstDay; i++) {
     const blank = document.createElement("div");
     grid.appendChild(blank);
@@ -192,17 +269,24 @@ function renderGeneralCalendar() {
     const div = document.createElement("div");
     const isToday = date.toDateString() === today.toDateString();
 
-    div.className = "border p-2 h-20 relative transition-all text-gray-800 hover:bg-blue-50 flex items-start justify-end";
+    // Navy background, subtle white border
+    div.className = "border border-white/10 p-2 h-20 relative transition-all bg-[#011538] text-white hover:bg-white/10 flex items-start justify-end";
 
     const daySpan = document.createElement("span");
     daySpan.textContent = day;
-    daySpan.className = `text-sm inline-flex items-center justify-center w-8 h-8 ${isToday ? "bg-[#03378f] text-white font-bold rounded-full" : ""
-      }`;
+
+    // Default = white text, Today = yellow highlight
+    daySpan.className = `text-sm inline-flex items-center justify-center w-8 h-8 ${
+      isToday
+        ? "bg-[#b9da05] text-[#011538] font-bold rounded-full"
+        : "text-white"
+    }`;
 
     div.appendChild(daySpan);
     grid.appendChild(div);
   }
 }
+
 
 function navigateGeneralCalendar(offset) {
   generalCalendarDate.setMonth(generalCalendarDate.getMonth() + offset);
