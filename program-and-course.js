@@ -148,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        alert("Form submitted successfully!");
     });
 
     function showError(msg) {
