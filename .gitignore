@@ -1,2 +1,1 @@
-echo "api/error.log" >> .gitignore
-echo "register.html" >> .gitignore
+# echo "api/error.log" >> .gitignore
