@@ -12,7 +12,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Use Segoe UI for all elements */
         * {
             font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
         }
@@ -24,7 +23,6 @@
     <!-- Sidebar -->
     <aside id="sidebar"
         class="bg-[#00071c] text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg z-40 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
-        <!-- Replaced "Admin Panel" with logo and BulSU Microsoft Student Community text -->
         <div class="flex flex-col items-center justify-center h-20 border-b border-white/20 px-4 py-3">
             <div class="flex items-center gap-2 mb-1">
                 <img src="./Logos/Bulsu MSC Logo-02.png" alt="BulSU Microsoft Logo" class="w-8 h-8">
@@ -55,19 +53,15 @@
         </nav>
     </aside>
 
-    <!-- Toggle Button (mobile) -->
     <button id="sidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-[#b9da05] text-[#011538] p-2 rounded-md">
         <i class="fas fa-bars"></i>
     </button>
 
     <main class="lg:ml-64 p-6 transition-all duration-300">
         <div class="flex justify-between items-center mb-6">
-            <!-- Increased text size from text-3xl to text-4xl for Welcome, Admin -->
             <h2 class="text-4xl font-bold text-white">Welcome, Admin!</h2>
         </div>
 
-        <!-- Number Cards -->
-        <!-- Updated container colors to match dashboard.html styling -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
                 <h3 class="text-xl font-semibold text-gray-200 mb-2">Total Students</h3>
@@ -85,8 +79,6 @@
             </div>
         </div>
 
-        <!-- Charts -->
-        <!-- Updated chart container colors to match dashboard.html -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
                 <h3 class="text-xl font-semibold text-gray-200 mb-4">Students per College</h3>
@@ -167,7 +159,6 @@
         document.addEventListener("DOMContentLoaded", getAllAnnouncements);
     </script>
 
-    <!-- Charts -->
     <script src="js/charts.js"></script>
 
 </body>

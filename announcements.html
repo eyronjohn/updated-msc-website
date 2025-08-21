@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Added Tailwind CSS and removed external CSS dependency -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Announcements | BulSU MSC</title>
     
-    <!-- Added inline styles matching events page design -->
     <style>
         * {
             margin: 0;
@@ -273,7 +272,6 @@
     </style>
 </head>
 <body id="main-body">
-    <!-- Replaced custom header with dashboard-style Tailwind header -->
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4" id="main-header">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <a class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]"
@@ -308,7 +306,6 @@
         </div>
     </nav>
 
-    <!-- Added mobile sidebar from events page -->
     <div id="mobile-sidebar"
         class="fixed top-[64px] left-0 w-64 h-[calc(100%-64px)] bg-[#00071c] bg-opacity-100 backdrop-blur-md z-40 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
         <div class="p-6 space-y-4 text-white font-semibold">
@@ -350,13 +347,11 @@
         </div>
     </div>
 
-    <!-- Converted wrapper-container to simple hero section without orbit -->
     <div class="hero-section">
         <h1>BulSU MSC Announcements</h1>
         <p>Stay updated with the latest from BulSU MSC</p>
     </div>
 
-    <!-- Restructured content to match events page layout -->
     <div class="main-content">
         <div class="content-container">
             <main>
@@ -366,7 +361,6 @@
                 </section>
             </main>
 
-            <!-- Updated modal styling to match events page -->
             <div class="modal" id="eventModal">
                 <div class="modal-content">
                     <span class="close-btn">&times;</span>
@@ -378,7 +372,6 @@
         </div>
     </div>
 
-    <!-- Updated footer to match index.html structure -->
     <div class="footer-container">
         <footer class="bg-[#00071c] text-center p-6 border-t border-gray-800">
             <div class="flex justify-center space-x-1 mb-1">
@@ -397,7 +390,6 @@
         </footer>
     </div>
 
-    <!-- Added mobile menu functionality and updated JavaScript -->
     <script>
     const API_BASE = "/updated-msc-website/api";
 
