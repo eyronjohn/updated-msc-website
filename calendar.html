@@ -91,28 +91,22 @@
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4" id="main-header">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <a class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]"
-                href="#hero">
+                href="index.html">
                 <img alt="BULSU MSC Logo" class="h-12" src="./Logos/Bulsu MSC Logo-02.png" />
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html"
+                <a href="dashboard.html"
                     class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Home</a>
-                <a href="index.html#about"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
-                <a href="index.html#team"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
-                <a href="index.html#partners"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
-
-                <a href="index.html" class="nav-icon-wrapper">
-                    <i class="fa-solid fa-house nav-icon"></i>
-                </a>
+                <a href="announcements.html"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Announcements</a>
+                <a href="events-and-register-events.html"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Events</a>
 
                 <a href="edit_profile.html" class="nav-icon-wrapper">
                     <i class="fa-solid fa-circle-user nav-icon"></i>
                 </a>
 
-                <a href="#" class="nav-icon-wrapper">
+                <a href="calendar.html" class="nav-icon-wrapper">
                     <i class="fa-solid fa-calendar-days nav-icon"></i>
                 </a>
 
@@ -132,73 +126,53 @@
     <div id="mobile-sidebar"
         class="fixed top-[64px] left-0 w-64 h-[calc(100%-64px)] bg-[#00071c] bg-opacity-100 backdrop-blur-md z-40 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
         <div class="p-6 space-y-4 text-white font-semibold">
-            <a href="index.html"
-                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
-                <i
-                    class="fa-solid fa-house text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
-                </i>
-                <span>Home</span>
-            </a>
-
-            <a href="index.html#about"
+            <a href="dashboard.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
                     class="fa-solid fa-circle-info text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
                 </i>
-                <span>About</span>
+                <span>Home</span>
             </a>
 
-            <a href="index.html#team"
+            <a href="announcements.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-users text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                    class="fa-solid fa-bell text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
                 </i>
-                <span>Team</span>
-            </a>
-
-            <!-- Partners -->
-            <a href="index.html#partners"
-                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
-                <i
-                    class="fa-solid fa-handshake text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
-                </i>
-                <span>Partners</span>
-            </a>
-
-            <!-- <a href="announcements.html"
-                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
-                <i
-                    class="fa-solid fa-bell text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
                 <span>Announcements</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="events-and-register-events.html"
+            <a href="events-and-register-events.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-calendar-alt text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-calendar-alt text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Events</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="edit_profile.html"
+            <a href="edit_profile.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-user-circle text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-user-circle text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Edit Profile</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="calendar.html"
+            <a href="calendar.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-calendar-days text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-calendar-days text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Calendar</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="settings.html"
+            <a href="settings.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-gear text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-gear text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Settings</span>
-            </a> -->
+            </a>
         </div>
     </div>
     

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard | BulSU MSC</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -12,88 +12,89 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Use Segoe UI for the main title on all devices */
-        h1 {
+        /* Use Segoe UI for all elements */
+        * {
             font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
-        }
-
-        /* Use Orbitron for general headings on mobile, Veonika on desktop for some */
-        h2,
-        h3 {
-            font-family: 'Orbitron', sans-serif;
         }
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-[#080c24]">
 
     <!-- Sidebar -->
     <aside id="sidebar"
-        class="bg-[#060B26] text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg z-40 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
-        <div class="flex items-center justify-center h-20 border-b border-gray-700">
-            <h1 class="text-2xl font-bold text-blue-500">Admin Panel</h1>
+        class="bg-[#00071c] text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg z-40 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
+        <!-- Replaced "Admin Panel" with logo and BulSU Microsoft Student Community text -->
+        <div class="flex flex-col items-center justify-center h-20 border-b border-white/20 px-4 py-3">
+            <div class="flex items-center gap-2 mb-1">
+                <img src="./Logos/Bulsu MSC Logo-02.png" alt="BulSU Microsoft Logo" class="w-8 h-8">
+                <span class="text-2xl font-bold text-[#b9da05]">BulSU MSC</span>
+            </div>
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2">
             <a href="admin_dashboard.html"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
             <a href="#"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-user-graduate"></i> Students
             </a>
             <a href="#"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-calendar-alt"></i> Events
             </a>
             <a href="#"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-bullhorn"></i> Announcements
             </a>
             <a href="#"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors">
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-cog"></i> Settings
             </a>
         </nav>
     </aside>
 
     <!-- Toggle Button (mobile) -->
-    <button id="sidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-blue-500 text-white p-2 rounded-md">
+    <button id="sidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-[#b9da05] text-[#011538] p-2 rounded-md">
         <i class="fas fa-bars"></i>
     </button>
 
     <main class="lg:ml-64 p-6 transition-all duration-300">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-3xl font-bold text-gray-800">Welcome, Admin!</h2>
+            <!-- Increased text size from text-3xl to text-4xl for Welcome, Admin -->
+            <h2 class="text-4xl font-bold text-white">Welcome, Admin!</h2>
         </div>
 
         <!-- Number Cards -->
+        <!-- Updated container colors to match dashboard.html styling -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white shadow-md rounded-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Total Students</h3>
-                <p class="text-3xl font-bold text-blue-800" id="student-cnt"></p>
+            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+                <h3 class="text-xl font-semibold text-gray-200 mb-2">Total Students</h3>
+                <p class="text-3xl font-bold text-[#b9da05]" id="student-cnt"></p>
             </div>
 
-            <div class="bg-white shadow-md rounded-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Total Events</h3>
-                <p class="text-3xl font-bold text-blue-800" id="event-cnt"></p>
+            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+                <h3 class="text-xl font-semibold text-gray-200 mb-2">Total Events</h3>
+                <p class="text-3xl font-bold text-[#b9da05]" id="event-cnt"></p>
             </div>
 
-            <div class="bg-white shadow-md rounded-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Total Announcements</h3>
-                <p class="text-3xl font-bold text-blue-800" id="announcement-cnt"></p>
+            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+                <h3 class="text-xl font-semibold text-gray-200 mb-2">Total Announcements</h3>
+                <p class="text-3xl font-bold text-[#b9da05]" id="announcement-cnt"></p>
             </div>
         </div>
 
         <!-- Charts -->
+        <!-- Updated chart container colors to match dashboard.html -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div class="bg-white shadow-md rounded-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Students per College</h3>
+            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+                <h3 class="text-xl font-semibold text-gray-200 mb-4">Students per College</h3>
                 <canvas id="studentsPerCollegeChart" class="w-full h-64"></canvas>
             </div>
 
-            <div class="bg-white shadow-md rounded-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Students per Year Level</h3>
+            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+                <h3 class="text-xl font-semibold text-gray-200 mb-4">Students per Year Level</h3>
                 <canvas id="studentsPerYearLevelChart" class="w-full h-64"></canvas>
             </div>
         </div>

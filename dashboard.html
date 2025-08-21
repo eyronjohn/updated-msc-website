@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Dashboard</title>
+    <title>Dashboard | BulSU MSC</title>
     <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
@@ -48,7 +48,7 @@
 
         main,
         body {
-            background-color: #011538;
+            background-color: #080c24;
         }
 
         #main-header {
@@ -107,25 +107,16 @@
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4" id="main-header">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <a class="flex items-center space-x-2 text-white transition-colors duration-300 hover:text-[#b9da05]"
-                href="#hero">
+                href="index.html">
                 <img alt="BULSU MSC Logo" class="h-12" src="./Logos/Bulsu MSC Logo-02.png" />
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <!-- <a href="dashboard.html" class="nav-link cursor-pointer font-semibold">Home</a>
-                <a href="announcements.html" class="nav-link cursor-pointer font-semibold">Announcements</a>
-                <a href="events-and-register-events.html" class="nav-link cursor-pointer font-semibold">Events</a> -->
-                <a href="index.html"
+                <a href="dashboard.html"
                     class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Home</a>
-                <a href="index.html#about"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
-                <a href="index.html#team"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
-                <a href="index.html#partners"
-                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
-
-                <a href="index.html" class="nav-icon-wrapper">
-                    <i class="fa-solid fa-house nav-icon"></i>
-                </a>
+                <a href="announcements.html"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Announcements</a>
+                <a href="events-and-register-events.html"
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Events</a>
 
                 <a href="edit_profile.html" class="nav-icon-wrapper">
                     <i class="fa-solid fa-circle-user nav-icon"></i>
@@ -151,72 +142,53 @@
     <div id="mobile-sidebar"
         class="fixed top-[64px] left-0 w-64 h-[calc(100%-64px)] bg-[#00071c] bg-opacity-100 backdrop-blur-md z-40 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
         <div class="p-6 space-y-4 text-white font-semibold">
-            <a href="index.html"
-                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
-                <i
-                    class="fa-solid fa-house text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
-                </i>
-                <span>Home</span>
-            </a>
-
-            <a href="index.html#about"
+            <a href="dashboard.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
                     class="fa-solid fa-circle-info text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
                 </i>
-                <span>About</span>
+                <span>Home</span>
             </a>
 
-            <a href="index.html#team"
+            <a href="announcements.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-users text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                    class="fa-solid fa-bell text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
                 </i>
-                <span>Team</span>
-            </a>
-
-            <a href="index.html#partners"
-                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
-                <i
-                    class="fa-solid fa-handshake text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
-                </i>
-                <span>Partners</span>
-            </a>
-
-            <!-- <a href="announcements.html"
-                class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
-                <i
-                    class="fa-solid fa-bell text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
                 <span>Announcements</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="events-and-register-events.html"
+            <a href="events-and-register-events.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-calendar-alt text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-calendar-alt text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Events</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="edit_profile.html"
+            <a href="edit_profile.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-user-circle text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-user-circle text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Edit Profile</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="calendar.html"
+            <a href="calendar.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-calendar-days text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-calendar-days text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Calendar</span>
-            </a> -->
+            </a>
 
-            <!-- <a href="settings.html"
+            <a href="settings.html"
                 class="flex items-center space-x-4 p-2 rounded-md group hover:bg-white/10 transition-colors duration-300 cursor-pointer">
                 <i
-                    class="fa-solid fa-gear text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300"></i>
+                    class="fa-solid fa-gear text-xl w-6 text-center group-hover:text-[#b9da05] group-hover:scale-110 transition-all duration-300">
+                </i>
                 <span>Settings</span>
-            </a> -->
+            </a>
         </div>
     </div>
 
@@ -224,7 +196,7 @@
     <!-- 011c4a -->
     <main class="pt-28 flex-row justify-center">
         <section
-            class="relative w-11/12 max-w-6xl mx-auto p-6 md:p-8 bg-[#011538] border-2 border-[#b9da05] text-white rounded-2xl shadow-2xl cursor-pointer transition transform hover:-translate-y-1"
+            class="relative w-11/12 max-w-6xl mx-auto p-6 md:p-8 bg-[#011538] border border-[#b9da05] text-white rounded-2xl shadow-2xl cursor-pointer transition transform hover:-translate-y-1"
             id="dashboard-header">
             <div class="absolute inset-0 bg-gradient-to-r from-custom-primary via-custom-secondary to-custom-primary-light rounded-2xl opacity-70 animate-glowing"
                 style="filter: blur(15px); background-size: 400% 400%; z-index: -1;"></div>
@@ -262,7 +234,7 @@
         <!-- Member Profile -->
         <section class="flex flex-col lg:flex-row w-11/12 max-w-6xl mx-auto my-8 gap-5">
             <div
-                class="w-full lg:w-5/12 h-fit p-6 py-4 shadow-xl rounded-lg bg-[#011538] border-2 border-[#b9da05] text-white">
+                class="w-full lg:w-5/12 h-fit p-6 py-4 shadow-xl rounded-lg bg-[#011538] border border-white/20 text-white">
 
                 <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/20">
                     <h2 class="text-xl font-semibold text-gray-200">Member Profile</h2>
@@ -290,7 +262,7 @@
                 <div class="flex justify-center gap-4 m-4">
                     <span class="w-5/12 bg-[#03850a] text-m text-white py-1 px-2 rounded-full text-center">Active</span>
                     <span
-                        class="w-5/12 bg-[#011538] border-2 border-[#b9da05] text-white py-1 px-2 rounded-full text-center"
+                        class="w-5/12 bg-[#011538] border border-white/20 text-white py-1 px-2 rounded-full text-center"
                         id="role"></span>
                 </div>
 
@@ -336,7 +308,7 @@
 
             <!-- Right Tabs -->
             <div
-                class="w-full lg:w-8/12 h-auto p-4 shadow-lg rounded-lg mx-auto bg-[#011538] border-2 border-[#b9da05] text-white">
+                class="w-full lg:w-8/12 h-auto p-4 shadow-lg rounded-lg mx-auto bg-[#011538] border border-white/20 text-white">
                 <div class="flex justify-between items-center border-b border-white/20 pb-2">
                     <div class="flex flex-wrap gap-4 sm:gap-6" id="tabs">
                         <h2 class="tab text-gray-200 font-semibold cursor-pointer hover:text-[#b9da05] active-tab"
@@ -371,7 +343,7 @@
                             <div class="mt-4">
                                 <div class="flex justify-between items-center mb-4">
                                     <button onclick="goToToday()"
-                                        class="bg-white/10 border-2 border-[#b9da05] text-white rounded px-3 py-1 hover:bg-[#b9da05] hover:text-[#011538]">Today</button>
+                                        class="bg-white/10 border border-white/20 text-white rounded px-3 py-1 hover:bg-[#b9da05] hover:text-[#011538]">Today</button>
                                     <div class="flex items-center space-x-3">
                                         <button onclick="navigateCalendar(-1)" class="text-lg">&larr;</button>
                                         <h2 id="calendar-month-title" class="text-xl font-semibold"></h2>
@@ -398,7 +370,7 @@
 
                             <!-- Calendar Sidebar -->
                             <div id="calendar-sidebar"
-                                class="fixed top-0 left-0 h-full w-80 bg-[#011538] text-white transform -translate-x-full transition-transform duration-300 ease-in-out z-40 shadow-xl border-2 border-[#b9da05]"
+                                class="fixed top-0 left-0 h-full w-80 bg-[#011538] text-white transform -translate-x-full transition-transform duration-300 ease-in-out z-40 shadow-xl border border-white/20"
                                 style="overflow-y:auto;">
                                 <div class="p-6">
                                     <div class="flex justify-between items-center mb-4">
@@ -416,7 +388,7 @@
                     <div id="modal-overlay"
                         class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
                         <div
-                            class="bg-[#011538] border-2 border-[#b9da05] rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative animate-fadeIn text-white">
+                            class="bg-[#011538] border border-white/20 rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative animate-fadeIn text-white">
                             <button onclick="closeCalendarModal()"
                                 class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
                                 <i class="fas fa-times text-lg"></i>
@@ -447,7 +419,7 @@
         <!-- Registered Events -->
         <section class="flex flex-col lg:flex-row w-11/12 max-w-6xl mx-auto my-8 gap-5">
             <div
-                class="w-full lg:w-5/12 h-auto max-h-[37rem] p-4 shadow-lg rounded-lg bg-[#011538] border-2 border-[#b9da05] flex flex-col text-white">
+                class="w-full lg:w-5/12 h-auto max-h-[37rem] p-4 shadow-lg rounded-lg bg-[#011538] border border-white/20 flex flex-col text-white">
                 <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/20">
                     <h2 class="text-xl font-semibold">My Registered Events</h2>
                     <div class="p-2 bg-white/10 text-[#b9da05] rounded-full w-10 h-10 flex items-center justify-center">
@@ -462,7 +434,7 @@
 
             <!-- General Calendar -->
             <div
-                class="w-full lg:w-8/12 h-auto lg:h-[37rem] p-4 shadow-lg rounded-lg bg-[#011538] border-2 border-[#b9da05] text-white">
+                class="w-full lg:w-8/12 h-auto lg:h-[37rem] p-4 shadow-lg rounded-lg bg-[#011538] border border-white/20 text-white">
                 <div class="flex justify-between items-center mb-4 border-b border-white/20 pb-2">
                     <h2 class="text-xl font-bold">Calendar</h2>
                     <div class="flex items-center space-x-3">
@@ -489,6 +461,23 @@
             </div>
         </section>
     </main>
+
+    <!-- Added footer from index.html -->
+    <footer class="bg-[#00071c] text-center p-6 border-t border-gray-800">
+        <div class="flex justify-center space-x-1 mb-1">
+            <a href="https://www.bulsu.edu.ph" target="_blank" rel="noopener noreferrer"><img src="./Logos/BulSU.png" alt="Bulacan State University Logo" class="h-10"></a>
+            <a href="https://www.facebook.com/osobulsu" target="_blank" rel="noopener noreferrer"><img src="./Logos/OSOA.png" alt="Bulacan State University OSOA Logo" class="h-10 w-10"></a>
+        </div>
+        <p class="text-gray-500 text-sm">&copy; 2025 BulSU Microsoft Student Community. All rights reserved.</p>
+        <div class="flex justify-center space-x-4 mt-2">
+            <a href="https://www.facebook.com/bulsu.officialmsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/bulsumsc/" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.threads.com/@bulsumsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-threads"></i></a>
+            <a href="https://www.tiktok.com/@bulsumsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.linkedin.com/company/bulsumsc/" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.github.com/bulsumsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
 
     <script>
         const API_BASE = "/updated-msc-website/api";
@@ -654,7 +643,7 @@
                                 : "bg-gray-500 text-white";
 
                     const html = `
-        <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-[#011538] border-2 border-[#b9da05] rounded-xl shadow-md hover:shadow-xl transition-all group text-white">
+        <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-[#011538] border border-white/20 rounded-xl shadow-md hover:shadow-xl transition-all group text-white">
           <div class="w-full md:w-16 h-16 md:h-auto bg-[#b9da05] text-[#011538] rounded-lg flex flex-col items-center justify-center md:flex-shrink-0 font-bold">
             <span class="text-xs uppercase">${month}</span>
             <span class="text-2xl">${day}</span>
@@ -726,19 +715,19 @@
 
                     // To fix: mobile view
                     const html = `
-                <div class="relative p-5 border border-yellow-300 bg-yellow-50 rounded-lg shadow-sm hover:shadow-md transition-all group">
-                    <div class="absolute top-3 right-3 text-yellow-500 text-xs uppercase font-semibold">
+                <div class="relative p-5 border border-white/20 bg-[#011538] rounded-lg shadow-sm hover:shadow-md transition-all group">
+                    <div class="absolute top-3 right-3 text-white text-xs uppercase font-semibold">
                         ${date}
                     </div>
                     <div class="flex items-start gap-3">
-                        <div class="text-yellow-500 text-xl mt-1">
+                        <div class="text-[#b9da05] text-xl mt-1">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-yellow-900 group-hover:text-yellow-700 transition-colors">
+                            <h3 class="text-lg font-semibold text-white group-hover:text-[#b9da05] transition-colors">
                                 ${ann.title}
                             </h3>
-                            <p class="text-sm text-yellow-800 mt-1 leading-relaxed">
+                            <p class="text-sm text-gray-300 mt-1 leading-relaxed">
                                 ${ann.content}
                             </p>
                         </div>
@@ -772,7 +761,7 @@
                     const day = date.getDate();
 
                     const html = `
-        <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-[#011538] border-2 border-[#b9da05] rounded-xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-white">
+        <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-[#011538] border border-white/20 rounded-xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-white">
           
           <!-- Date block -->
           <div class="w-full md:w-16 h-16 md:h-auto bg-[#b9da05] text-[#011538] rounded-lg flex flex-col items-center justify-center md:flex-shrink-0 font-bold">
