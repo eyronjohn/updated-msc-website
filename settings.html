@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Dashboard</title>
+    <title>Settings | BulSU MSC</title>
     <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
@@ -135,6 +135,17 @@
                         Update your account password for security.
                     </p>
                 </div>
+
+                <!-- Logout -->
+                <div class="bg-[#011538] border border-white/20 p-4 rounded shadow-sm">
+                    <button onclick="logout()"
+                        class="text-xl font-semibold mb-2 text-red-400 hover:underline block">
+                        Log Out
+                    </button>
+                    <p class="text-base text-gray-200">
+                        Sign out of your account.
+                    </p>
+                </div>
             </div>
         </div>
     </main>
@@ -205,6 +216,26 @@
                 mobileSidebar.classList.add("-translate-x-full");
             }
         });
+
+        async function logout() {
+            try {
+                // Clear any stored session data
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                // Clear any cookies (if needed)
+                document.cookie.split(";").forEach(function(c) { 
+                    document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+                });
+                
+                console.log("✅ Logout successful");
+                window.location.href = "login.html"; // Redirect after logout
+            } catch (error) {
+                console.error("❌ Logout failed:", error);
+                // Still redirect even if cleanup fails
+                window.location.href = "login.html";
+            }
+        }
     </script>
 
 </body>
