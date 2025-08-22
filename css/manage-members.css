@@ -8,6 +8,8 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #f4f6f9;
   display: flex;
+  overflow-x: hidden;
+  background-color: #100c24;
 }
 
 .page-wrapper {
@@ -16,44 +18,244 @@ body {
   min-height: 100vh;
 }
 
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background: #0b1e39;
-  color: white;
-  padding: 20px;
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #b9da05; /* Adjust to match theme */
+  font-family: 'Segoe UI';
 }
 
-.sidebar h3 {
+
+/* Sidebar styles */
+.sidebar {
+  width: 255px;
+  background: #00071c;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.sidebar-logo img {
+  position: relative;
+  left: 17.5%;
+  top: 12%;
+  width: 2rem;
+  height: auto;
+  cursor: pointer;
   margin-bottom: 15px;
 }
 
-.sidebar nav ul {
-  list-style: none;
+.sidebar-role {
+  position: relative;
+  bottom: 4%;
+  left: 33.5%;
+  color: #b9da05;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
-.sidebar nav ul li {
-  margin: 10px 0;
+.sidebar-nav {
+  position: relative;
+  bottom: 1.4%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem; /* spacing between links */
+  padding: 0 1rem;
 }
 
-.sidebar nav ul li a {
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   color: white;
   text-decoration: none;
-  padding: 8px;
-  display: block;
-  border-radius: 5px;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
 }
 
-.sidebar nav ul li a.active,
-.sidebar nav ul li a:hover {
-  background: #b9da05;
-  color: #000;
+.sidebar-nav a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 15px; /* pushes icon slightly from the left */
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  background: url("./icons/default.svg") no-repeat center;
+  background-size: contain;
+  opacity: 0.6; /* makes icon faint so text is readable */
+  pointer-events: none; /* prevents clicks on icon */
 }
+
+.sidebar-nav a:hover {
+  background: #b9da05;
+  color: #080c24;
+  font-weight: bold;
+}
+
+.sidebar-nav a:hover::before {
+  opacity: 1; /* make icon pop on hover */
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 1rem;
+  color: #aaa;
+}
+
+.line {
+  position: relative;
+  bottom: 3.6%;
+  width: 100%;
+  border-bottom: rgb(255 255 255 / 0.2) 0.5px solid;
+}
+
+/* =======================
+   Mobile Sidebar Support
+======================= */
+
+/* Hamburger button */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1100;
+  width: 30px;
+  height: 22px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #b9da05;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* Sidebar (default desktop) */
+.sidebar {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hamburger button (mobile) */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1100;
+  display: none;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  background: #b9da05;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 900;
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* Mobile Sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    z-index: 1050;
+    width: 250px;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  display: block;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+}
+
+.table-container table {
+  width: max-content; /* makes table as wide as its content */
+  min-width: 100%;    /* never smaller than container */
+  border-collapse: collapse;
+}
+
+  /* Dark overlay when sidebar opens */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1040;
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  }
+
+  .table-container table {
+    min-width: 900px; /* force table to keep its structure */
+  }
+
+  body {
+    overflow-x: auto; /* prevent horizontal scroll on body */
+  }
+}
+
 
 /* Main */
 .main-content {
   flex: 1;
   padding: 20px;
+  padding-top: 1%;
 }
 
 /* Controls */
@@ -120,4 +322,50 @@ th, td {
 
 .sort-btn:hover {
   color: #b9da05;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between; /* space between title & buttons */
+  align-items: center; /* vertical alignment */
+  margin-bottom: 1.5rem;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px; /* spacing between buttons */
+}
+
+/* Buttons with theme color */
+.header-buttons button {
+  background-color: #b9da05;   /* Main theme color */
+  color: #080c24;             /* Dark text for contrast */
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px; /* spacing between buttons */
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Hover effect: invert colors */
+.header-buttons button:hover {
+  background-color: #080c24;
+  color: #b9da05;
+  border: 1px solid #b9da05;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
+}
+
+/* Active/Pressed effect */
+.header-buttons button:active {
+  transform: scale(0.96);
+}
+
+.left-controls label,
+.right-controls label {
+  color: whitesmoke; /* or white */
+  font-weight: 500;  /* makes it look cleaner */
 }

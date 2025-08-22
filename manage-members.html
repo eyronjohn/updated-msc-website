@@ -8,20 +8,65 @@
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
   <div class="page-wrapper">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <h3>Manage Members</h3>
-      <nav>
-        <ul>
-          <li><a href="add-member.html">➕ Add Member</a></li>
-          <li><a href="manage-members.html" class="active">👥 Manage Members</a></li>
-        </ul>
-      </nav>
-    </aside>
+        <!-- Logo -->
+        <div class="sidebar-logo">
+        <a href="admin_dashboard.html">
+            <img src="./Logos/Bulsu MSC Logo-02.png" alt="MSC Logo">
+        </a>
+        </div>
 
+        <!-- Role label -->
+        <h3 class="sidebar-role">BulSU MSC</h3>
+        
+        <div class="line"></div>
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+        <a href="admin_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+
+        <a href="add-member.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+            <i class="fas fa-user-graduate"></i> Students
+        </a>
+
+        <a href="events.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+            <i class="fas fa-calendar-alt"></i> Events
+        </a>
+        <a href="announcements.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+            <i class="fas fa-bullhorn"></i> Announcements
+        </a>
+
+        <a href="committees.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+            <i class="fas fa-cog"></i> Settings
+        </a>
+        </nav>
+
+        <!-- Footer label -->
+        <div class="sidebar-footer">
+        <p>© 2025 Bulacan State University - Microsoft Student Community</p>
+        </div>
+    </aside>
     <!-- Main Content -->
     <main class="main-content">
+      <div class="header-content">
+      <!-- Page Title -->
+        <h3 class="page-title">Manage Members</h3>
+        <div class="header-buttons">
+          <button id="filterBtn"><i class="fas fa-filter"></i> Filters (0 Members)</button>
+          <button id="exportBtn"><i class="fas fa-file-excel"></i> Export to Excel</button>
+          <button id="addBtn"><i class="fas fa-user-plus"></i> Add New Member</button>
+        </div>
+      </div>
       <!-- Top Controls -->
       <div class="top-controls">
         <div class="left-controls">
@@ -35,10 +80,9 @@
           <button id="applyBtn">Apply</button>
         </div>
 
+
+
         <div class="right-controls">
-          <button id="filterBtn"><i class="fas fa-filter"></i> Filters (0 Members)</button>
-          <button id="exportBtn"><i class="fas fa-file-excel"></i> Export to Excel</button>
-          <button id="addBtn"><i class="fas fa-user-plus"></i> Add New Member</button>
           <label for="rowsPerPage">Rows per page:</label>
           <select id="rowsPerPage">
             <option>5</option>
@@ -83,8 +127,24 @@
         </table>
       </div>
     </main>
+    
   </div>
 
   <script src="manage-members.js"></script>
+  <script>
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.querySelector(".sidebar");
+  const overlay = document.getElementById("overlay");
+
+  hamburger.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+  });
+
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+</script>
 </body>
 </html>
