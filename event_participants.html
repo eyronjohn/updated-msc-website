@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Participants</title>
+    <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Veonika';
+            src: url('https://fonts.cdnfonts.com/s/72818/veonika_free.woff') format('woff');
+        }
+
+        h1 {
+            font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        h2,
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#080c24]">
+    <aside id="sidebar"
+        class="bg-[#00071c] text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg z-40 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
+        <div class="flex flex-col items-center justify-center h-20 border-b border-white/20 px-4 py-3">
+            <div class="flex items-center gap-2 mb-1">
+                <img src="./Logos/Bulsu MSC Logo-02.png" alt="BulSU Microsoft Logo" class="w-8 h-8">
+                <span class="text-2xl font-bold text-[#b9da05]">BulSU MSC</span>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="admin_dashboard.html"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-user-graduate"></i> Students
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-calendar-alt"></i> Events
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-bullhorn"></i> Announcements
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </aside>
+
+    <button id="sidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-[#b9da05] text-[#011538] p-2 rounded-md">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <main class="lg:ml-64 p-4 md:p-6 transition-all duration-300 flex flex-col min-h-screen">
+        <button onclick="history.back()"
+            class="mb-4 bg-[#b9da05] text-[#011538] px-4 py-2 rounded hover:bg-white hover:text-[#011538] w-32">
+            &larr; Back
+        </button>
+
+        <h1 id="event-title" class="text-2xl font-bold text-white mb-6"></h1>
+
+        <!-- Responsive Table Wrapper -->
+        <div class="overflow-x-auto w-full">
+            <table class="min-w-full text-left text-white border border-white/20 rounded-lg bg-[#011538]">
+                <thead class="bg-[#011538]">
+                    <tr class="border-b border-white/20">
+                        <th class="px-4 py-2 text-sm sm:text-base">#</th>
+                        <th class="px-4 py-2 text-sm sm:text-base">Name</th>
+                        <th class="px-4 py-2 text-sm sm:text-base">Email</th>
+                        <th class="px-4 py-2 text-sm sm:text-base">Student No</th>
+                        <th class="px-4 py-2 text-sm sm:text-base">MSC ID</th>
+                    </tr>
+                </thead>
+                <tbody id="participants-table-body" class="divide-y divide-white/10 text-sm sm:text-base">
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-gray-400">
+                            No participants found.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+
+    <script>
+        const API_BASE = "/updated-msc-website/api";
+
+        async function apiCall(endpoint, method = "GET", data = null) {
+            try {
+                const options = {
+                    method: method,
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                };
+
+                if (data) options.body = JSON.stringify(data);
+
+                const response = await fetch(`${API_BASE}${endpoint}`, options);
+                return await response.json();
+            } catch (error) {
+                console.error("API Error:", error);
+                return null;
+            }
+        }
+
+        const eventId = sessionStorage.getItem("selectedEventId");
+        console.log("Loaded Event ID:", eventId);
+
+        async function fetchParticipants() {
+            if (!eventId) return;
+
+            try {
+                const data = await apiCall(`/events/${eventId}/registrations`, "GET");
+                //console.log("Response:", data); 
+
+                const tbody = document.getElementById('participants-table-body');
+                tbody.innerHTML = '';
+
+                if (data && data.success && Array.isArray(data.data.registrations)) {
+                    const eventName = data.data.event?.event_name || "Event";
+                    document.getElementById('event-title').textContent = `Event: ${eventName}`;
+
+                    data.data.registrations.forEach((p, index) => {
+                        const fullName = [p.first_name, p.middle_name, p.last_name].filter(Boolean).join(" ");
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                        <td class="px-4 py-2">${index + 1}</td>
+                        <td class="px-4 py-2">${fullName}</td>
+                        <td class="px-4 py-2">${p.email}</td>
+                        <td class="px-4 py-2">${p.student_no || ''}</td>
+                        <td class="px-4 py-2">${p.msc_id}</td>
+                        
+                    `;
+                        tbody.appendChild(tr);
+                    });
+
+                    if (data.data.registrations.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-gray-400">No registered participants.</td></tr>`;
+                    }
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-gray-400">Failed to load event participants.</td></tr>`;
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('participants-table-body').innerHTML =
+                    `<tr><td colspan="7" class="text-center py-4 text-gray-400">Error loading participants.</td></tr>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchParticipants);
+    </script>
+
+</body>
+
+</html>

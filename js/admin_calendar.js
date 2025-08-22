@@ -8,20 +8,15 @@ function navigateCalendar(monthOffset) {
 
 function getColorByType(type) {
   switch (type) {
-    case 'onsite': return 'bg-[#b9da05] text-[#011538]';
-    case 'online': return 'bg-blue-600 text-white';
+    case 'onsite': return 'bg-[#b9da05] text-gray-700';
+    case 'online': return 'bg-[#044cd1] text-gray-400';
     default: return 'bg-white/20 text-white';
   }
 }
 
 async function fetchCalendarEvents() {
-  const year = currentCalendarDate.getFullYear();
-  const month = currentCalendarDate.getMonth();
-  const startDate = new Date(year, month, 1).toISOString().split('T')[0];
-  const endDate = new Date(year, month + 1, 0).toISOString().split('T')[0];
-
   try {
-    const res = await fetch(`${API_BASE}/${startDate}&end=${endDate}`, {
+    const res = await fetch(`${API_BASE}`, {
       credentials: "include"
     });
 
@@ -29,8 +24,9 @@ async function fetchCalendarEvents() {
 
     if (data.success && Array.isArray(data.data.events)) {
       calendarEvents = data.data.events.map(event => ({
+        id: event.id || event.event_id,
         title: event.event_name,
-        date: event.event_date,             
+        date: event.event_date,
         time: event.event_time_start || "00:00",
         type: event.event_type || "",
         location: event.location || "",
@@ -44,7 +40,7 @@ async function fetchCalendarEvents() {
 
     renderUniversityCalendar();
   } catch (err) {
-    console.error("Calendar fetch error:", err);
+    //console.error("Calendar fetch error:", err);
   }
 }
 
@@ -60,20 +56,17 @@ function renderUniversityCalendar() {
   monthTitle.textContent = currentCalendarDate.toLocaleString("default", { month: "long", year: "numeric" });
   grid.innerHTML = "";
 
-  // Empty cells before the first day
   for (let i = 0; i < firstDay; i++) {
     const cell = document.createElement("div");
     grid.appendChild(cell);
   }
 
-  // Days
   for (let day = 1; day <= daysInMonth; day++) {
     const cell = document.createElement("div");
     const date = new Date(year, month, day);
     const dateStr = date.toISOString().split('T')[0];
     const events = calendarEvents.filter(e => e.date === dateStr);
 
-    // Dark navy styling
     cell.classList.add(
       "p-2", "border", "border-white/10", "relative", "h-20",
       "bg-[#011538]", "hover:bg-white/10", "transition-colors"
@@ -98,7 +91,6 @@ function renderUniversityCalendar() {
 
     cell.appendChild(dayLabel);
 
-    // Event badges
     events.forEach(e => {
       const badge = document.createElement("div");
       badge.className = `mt-1 text-white text-xs px-2 py-1 rounded ${e.color} cursor-pointer truncate`;
@@ -113,7 +105,7 @@ function renderUniversityCalendar() {
 }
 
 function openCalendarModal(event) {
-  document.getElementById("modal-title").textContent = event.title;
+  document.getElementById("modal-title").textContent = `${event.title}`; //(ID: ${event.id})
   document.getElementById("modal-overlay").classList.remove("hidden");
 
   const dateTimeString = `${event.date}T${event.time}`;
@@ -133,22 +125,25 @@ function openCalendarModal(event) {
 
   document.getElementById("event-day-time").textContent = `${formattedDate} - ${formattedTime}`;
   document.getElementById("event-location").textContent = event.location;
+
+  const participantsBtn = document.querySelector("#modal-content button");
+
+  const newBtn = participantsBtn.cloneNode(true);
+  participantsBtn.parentNode.replaceChild(newBtn, participantsBtn);
+
+  newBtn.addEventListener("click", () => {
+    //console.log("Event ID:", event.id); 
+    sessionStorage.setItem("selectedEventId", event.id);
+    closeCalendarModal();
+    window.location.href = "event_participants.html";
+  });
 }
+
 
 function closeCalendarModal() {
   document.getElementById("modal-overlay").classList.add("hidden");
+  //sessionStorage.removeItem("selectedEventId");
 }
-
-// Admin Side:
-function openNewEventModal(dateStr) {
-  document.getElementById("new-event-modal").classList.remove("hidden");
-  document.getElementById("event-date").value = dateStr; // pre-fill clicked date
-}
-
-function closeNewEventModal() {
-  document.getElementById("new-event-modal").classList.add("hidden");
-}
-
 
 function goToToday() {
   currentCalendarDate = new Date();
@@ -163,91 +158,70 @@ document.getElementById("new-event-form").addEventListener("submit", async (e) =
   const newEvent = {
     event_name: document.getElementById("event-name").value,
     event_date: document.getElementById("event-date").value,
-    event_time_start: document.getElementById("event-time").value,
-    location: document.getElementById("event-location").value,
+    event_time_start: document.getElementById("event-time-start").value,
+    event_time_end: document.getElementById("event-time-end").value,
+    location: document.getElementById("location").value,
     event_type: document.getElementById("event-type").value,
-    description: document.getElementById("event-description").value
+    description: document.getElementById("event-description").value,
+    registration_required: 0,
+    event_status: "upcoming",
+    event_restriction: "public"
   };
 
   try {
-    const res = await fetch("/updated-msc-website/api/events", {
+    const res = await fetch(`${API_BASE}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(newEvent)
+      body: JSON.stringify(newEvent),
     });
 
-    const data = await res.json();
-
-    if (data.success) {
-      closeNewEventModal();
-      fetchCalendarEvents(); // refresh calendar
-      alert("Event added successfully!");
+    const result = await res.json();
+    if (result.success) {
+      showToast("Event created successfully!", "success");
+      document.getElementById("new-event-modal").classList.add("hidden");
+      document.getElementById("new-event-form").reset();
+      fetchCalendarEvents(); 
     } else {
-      alert("Failed to add event.");
+      showToast("Failed: " + result.message, "error");
+      console.error(result.errors || result);
     }
   } catch (err) {
-    console.error(err);
-    alert("Error adding event.");
+    showToast("Error creating event.", "error");
+    //console.error("Error creating event:", err);
   }
 });
 
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+  const toastMessage = document.getElementById("toast-message");
+  const toastContent = document.getElementById("toast-content");
 
-// GENERAL CALENDAR: Empty"
-let generalCalendarDate = new Date();
+  toastMessage.textContent = message;
 
-/*
-function renderGeneralCalendar() {
-  const year = generalCalendarDate.getFullYear();
-  const month = generalCalendarDate.getMonth();
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const grid = document.getElementById("general-calendar-grid");
-  const monthTitle = document.getElementById("general-calendar-month-title");
-
-  if (!grid || !monthTitle) return console.error("Missing general calendar elements.");
-
-  grid.innerHTML = "";
-  monthTitle.textContent = generalCalendarDate.toLocaleString("default", { month: "long", year: "numeric" });
-
-  // Empty cells before first day
-  for (let i = 0; i < firstDay; i++) {
-    const blank = document.createElement("div");
-    grid.appendChild(blank);
+  if (type === "success") {
+    toastContent.className = "flex items-center max-w-xs p-4 text-sm text-white bg-green-600 rounded-lg shadow-lg animate-slide-in";
+    toastContent.querySelector("i").className = "fas fa-check-circle mr-2 text-white";
+  } else if (type === "error") {
+    toastContent.className = "flex items-center max-w-xs p-4 text-sm text-white bg-red-600 rounded-lg shadow-lg animate-slide-in";
+    toastContent.querySelector("i").className = "fas fa-times-circle mr-2 text-white";
   }
 
-  const today = new Date();
+  toast.classList.remove("hidden");
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const date = new Date(year, month, day);
-    const div = document.createElement("div");
-    const isToday = date.toDateString() === today.toDateString();
-
-    // Navy background, subtle white border
-    div.className = "border border-white/10 p-2 h-20 relative transition-all bg-[#011538] text-white hover:bg-white/10 flex items-start justify-end";
-
-    const daySpan = document.createElement("span");
-    daySpan.textContent = day;
-
-    // Default = white text, Today = yellow highlight
-    daySpan.className = `text-sm inline-flex items-center justify-center w-8 h-8 ${
-      isToday
-        ? "bg-[#b9da05] text-[#011538] font-bold rounded-full"
-        : "text-white"
-    }`;
-
-    div.appendChild(daySpan);
-    grid.appendChild(div);
-  }
+  setTimeout(() => {
+    toast.classList.add("hidden");
+  }, 1000);
 }
 
+document.getElementById("cancel-event").addEventListener("click", () => {
+  document.getElementById("new-event-modal").classList.add("hidden");
+});
 
-function navigateGeneralCalendar(offset) {
-  generalCalendarDate.setMonth(generalCalendarDate.getMonth() + offset);
-  renderGeneralCalendar();
+function openNewEventModal(dateStr) {
+  document.getElementById("new-event-modal").classList.remove("hidden");
+  document.getElementById("event-date").value = dateStr;
 }
 
-document.addEventListener("DOMContentLoaded", renderGeneralCalendar);
-*/
-
+function closeNewEventModal() {
+  document.getElementById("new-event-modal").classList.add("hidden");
+}

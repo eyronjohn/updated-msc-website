@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard | BulSU MSC</title>
+    <title>Admin Dashboard</title>
+    <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -38,7 +39,7 @@
                 class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-user-graduate"></i> Students
             </a>
-            <a href="editevent.html"
+            <a href="events_calendar.html"
                 class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-calendar-alt"></i> Events
             </a>
@@ -63,17 +64,17 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+            <div class="bg-[#011538] shadow-md rounded-xl border border-[#b9da05] p-6 text-white">
                 <h3 class="text-xl font-semibold text-gray-200 mb-2">Total Students</h3>
                 <p class="text-3xl font-bold text-[#b9da05]" id="student-cnt"></p>
             </div>
 
-            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+            <div class="bg-[#011538] shadow-md rounded-xl border border-[#b9da05] p-6 text-white">
                 <h3 class="text-xl font-semibold text-gray-200 mb-2">Total Events</h3>
                 <p class="text-3xl font-bold text-[#b9da05]" id="event-cnt"></p>
             </div>
 
-            <div class="bg-[#011538] shadow-md rounded-xl p-6 text-white">
+            <div class="bg-[#011538] shadow-md rounded-xl border border-[#b9da05] p-6 text-white">
                 <h3 class="text-xl font-semibold text-gray-200 mb-2">Total Announcements</h3>
                 <p class="text-3xl font-bold text-[#b9da05]" id="announcement-cnt"></p>
             </div>
@@ -110,71 +111,46 @@
     </footer>
     
     <script>
-        const API_BASE = "http://localhost:8000/api";
+        const API_BASE = "/updated-msc-website/api";
 
-        const sidebar = document.getElementById('sidebar');
-        const toggleBtn = document.getElementById('sidebarToggle');
-
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-        });
+        async function apiCall(endpoint, method = "GET", body = null) {
+            try {
+                const res = await fetch(`${API_BASE}${endpoint}`, {
+                    method,
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: body ? JSON.stringify(body) : null,
+                });
+                return await res.json();
+            } catch (err) {
+                console.error("API call failed:", err);
+                return { success: false, message: err.message };
+            }
+        }
 
         async function getAllStudents() {
-            try {
-                const res = await fetch(`${API_BASE}/students/count`, { credentials: "include" });
-                const data = await res.json();
-
-                if (data.success) {
-                    document.getElementById("student-cnt").textContent = data.data;
-                } else {
-                    document.getElementById("student-cnt").textContent = "0";
-                    console.error("Failed to fetch student count:", data.message);
-                }
-            } catch (error) {
-                console.error("Error fetching student count:", error);
-                document.getElementById("student-cnt").textContent = "0";
-            }
+            const data = await apiCall("/students/count", "GET");
+            document.getElementById("student-cnt").textContent = data?.success ? data.data : "0";
+            if (!data?.success) console.error("Failed to fetch student count:", data?.message);
         }
-
-        document.addEventListener("DOMContentLoaded", getAllStudents);
 
         async function getAllEvents() {
-            try {
-                const res = await fetch(`${API_BASE}/events/count`, { credentials: "include" });
-                const data = await res.json();
-
-                if (data.success) {
-                    document.getElementById("event-cnt").textContent = data.data;
-                } else {
-                    document.getElementById("event-cnt").textContent = "0";
-                    console.error("Failed to fetch event count:", data.message);
-                }
-            } catch (error) {
-                console.error("Error fetching event count:", error);
-                document.getElementById("event-cnt").textContent = "0";
-            }
+            const data = await apiCall("/events/count", "GET");
+            document.getElementById("event-cnt").textContent = data?.success ? data.data : "0";
+            if (!data?.success) console.error("Failed to fetch event count:", data?.message);
         }
-
-        document.addEventListener("DOMContentLoaded", getAllEvents);
 
         async function getAllAnnouncements() {
-            try {
-                const res = await fetch(`${API_BASE}/announcements/count`, { credentials: "include" });
-                const data = await res.json();
-
-                if (data.success) {
-                    document.getElementById("announcement-cnt").textContent = data.data;
-                } else {
-                    document.getElementById("announcement-cnt").textContent = "0";
-                    console.error("Failed to fetch announcement count:", data.message);
-                }
-            } catch (error) {
-                console.error("Error fetching announcement count:", error);
-                document.getElementById("announcement-cnt").textContent = "0";
-            }
+            const data = await apiCall("/announcements/count", "GET");
+            document.getElementById("announcement-cnt").textContent = data?.success ? data.data : "0";
+            if (!data?.success) console.error("Failed to fetch announcement count:", data?.message);
         }
 
-        document.addEventListener("DOMContentLoaded", getAllAnnouncements);
+        document.addEventListener("DOMContentLoaded", () => {
+            getAllStudents();
+            getAllEvents();
+            getAllAnnouncements();
+        });
     </script>
 
     <script src="js/charts.js"></script>
