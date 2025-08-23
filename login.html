@@ -34,9 +34,9 @@
             background-color: #00071c;
             scroll-behavior: smooth;
         }
-        
+
         .el {
-            background: conic-gradient(from 180deg at 50% 70%,hsla(0,0%,98%,1) 0deg,#b9da05 72.0000010728836deg,#0051ff 144.0000021457672deg,#0095ff 216.00000858306885deg,#b9da05 288.0000042915344deg,hsla(0,0%,98%,1) 1turn);
+            background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #b9da05 72.0000010728836deg, #0051ff 144.0000021457672deg, #0095ff 216.00000858306885deg, #b9da05 288.0000042915344deg, hsla(0, 0%, 98%, 1) 1turn);
             width: 100%;
             height: 100%;
             mask:
@@ -61,6 +61,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
+
         #main-header.header-scrolled {
             background-color: #00071c;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1-px rgba(0, 0, 0, 0.4);
@@ -70,6 +71,7 @@
             color: #d1d5db;
             transition: color 0.3s;
         }
+
         .nav-link:hover {
             color: #b9da05;
         }
@@ -130,10 +132,46 @@
         .status-modal-close:hover {
             color: #b9da05;
         }
+
+        /* Mobile menu specific styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Bagong glassy background */
+            background-color: rgba(0, 7, 28, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            /* Ayusin ang transition para maging smooth */
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(-100%);
+            z-index: 40;
+            padding-top: 6rem;
+            display: flex;
+            /* Gamitin ang Flexbox */
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            /* Bawas ang gap para mas compact */
+            width: 100%;
+            max-width: 300px;
+            /* Limitahan ang lapad ng menu */
+        }
     </style>
 </head>
-
-<!-- bg-[#0a1a35] -->
 
 <body class="min-h-screen flex flex-col">
     <div class="el"></div>
@@ -145,71 +183,203 @@
             <div class="hidden md:flex items-center space-x-6">
                 <a href="index.html"
                     class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Home</a>
-                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
-                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
-                <a class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
+                <a
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">About</a>
+                <a
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Team</a>
+                <a
+                    class="text-gray-400 font-semibold transition-colors duration-300 hover:text-[#b9da05] cursor-pointer">Partners</a>
                 <button id="login-button-desktop"
                     class="bg-[#b9da05] text-[#00071c] font-bold py-2 px-4 rounded-full transition-colors duration-300 hover:bg-white hover:text-[#00071c] shadow-md">
                     Login
                 </button>
             </div>
+            <!-- <div class="md:hidden flex items-center space-x-4">
+                <button class="text-gray-300 hover:text-[#b9da05] focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl transition-transform duration-300" id="mobile-menu-icon"></i>
+                </button>
+            </div> -->
+            <div class="md:hidden flex items-center space-x-4">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-[#b9da05] focus:outline-none">
+                    <i id="mobile-menu-icon" class="fas fa-bars text-2xl transition-transform duration-300"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Mobile Sidebar: -->
+    <div id="mobile-menu" class="md:hidden">
+        <div class="mobile-nav-links w-full text-center">
+            <a href="index.html#hero"
+                class="block py-4 px-4 text-gray-300 font-semibold hover:bg-white hover:text-[#00071c] transition-colors duration-300 rounded-lg w-full">
+                Home
+            </a>
+            <a href="index.html#about"
+                class="block py-4 px-4 text-gray-300 font-semibold hover:bg-white hover:text-[#00071c] transition-colors duration-300 rounded-lg w-full">
+                About
+            </a>
+            <a href="index.html#team"
+                class="block py-4 px-4 text-gray-300 font-semibold hover:bg-white hover:text-[#00071c] transition-colors duration-300 rounded-lg w-full">
+                Team
+            </a>
+            <a href="index.html#partners"
+                class="block py-4 px-4 text-gray-300 font-semibold hover:bg-white hover:text-[#00071c] transition-colors duration-300 rounded-lg w-full">
+                Partners
+            </a>
+            <button id="login-button-mobile"
+                class="w-full bg-[#b9da05] text-[#00071c] font-bold py-3 px-4 rounded-full transition-colors duration-300 hover:bg-white hover:text-[#00071c] shadow-md mt-4">
+                Login
+            </button>
+        </div>
+    </div>
+
     <main class="flex-grow flex items-center justify-center pt-28 px-4">
         <div class="w-full max-w-md bg-[#18181b] text-white p-8 rounded-2xl shadow-lg border border-[#27272a] border-2">
-            <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Veonika', sans-serif;">Login</h2>
+            <h2 class="text-3xl font-bold mb-6 text-center">
+                Login
+            </h2>
 
             <div id="response"
                 class="hidden mb-4 text-white border border-red-500 bg-[#27272a] px-4 py-3 rounded text-sm"></div>
 
-            <label for="loginUsername" class="block text-sm font-semibold mb-1">Username</label>
-            <input type="text" id="loginUsername" placeholder="Enter your username"
-                class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 mb-4 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
-
-            <label for="loginPassword" class="block text-sm font-semibold mb-1">Password</label>
-            <input type="password" id="loginPassword" placeholder="Enter your password"
-                class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 mb-6 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
-
-            <button onclick="login()"
-                class="w-full bg-[#b9da05] text-[#00071c] text-m font-bold py-3 rounded-md hover:bg-[#8fae04] hover:text-[#00071c] transition-colors shadow-md">
-                Sign In
-            </button>
-
-            <div class="flex flex-col items-center text-center mt-4">
-                <div class="flex justify-center items-center gap-1">
-                    <p>Don't have an account yet?</p>
-                    <a href="register.html" class="text-[#b9da05] hover:underline">Register Here</a>
-                </div>
+            <form id="loginForm" class="space-y-4">
                 <div>
-                    <a href="forgot_passwordform.html" class="text-[#b9da05] hover:underline mt-2">Forgot your password?</a>
+                    <label for="loginUsername" class="block text-sm font-semibold mb-1">Username</label>
+                    <input type="text" id="loginUsername" placeholder="Enter your username"
+                        class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
+                    <p id="usernameError" class="text-red-500 text-xs mt-1 hidden"></p>
                 </div>
-            </div>
+
+                <div>
+                    <label for="loginPassword" class="block text-sm font-semibold mb-1">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password"
+                        class="w-full px-4 py-3 rounded-md bg-[#27272a] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#b9da05]" />
+                    <p id="passwordError" class="text-red-500 text-xs mt-1 hidden"></p>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-[#b9da05] text-[#00071c] text-m font-bold py-3 rounded-md hover:bg-[#8fae04] hover:text-[#00071c] transition-colors shadow-md">
+                    Sign In
+                </button>
+
+                <div class="flex flex-col items-center text-center mt-4">
+                    <div class="flex justify-center items-center gap-1">
+                        <p>Don't have an account yet?</p>
+                        <a href="register.html" class="text-[#b9da05] hover:underline">Register Here</a>
+                    </div>
+                    <div>
+                        <a href="forgot_passwordform.html" class="text-[#b9da05] hover:underline mt-2">Forgot your
+                            password?</a>
+                    </div>
+                </div>
+        </div>
+        </form>
         </div>
     </main>
+
 
     <script>
         const API_BASE = "/updated-msc-website/api";
 
-        async function login() {
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                // Close mobile menu after click if it's open
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuButton.classList.remove('active');
+                    mobileMenuIcon.classList.remove('fa-xmark');
+                    mobileMenuIcon.classList.add('fa-bars');
+                    document.body.style.overflow = ''; // Ibalik ang scroll
+                }
+            }
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileMenuButton.classList.toggle('active');
+            if (mobileMenu.classList.contains('active')) {
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-xmark');
+                // Lock the body scroll when the menu is open
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenuIcon.classList.remove('fa-xmark');
+                mobileMenuIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        });
+
+        const loginButtonMobile = document.getElementById('login-button-mobile');
+        loginButtonMobile.addEventListener('click', () => {
+            // Close mobile menu
+            if (mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                mobileMenuButton.classList.remove('active');
+                mobileMenuIcon.classList.remove('fa-xmark');
+                mobileMenuIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
             const username = document.getElementById("loginUsername").value.trim();
             const password = document.getElementById("loginPassword").value;
             const responseEl = document.getElementById("response");
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
 
             responseEl.classList.add("hidden");
+            usernameError.classList.add("hidden");
+            passwordError.classList.add("hidden");
+
+            let hasError = false;
+
+            if (!username) {
+                usernameError.textContent = "Please enter your username.";
+                usernameError.classList.remove("hidden");
+                hasError = true;
+            }
+            if (!password) {
+                passwordError.textContent = "Please enter your password.";
+                passwordError.classList.remove("hidden");
+                hasError = true;
+            }
+
+
+            if (hasError) return;
 
             try {
                 const res = await fetch(`${API_BASE}/auth/login`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
-                    body: JSON.stringify({ username, password })
+                    body: JSON.stringify({ username, password }),
                 });
 
                 const data = await res.json();
 
                 if (res.ok && data.success) {
-                    window.location.href = "dashboard.html";
+                    const role = data.data.role;
+                    if (role === "officer") {
+                        window.location.href = "admin_dashboard.html";
+                    } else if (role === "member") {
+                        window.location.href = "dashboard.html";
+                    } else {
+                        responseEl.textContent = "Unknown role. Please contact support.";
+                        responseEl.classList.remove("hidden");
+                    }
                 } else {
                     responseEl.textContent = "Invalid username or password.";
                     responseEl.classList.remove("hidden");
@@ -218,8 +388,9 @@
                 responseEl.textContent = `Network error: ${err.message}`;
                 responseEl.classList.remove("hidden");
             }
-        }
+        });
     </script>
+
 
 </body>
 
