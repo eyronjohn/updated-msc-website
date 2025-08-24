@@ -8,9 +8,11 @@ function navigateCalendar(monthOffset) {
 
 function getColorByType(type) {
   switch (type) {
-    case 'onsite': return 'bg-[#b9da05] text-[#011538]';
-    case 'online': return 'bg-blue-600 text-white';
-    default: return 'bg-white/20 text-white';
+    case "onsite": return "bg-[#b9da05] text-[#011538]";
+    case "online": return "bg-blue-600 text-white";
+    case "assembly": return "bg-purple-600 text-white";
+    case "seminar": return "bg-green-600 text-white";
+    default: return "bg-white/20 text-white";
   }
 }
 
@@ -21,16 +23,15 @@ async function fetchCalendarEvents() {
   const endDate = new Date(year, month + 1, 0).toISOString().split('T')[0];
 
   try {
-    const res = await fetch(`${API_BASE}/${startDate}&end=${endDate}`, {
+    const res = await fetch(`${API_BASE}/events/calendar?start=${startDate}&end=${endDate}`, {
       credentials: "include"
     });
-
     const data = await res.json();
 
-    if (data.success && Array.isArray(data.data.events)) {
-      calendarEvents = data.data.events.map(event => ({
+    if (data.success && Array.isArray(data.data)) {
+      calendarEvents = data.data.map(event => ({
         title: event.event_name,
-        date: event.event_date,             
+        date: event.event_date,
         time: event.event_time_start || "00:00",
         type: event.event_type || "",
         location: event.location || "",
@@ -41,8 +42,19 @@ async function fetchCalendarEvents() {
       calendarEvents = [];
     }
 
-
+    // 🔑 Refresh both calendars after data is ready
     renderUniversityCalendar();
+    renderMSCCalendar();
+    // renderGeneralCalendar();
+
+    // // 🔑 Refresh University Calendar always
+    // renderUniversityCalendar();
+
+    // // 🔑 Only refresh General Calendar if script is loaded
+    // if (typeof renderMSCCalendar === "function") {
+    //   renderMSCCalendar;
+    // }
+
   } catch (err) {
     console.error("Calendar fetch error:", err);
   }
@@ -60,20 +72,17 @@ function renderUniversityCalendar() {
   monthTitle.textContent = currentCalendarDate.toLocaleString("default", { month: "long", year: "numeric" });
   grid.innerHTML = "";
 
-  // Empty cells before the first day
   for (let i = 0; i < firstDay; i++) {
     const cell = document.createElement("div");
     grid.appendChild(cell);
   }
 
-  // Days
   for (let day = 1; day <= daysInMonth; day++) {
     const cell = document.createElement("div");
     const date = new Date(year, month, day);
     const dateStr = date.toISOString().split('T')[0];
     const events = calendarEvents.filter(e => e.date === dateStr);
 
-    // Dark navy styling
     cell.classList.add(
       "p-2", "border", "border-white/10", "relative", "h-20",
       "bg-[#011538]", "hover:bg-white/10", "transition-colors"
@@ -98,7 +107,6 @@ function renderUniversityCalendar() {
 
     cell.appendChild(dayLabel);
 
-    // Event badges
     events.forEach(e => {
       const badge = document.createElement("div");
       badge.className = `mt-1 text-white text-xs px-2 py-1 rounded ${e.color} cursor-pointer truncate`;
@@ -139,16 +147,6 @@ function closeCalendarModal() {
   document.getElementById("modal-overlay").classList.add("hidden");
 }
 
-// Admin Side:
-function openNewEventModal(dateStr) {
-  document.getElementById("new-event-modal").classList.remove("hidden");
-  document.getElementById("event-date").value = dateStr; // pre-fill clicked date
-}
-
-function closeNewEventModal() {
-  document.getElementById("new-event-modal").classList.add("hidden");
-}
-
 
 function goToToday() {
   currentCalendarDate = new Date();
@@ -157,97 +155,7 @@ function goToToday() {
 
 document.addEventListener("DOMContentLoaded", fetchCalendarEvents);
 
-document.getElementById("new-event-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const newEvent = {
-    event_name: document.getElementById("event-name").value,
-    event_date: document.getElementById("event-date").value,
-    event_time_start: document.getElementById("event-time").value,
-    location: document.getElementById("event-location").value,
-    event_type: document.getElementById("event-type").value,
-    description: document.getElementById("event-description").value
-  };
-
-  try {
-    const res = await fetch("/updated-msc-website/api/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(newEvent)
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      closeNewEventModal();
-      fetchCalendarEvents(); // refresh calendar
-      alert("Event added successfully!");
-    } else {
-      alert("Failed to add event.");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Error adding event.");
-  }
-});
 
 
-// GENERAL CALENDAR: Empty"
-let generalCalendarDate = new Date();
 
-/*
-function renderGeneralCalendar() {
-  const year = generalCalendarDate.getFullYear();
-  const month = generalCalendarDate.getMonth();
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const grid = document.getElementById("general-calendar-grid");
-  const monthTitle = document.getElementById("general-calendar-month-title");
-
-  if (!grid || !monthTitle) return console.error("Missing general calendar elements.");
-
-  grid.innerHTML = "";
-  monthTitle.textContent = generalCalendarDate.toLocaleString("default", { month: "long", year: "numeric" });
-
-  // Empty cells before first day
-  for (let i = 0; i < firstDay; i++) {
-    const blank = document.createElement("div");
-    grid.appendChild(blank);
-  }
-
-  const today = new Date();
-
-  for (let day = 1; day <= daysInMonth; day++) {
-    const date = new Date(year, month, day);
-    const div = document.createElement("div");
-    const isToday = date.toDateString() === today.toDateString();
-
-    // Navy background, subtle white border
-    div.className = "border border-white/10 p-2 h-20 relative transition-all bg-[#011538] text-white hover:bg-white/10 flex items-start justify-end";
-
-    const daySpan = document.createElement("span");
-    daySpan.textContent = day;
-
-    // Default = white text, Today = yellow highlight
-    daySpan.className = `text-sm inline-flex items-center justify-center w-8 h-8 ${
-      isToday
-        ? "bg-[#b9da05] text-[#011538] font-bold rounded-full"
-        : "text-white"
-    }`;
-
-    div.appendChild(daySpan);
-    grid.appendChild(div);
-  }
-}
-
-
-function navigateGeneralCalendar(offset) {
-  generalCalendarDate.setMonth(generalCalendarDate.getMonth() + offset);
-  renderGeneralCalendar();
-}
-
-document.addEventListener("DOMContentLoaded", renderGeneralCalendar);
-*/
 

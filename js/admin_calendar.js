@@ -135,7 +135,7 @@ function openCalendarModal(event) {
     //console.log("Event ID:", event.id); 
     sessionStorage.setItem("selectedEventId", event.id);
     closeCalendarModal();
-    window.location.href = "event_participants.html";
+    window.location.href = "admin_event_participants.html";
   });
 }
 
