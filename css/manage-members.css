@@ -186,69 +186,7 @@ body {
   display: block;
 }
 
-/* Mobile Sidebar */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    transform: translateX(-100%);
-    z-index: 1050;
-    width: 250px;
-  }
 
-  .sidebar.active {
-    transform: translateX(0);
-  }
-
-.table-container {
-  background: white;
-  border-radius: 8px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  width: 100%;
-  display: block;
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-}
-
-.table-container table {
-  width: max-content; /* makes table as wide as its content */
-  min-width: 100%;    /* never smaller than container */
-  border-collapse: collapse;
-}
-
-  /* Dark overlay when sidebar opens */
-  .overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 1040;
-  }
-
-  .overlay.active {
-    display: block;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-  }
-
-  .table-container table {
-    min-width: 900px; /* force table to keep its structure */
-  }
-
-  body {
-    overflow-x: auto; /* prevent horizontal scroll on body */
-  }
-}
 
 
 /* Main */
@@ -368,4 +306,76 @@ th, td {
 .right-controls label {
   color: whitesmoke; /* or white */
   font-weight: 500;  /* makes it look cleaner */
+}
+
+/* Mobile Sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    z-index: 1050;
+    width: 250px;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  display: block;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+}
+
+.table-container table {
+  width: max-content; /* makes table as wide as its content */
+  min-width: 100%;    /* never smaller than container */
+  border-collapse: collapse;
+}
+
+  /* Dark overlay when sidebar opens */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1040;
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  }
+
+  .table-container table {
+    min-width: 900px; /* force table to keep its structure */
+  }
+
+  .header-buttons {
+    position: relative;
+    right: 70%;
+  }
+
+  .header-buttons button {
+    font-size: 0.7rem;        /* even smaller text */
+    padding: 4px 7px;         /* smaller button size */
+    min-width: 60px;          /* allow smaller buttons */
+    flex: 1 1 auto;
+  }
 }
