@@ -13,11 +13,13 @@
     <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script defer="" src="js/tabs.js"></script>
     <script src="js/calendar.js" defer></script>
+    <script src="js/msc_calendar.js" defer></script>
 
     <style>
         html.loading body {
@@ -245,7 +247,7 @@
 
                 <div class="flex flex-col items-center justify-center text-center">
                     <div>
-                        <h1 class="text-2xl font-bold" id="lastName"></h1>
+                        <h2 class="text-2xl font-bold" id="lastName"></h2>
                         <h2 class="text-xl text-gray-300" id="firstName"></h2>
                         <p class="text-l text-gray-300" id="studentNo"></p>
                         <p class="text-m font-medium text-white" id="program"></p>
@@ -280,13 +282,13 @@
 
                 <div class="w-full flex flex-col sm:flex-row gap-2 py-2">
                     <a href="edit_profile.html"
-                        class="w-full sm:w-6/12 bg-[#b9da05] text-[#011538] font-semibold py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#9abc04] hover:text-[#011538] shadow-md text-center flex items-center justify-center gap-2">
+                        class="w-full sm:w-6/12 bg-[#b9da05] text-[#011538] font-semibold py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#9abc04] shadow-md text-center flex items-center justify-center gap-2">
                         <i class="fa-solid fa-user-pen"></i>
                         Edit Profile
                     </a>
 
                     <a href="change_passwordform.html"
-                        class="w-full sm:w-6/12 bg-[#b9da05] text-[#011538] font-semibold py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#9abc04] hover:text-[#011538] shadow-md text-center flex items-center justify-center gap-2">
+                        class="w-full sm:w-6/12 bg-[#b9da05] text-[#011538] font-semibold py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#9abc04] shadow-md text-center flex items-center justify-center gap-2">
                         <i class="fa-solid fa-unlock-keyhole"></i>
                         Change Password
                     </a>
@@ -816,7 +818,7 @@
                     options.body = JSON.stringify(data);
                 }
 
-                console.log(`🚀 ${method} ${endpoint}:`, data);
+                //console.log(`🚀 ${method} ${endpoint}:`, data);
 
                 const response = await fetch(`${API_BASE}${endpoint}`, options);
                 const result = await response.json();

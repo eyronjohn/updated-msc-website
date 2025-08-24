@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Calendar</title>
+    <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Veonika';
+            src: url('https://fonts.cdnfonts.com/s/72818/veonika_free.woff') format('woff');
+        }
+
+        h1 {
+            font-family: 'Segoe UI', 'Segoe UI Web', 'Segoe UI Symbol', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        h2,
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator:hover,
+        input[type="time"]::-webkit-calendar-picker-indicator:hover {
+            filter: invert(64%) sepia(95%) saturate(600%) hue-rotate(25deg) brightness(95%) contrast(90%);
+        }
+    </style>
+</head>
+
+<body class="bg-[#080c24]">
+    <aside id="sidebar"
+        class="bg-[#00071c] text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg z-40 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
+        <div class="flex flex-col items-center justify-center h-20 border-b border-white/20 px-4 py-3">
+            <div class="flex items-center gap-2 mb-1">
+                <img src="./Logos/Bulsu MSC Logo-02.png" alt="BulSU Microsoft Logo" class="w-8 h-8">
+                <span class="text-2xl font-bold text-[#b9da05]">BulSU MSC</span>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="admin_dashboard.html"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-user-graduate"></i> Students
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-calendar-alt"></i> Events
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-bullhorn"></i> Announcements
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </aside>
+
+    <button id="sidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-[#b9da05] text-[#011538] p-2 rounded-md">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <main class="lg:ml-64 p-6 transition-all duration-300 flex flex-col min-h-screen">
+        <div class="flex flex-col flex-grow p-4 shadow-lg rounded-lg border border-[#b9da05] text-white">
+            <div class="flex justify-between items-center mb-4 border-b border-white/20 pb-2">
+                <button onclick="goToToday()"
+                    class="bg-white/10 border border-white/20 text-white rounded px-3 py-1 hover:bg-[#b9da05] hover:text-[#011538]">
+                    Today
+                </button>
+
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateCalendar(-1)"
+                        class="text-white text-lg hover:text-[#b9da05]">&larr;</button>
+                    <h2 id="calendar-month-title" class="text-xl font-semibold text-white"></h2>
+                    <button onclick="navigateCalendar(1)"
+                        class="text-white text-lg hover:text-[#b9da05]">&rarr;</button>
+                </div>
+
+                <button onclick="openNewEventModal()"
+                    class="bg-[#b9da05] text-[#011538] px-3 py-1 rounded hover:bg-white hover:text-[#011538]">
+                    + Create
+                </button>
+            </div>
+
+            <div class="border border-white/20 rounded-lg overflow-y-auto flex-grow">
+                <div
+                    class="grid grid-cols-7 bg-[#0b1035] text-center text-sm font-medium text-gray-300 border-b border-white/20">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+
+                <div id="calendar-grid" class="grid grid-cols-7 text-xs text-gray-200 bg-[#0f133f]"></div>
+            </div>
+        </div>
+
+        <div id="modal-overlay"
+            class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+            <div
+                class="bg-[#011538] border border-white/20 rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative animate-fadeIn text-white">
+                <button onclick="closeCalendarModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+
+                <div class="space-y-4 text-sm text-gray-300">
+                    <h3 id="modal-title" class="text-xl font-semibold text-white"></h3>
+                    <div class="border-b border-white/20"></div>
+                    <div id="modal-content" class="space-y-3">
+                        <div class="flex gap-3 items-start">
+                            <i class="fa-solid fa-clock text-[#b9da05] pt-2 w-8 text-center"></i>
+                            <p id="event-day-time" class="text-lg text-gray-200 mt-0.5"></p>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <i class="fa-solid fa-location-dot text-red-500 p-2 w-8 text-center"></i>
+                            <p id="event-location" class="text-lg text-gray-200 mt-0.5"></p>
+                        </div>
+                        <button
+                            class="p-2 bg-[#b9da05] text-[#011538] w-full rounded-sm hover:bg-white hover:text-[#011538]">View
+                            Participants</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast" class="fixed bottom-6 right-6 z-50 hidden">
+            <div id="toast-content"
+                class="flex items-center max-w-xs p-4 text-sm text-white bg-green-600 rounded-lg shadow-lg animate-slide-in"
+                role="alert">
+                <i class="fas fa-check-circle mr-2 text-white"></i>
+                <div id="toast-message">Success message</div>
+            </div>
+        </div>
+
+        <!-- Modal: Create Event -->
+        <div id="new-event-modal"
+            class="flex fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-2 overflow-auto">
+            <div class="bg-[#0b1035] text-white p-4 sm:p-6 rounded-2xl shadow-xl w-full max-w-md border border-[#b9da05] ">
+                <h2 class="text-lg sm:text-xl font-bold mb-4 text-center">Create New Event</h2>
+
+                <form id="new-event-form" class="space-y-3 sm:space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <label class="block">
+                            <span class="text-gray-300 text-sm sm:text-base">Event Name</span>
+                            <input type="text" id="event-name" required
+                                class="w-full px-2 sm:px-3 py-1.5 sm:py-2 rounded bg-[#0b1035] border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05] text-sm sm:text-base">
+                        </label>
+
+                        <label class="block">
+                            <span class="text-gray-300 text-sm sm:text-base">Event Date</span>
+                            <input type="date" id="event-date" required
+                                class="w-full px-2 sm:px-3 py-1.5 sm:py-2 rounded bg-[#0b1035] border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05] text-sm sm:text-base">
+                        </label>
+
+                        <label class="block">
+                            <span class="text-gray-300 text-sm sm:text-base">Start Time</span>
+                            <input type="time" id="event-time-start" required
+                                class="w-full px-2 sm:px-3 py-1.5 sm:py-2 rounded bg-[#0b1035] border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05] text-sm sm:text-base">
+                        </label>
+
+                        <label class="block">
+                            <span class="text-gray-300 text-sm sm:text-base">End Time</span>
+                            <input type="time" id="event-time-end" required
+                                class="w-full px-2 sm:px-3 py-1.5 sm:py-2 rounded bg-[#0b1035] border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05] text-sm sm:text-base">
+                        </label>
+
+                        <label class="block">
+                            <span class="text-gray-300 text-sm sm:text-base">Location</span>
+                            <input type="text" id="location" name="location" required
+                                class="w-full px-2 sm:px-3 py-1.5 sm:py-2 rounded bg-[#0b1035] border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05] text-sm sm:text-base">
+                        </label>
+
+                        <label class="block">
+                            <span class="text-gray-300 text-sm sm:text-base">Event Type</span>
+                            <select id="event-type"
+                                class="w-full px-2 sm:px-3 py-1.5 sm:py-2 rounded bg-[#0b1035] border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05] text-sm sm:text-base">
+                                <option value="onsite">Onsite</option>
+                                <option value="online">Online</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <label class="block">
+                        <span class="text-gray-300 text-sm sm:text-base">Description</span>
+                        <textarea id="event-description" rows="3"
+                            class="w-full px-2 sm:px-3 py-1.5 sm:py-2 rounded bg-[#0b1035] border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#b9da05] text-sm sm:text-base"></textarea>
+                    </label>
+
+                    <div class="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 pt-3">
+                        <button type="button" id="cancel-event"
+                            class="w-full sm:w-auto px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-gray-600 hover:bg-gray-700 text-sm sm:text-base">Cancel</button>
+                        <button type="submit"
+                            class="w-full sm:w-auto px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-[#b9da05] hover:bg-[#9eba04] text-sm sm:text-base">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = "/updated-msc-website/api/events";
+    </script>
+    <script src="js/admin_calendar.js" defer></script>
+
+</body>
+
+</html>
