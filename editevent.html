@@ -30,7 +30,7 @@
                 class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
-            <a href="#"
+            <a href="manage-members.html"
                 class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-user-graduate"></i> Students
             </a>
@@ -42,7 +42,7 @@
                 class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-bullhorn"></i> Announcements
             </a>
-            <a href="#"
+            <a href="settings.html"
                 class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#b9da05] hover:text-[#011538] transition-colors">
                 <i class="fas fa-cog"></i> Settings
             </a>
@@ -298,6 +298,116 @@
                 });
             });
         });
+    </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        async function fetchEvents() {
+            try {
+                const res = await fetch("/updated-msc-website/api/events?page=1&limit=10", {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const json = await res.json();
+
+                console.log("Full API Response:", json); // DEBUG
+
+                const events = json?.data?.events || [];
+                console.log("Extracted events array:", events); // DEBUG
+
+                renderEvents(events);
+            } catch (err) {
+                console.error("Error fetching events:", err);
+            }
+        }
+
+        function renderEvents(events) {
+            const sections = {
+                upcoming: document.querySelector("#upcoming"),
+                past: document.querySelector("#past"),
+                canceled: document.querySelector("#canceled"),
+                completed: document.querySelector("#completed")
+            };
+
+            // Clear old content
+            Object.values(sections).forEach(section => {
+                section.innerHTML = "";
+            });
+
+            events.forEach(event => {
+                const card = document.createElement("div");
+                card.className = "event-card";
+
+                card.innerHTML = `
+                    <div class="bg-[#00071c] border border-white/20 rounded-lg p-6 text-white mb-4">
+                        <h4 class="text-xl font-semibold text-[#b9da05] mb-3">${event.event_name}</h3>
+                        <p class="text-gray-300 mb-2"><strong>Date:</strong> ${event.event_date}</p>
+                        <p class="text-gray-300 mb-2"><strong>Time:</strong> ${event.event_time_start} - ${event.event_time_end}</p>
+                        <p class="text-gray-300 mb-2"><strong>Location:</strong> ${event.location}</p>
+                        <p class="text-gray-300 mb-2"><strong>Description:</strong> ${event.description}</p>
+                        <p class="text-gray-300 mb-2"><strong>Status:</strong> ${event.event_status}</p>
+                        <div class="flex gap-3">
+                            <button class="bg-[#b9da05] text-[#011538] px-4 py-2 rounded-lg font-semibold hover:bg-[#9abc04] transition-colors">
+                                <i class="fas fa-edit mr-2"></i>Edit Event
+                            </button>
+                            <button class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-times mr-2"></i>Cancel
+                            </button>
+                    </div>
+                `;
+
+                if (sections[event.event_status]) {
+                    sections[event.event_status].appendChild(card);
+                } else {
+                    console.warn("Unknown event status:", event.event_status);
+                }
+            });
+        }
+
+        fetchEvents();
+    });
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        async function fetchEvents() {
+            try {
+                const res = await fetch("/updated-msc-website/api/events?page=1&limit=10", {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const json = await res.json();
+                
+                console.log("Full API Response:", json); // DEBUG
+
+                const events = json?.data?.data?.events || [];
+                console.log("Extracted events array:", events); // DEBUG
+
+                renderEvents(events);
+            } catch (err) {
+                console.error("Error fetching events:", err);
+            }
+        }
+
+        function renderEvents(events) {
+            if (!events.length) {
+                console.warn("No events found to render!");
+                return;
+            }
+
+            const sections = {
+                upcoming: document.querySelector("#upcoming"),
+                past: document.querySelector("#past"),
+                canceled: document.querySelector("#canceled"),
+                completed: document.querySelector("#completed")
+            };
+
+            events.forEach(event => {
+                console.log("Rendering event:", event); // DEBUG
+            });
+        }
+
+        fetchEvents();
+    });
     </script>
 </body>
 </html>
