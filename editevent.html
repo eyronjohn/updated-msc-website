@@ -161,7 +161,7 @@
                                     <label class="block text-white font-semibold mb-2">
                                         <i class="fas fa-calendar mr-2 text-[#b9da05]"></i>Event Name
                                     </label>
-                                    <input type="text" placeholder="e.g. Orientation Week 2025" 
+                                    <input type="text" placeholder="e.g. Orientation Week 2025" id="eventName"
                                            class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white placeholder-gray-400 focus:border-[#b9da05] focus:outline-none" />
                                 </div>
 
@@ -170,7 +170,7 @@
                                         <label class="block text-white font-semibold mb-2">
                                             <i class="fas fa-calendar-day mr-2 text-[#b9da05]"></i>Event Date
                                         </label>
-                                        <input type="date" 
+                                        <input type="date" id="eventDate"
                                                class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none" />
                                     </div>
 
@@ -179,9 +179,9 @@
                                             <i class="fas fa-clock mr-2 text-[#b9da05]"></i>Time
                                         </label>
                                         <div class="flex gap-2">
-                                            <input type="time" placeholder="Start" 
+                                            <input type="time" placeholder="Start" id="eventTimeStart"
                                                    class="flex-1 px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none" />
-                                            <input type="time" placeholder="End" 
+                                            <input type="time" placeholder="End" id="eventTimeEnd"
                                                    class="flex-1 px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none" />
                                         </div>
                                     </div>
@@ -191,7 +191,7 @@
                                     <label class="block text-white font-semibold mb-2">
                                         <i class="fas fa-map-marker-alt mr-2 text-[#b9da05]"></i>Location
                                     </label>
-                                    <input type="text" placeholder="e.g. Valencia Hall" 
+                                    <input type="text" placeholder="e.g. Valencia Hall" id="eventLocation"
                                            class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white placeholder-gray-400 focus:border-[#b9da05] focus:outline-none" />
                                 </div>
 
@@ -200,10 +200,10 @@
                                         <label class="block text-white font-semibold mb-2">
                                             <i class="fas fa-laptop mr-2 text-[#b9da05]"></i>Event Type
                                         </label>
-                                        <select class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none">
-                                            <option>Onsite</option>
-                                            <option>Online</option>
-                                            <option>Hybrid</option>
+                                        <select class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none" id="eventType">
+                                            <option value="onsite">Onsite</option>
+                                            <option value="online">Online</option>
+                                            <option value="hybrid">Hybrid</option>
                                         </select>
                                     </div>
 
@@ -211,20 +211,29 @@
                                         <label class="block text-white font-semibold mb-2">
                                             <i class="fas fa-user-check mr-2 text-[#b9da05]"></i>Registration
                                         </label>
-                                        <select class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none">
-                                            <option>Required</option>
-                                            <option>Not Required</option>
-                                        </select>
+                                        <label for="eventRegistrationRequired" class="flex items-center gap-3 cursor-pointer">
+                                        <input 
+                                            id="eventRegistrationRequired"
+                                            type="checkbox" 
+                                            class="hidden peer"
+                                        />
+                                        <div class="w-6 h-6 flex items-center justify-center border border-white/30 rounded-md bg-[#00071c] peer-checked:bg-[#b9da05] peer-checked:border-[#b9da05] transition-colors duration-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#00071c] hidden peer-checked:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                        </div>
+                                        <span class="text-white font-semibold">Registration Required</span>
+                                        </label>
                                     </div>
 
                                     <div>
                                         <label class="block text-white font-semibold mb-2">
                                             <i class="fas fa-lock mr-2 text-[#b9da05]"></i>Restriction
                                         </label>
-                                        <select class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none">
-                                            <option>Public</option>
-                                            <option>Members Only</option>
-                                            <option>Officers Only</option>
+                                        <select class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white focus:border-[#b9da05] focus:outline-none" id="eventRestriction">
+                                            <option value="public">Public</option>
+                                            <option value="members">Members Only</option>
+                                            <option value="officers">Officers Only</option>
                                         </select>
                                     </div>
                                 </div>
@@ -233,12 +242,12 @@
                                     <label class="block text-white font-semibold mb-2">
                                         <i class="fas fa-edit mr-2 text-[#b9da05]"></i>Description
                                     </label>
-                                    <textarea rows="6" placeholder="Event description and details..." 
+                                    <textarea rows="6" placeholder="Event description and details..." id="eventDescription"
                                               class="w-full px-4 py-3 bg-[#00071c] border border-white/20 rounded-lg text-white placeholder-gray-400 focus:border-[#b9da05] focus:outline-none resize-none"></textarea>
                                 </div>
 
                                 <div class="pt-4">
-                                    <button type="submit" class="bg-[#b9da05] text-[#011538] px-6 py-3 rounded-lg font-semibold hover:bg-[#9abc04] transition-colors">
+                                    <button type="button" onclick="testCreateEvent()" class="bg-[#b9da05] text-[#011538] px-6 py-3 rounded-lg font-semibold hover:bg-[#9abc04] transition-colors">
                                         <i class="fas fa-save mr-2"></i>Save Event
                                     </button>
                                 </div>
@@ -369,25 +378,6 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", () => {
-        async function fetchEvents() {
-            try {
-                const res = await fetch("/updated-msc-website/api/events?page=1&limit=10", {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-                const json = await res.json();
-                
-                console.log("Full API Response:", json); // DEBUG
-
-                const events = json?.data?.data?.events || [];
-                console.log("Extracted events array:", events); // DEBUG
-
-                renderEvents(events);
-            } catch (err) {
-                console.error("Error fetching events:", err);
-            }
-        }
-
         function renderEvents(events) {
             if (!events.length) {
                 console.warn("No events found to render!");
@@ -409,5 +399,123 @@
         fetchEvents();
     });
     </script>
+    <script>
+    const API_BASE = "/updated-msc-website/api";
+
+    async function fetchEvents() {
+        try {
+            const res = await fetch(`${API_BASE}/events?page=1&limit=10`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+            const json = await res.json();
+
+            console.log("Full API Response:", json); // DEBUG
+
+            const events = json?.data?.events || [];
+            renderEvents(events);
+        } catch (err) {
+            console.error("Error fetching events:", err);
+        }
+    }
+
+    function renderEvents(events) {
+        const sections = {
+            upcoming: document.querySelector("#upcoming"),
+            past: document.querySelector("#past"),
+            canceled: document.querySelector("#canceled"),
+            completed: document.querySelector("#completed")
+        };
+
+        // Clear old content
+        Object.values(sections).forEach(section => {
+            section.innerHTML = "";
+        });
+
+        events.forEach(event => {
+            const card = document.createElement("div");
+            card.className = "event-card";
+
+            card.innerHTML = `
+                <div class="bg-[#00071c] border border-white/20 rounded-lg p-6 text-white mb-4">
+                    <h4 class="text-xl font-semibold text-[#b9da05] mb-3">${event.event_name}</h3>
+                    <p class="text-gray-300 mb-2"><strong>Date:</strong> ${event.event_date}</p>
+                    <p class="text-gray-300 mb-2"><strong>Time:</strong> ${event.event_time_start} - ${event.event_time_end}</p>
+                    <p class="text-gray-300 mb-2"><strong>Location:</strong> ${event.location}</p>
+                    <p class="text-gray-300 mb-2"><strong>Description:</strong> ${event.description}</p>
+                    <p class="text-gray-300 mb-2"><strong>Status:</strong> ${event.event_status}</p>
+                    <div class="flex gap-3">
+                        <button class="bg-[#b9da05] text-[#011538] px-4 py-2 rounded-lg font-semibold hover:bg-[#9abc04] transition-colors">
+                            <i class="fas fa-edit mr-2"></i>Edit Event
+                        </button>
+                        <button class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-times mr-2"></i>Cancel
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            if (sections[event.event_status]) {
+                sections[event.event_status].appendChild(card);
+            } else {
+                console.warn("Unknown event status:", event.event_status);
+            }
+        });
+    }
+
+    async function testCreateEvent() {
+        const data = {
+            event_name: document.getElementById("eventName").value,
+            event_date: document.getElementById("eventDate").value,
+            event_time_start: document.getElementById("eventTimeStart").value,
+            event_time_end: document.getElementById("eventTimeEnd").value,
+            location: document.getElementById("eventLocation").value,
+            description: document.getElementById("eventDescription").value,
+            event_type: document.getElementById("eventType").value,
+            event_restriction: document.getElementById("eventRestriction").value,
+            registration_required: document.getElementById("eventRegistrationRequired").checked,
+        };
+
+        const result = await apiCall("/events", "POST", data, "➕ Create Event");
+
+        if(result) {
+            fetchEvents(); // Refresh event list
+            window.location.reload(); // Reload page to show new event
+        }
+    }
+
+    async function apiCall(endpoint, method = "GET", data = null, title = "") {
+        try {
+            const options = {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            };
+
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+
+            console.log(`🚀 ${method} ${endpoint}:`, data);
+
+            const response = await fetch(`${API_BASE}${endpoint}`, options);
+            const result = await response.json();
+
+            console.log("✅ API Response:", result);
+
+            return result;
+        } catch (error) {
+            console.error("API Error:", error);
+            return null;
+        }
+    }
+
+    // Run fetchEvents when page is loaded
+    document.addEventListener("DOMContentLoaded", fetchEvents);
+    </script>
+
+
 </body>
 </html>
