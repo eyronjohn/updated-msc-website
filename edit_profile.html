@@ -8,7 +8,8 @@
   <link rel="icon" href="./Logos/Bulsu MSC Logo-02.png" type="image/png" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Segoe+UI:wght@400;700&display=swap"
+    rel="stylesheet">
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -105,6 +106,24 @@
     .animate-slide-in {
       animation: slide-in 0.4s ease-out;
     }
+
+    /* Custom scrollbar styles */
+    ::-webkit-scrollbar {
+      width: 8px;
+      background-color: #1e293b;
+      /* bg-slate-800 */
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #b9da05;
+      /* green-400 */
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #d1d5db;
+      /* gray-300 */
+    }
   </style>
 </head>
 
@@ -192,9 +211,10 @@
 
   <main class="pt-28 flex justify-center">
     <section id="header"
-      class="w-[96%] mx-auto mb-8 bg-transparent flex flex-col lg:flex-row gap-5 items-stretch rounded">
+      class="w-[96%] mx-auto mb-8 bg-transparent flex flex-col lg:flex-row gap-5 items-stretch rounded min-h-[calc(100vh-7rem)]">
+
       <!-- Left Section: Profile -->
-      <div class="w-full lg:w-2/6 rounded-lg bg-[#011538] self-stretch">
+      <div class="w-full lg:w-2/6 rounded-lg bg-[#011538] border border-[#b9da05] self-stretch">
         <div class="px-4 sm:px-6 py-4">
           <div class="mb-4 text-right w-full">
             <h4 class="text-xs md:text-sm font-semibold uppercase tracking-wider text-white py-2 px-2" id="msc_id">
@@ -240,9 +260,11 @@
       </div>
 
       <!-- Right Section: Edit Profile -->
-      <div class="w-full lg:w-4/5 flex flex-col h-full self-stretch">
+      <div class="w-full lg:w-4/5 flex flex-col self-stretch h-full">
+
         <!-- Personal Info -->
-        <div class="w-full rounded-lg shadow-md bg-[#011538] text-white overflow-hidden">
+        <div
+          class="w-full rounded-lg shadow-md bg-[#011538] border border-[#b9da05] text-white overflow-hidden flex-shrink-0">
           <div class="bg-[#011538] flex flex-row flex-wrap items-center justify-between px-4 sm:px-6 pt-6 pb-2 gap-2">
             <h2 class="text-xl font-bold text-white">
               Personal Information
@@ -437,14 +459,16 @@
           </div>
         </div>
 
-        <div class="bg-[#011538] rounded-xl my-6 shadow-lg max-w-full">
+        <div class="bg-[#011538] border border-[#b9da05] rounded-xl my-6 shadow-lg max-w-full flex-grow flex flex-col">
+
           <div class="pb-2 pt-6 px-4 sm:px-6">
             <h2 class="text-xl font-bold text-white flex items-center justify-between">
               <span>Attended Events & Badges</span>
             </h2>
           </div>
 
-          <div class="pt-2 px-4 sm:px-6 pb-4">
+          <!-- Scrollable container -->
+          <div class="pt-2 px-4 sm:px-6 pb-4 overflow-y-auto flex-grow">
             <div class="text-center">
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 py-2" id="badgeContainer">
                 <div
@@ -457,7 +481,7 @@
                   </h3>
                   <p class="text-sm text-white mt-1" id="member_since2"></p>
                 </div>
-                <!-- Attended/Event Badges-->
+                <!-- Dynamic badges append here -->
               </div>
             </div>
           </div>
@@ -498,6 +522,8 @@
     </div>
   </footer>
 
+
+
   <script>
     const API_BASE = "/updated-msc-website/api";
 
@@ -523,22 +549,109 @@
     const menuButton = document.getElementById("mobile-menu-button");
     const mobileSidebar = document.getElementById("mobile-sidebar");
 
-    menuButton.addEventListener("click", () => {
-      mobileSidebar.classList.toggle("-translate-x-full");
-    });
+    if (menuButton && mobileSidebar) {
+      menuButton.addEventListener("click", () => {
+        mobileSidebar.classList.toggle("-translate-x-full");
+      });
 
-    document.addEventListener("click", function (event) {
-      const isClickInsideSidebar = mobileSidebar.contains(event.target);
-      const isClickOnMenu = menuButton.contains(event.target);
+      document.addEventListener("click", function (event) {
+        const isClickInsideSidebar = mobileSidebar.contains(event.target);
+        const isClickOnMenu = menuButton.contains(event.target);
 
-      if (!isClickInsideSidebar && !isClickOnMenu) {
-        mobileSidebar.classList.add("-translate-x-full");
-      }
-    });
+        if (!isClickInsideSidebar && !isClickOnMenu) {
+          mobileSidebar.classList.add("-translate-x-full");
+        }
+      });
+    }
 
     let originalProfile = {};
     const collegeProgramMap = {
-      /* ... (unchanged college/program map) ... */
+      "College of Architecture and Fine Arts (CAFA)": [
+        "BS Architecture",
+        "B Landscape Architecture",
+        "B Fine Arts Major in Visual Communication",
+      ],
+      "College of Arts and Letters (CAL)": [
+        "BA Broadcasting",
+        "BA Journalism",
+        "B Performing Arts (Theater Track)",
+        "B Sining sa Malikhaing Pagsulat",
+      ],
+      "College of Business Education and Accountancy (CBEA)": [
+        "BS Accountancy",
+        "BS Business Administration Major in Business Economics",
+        "BS Business Administration Major in Financial Management",
+        "BS Business Administration Major in Marketing Management",
+        "BS Entrepreneurship",
+      ],
+      "College of Criminal Justice Education (CCJE)": [
+        "BS Criminology",
+        "BA Legal Management",
+      ],
+      "College of Hospitality and Tourism Management (CHTM)": [
+        "BS Hospitality Management",
+        "BS Tourism Management",
+      ],
+      "College of Information and Communications Technology (CICT)": [
+        "BS Information Technology",
+        "BS Information System",
+        "B Library and Information Science",
+      ],
+      "College of Industrial Technology (CIT)": [
+        "BIT with specialization in Automotive",
+        "BIT with specialization in Computer",
+        "BIT with specialization in Drafting",
+        "BIT with specialization in Electrical",
+        "BIT with specialization in Electronics & Communication Technology",
+        "BIT with specialization in Electronics Technology",
+        "BIT with specialization in Food Processing Technology",
+        "BIT with specialization in Heating, Ventilation, Air Conditioning and Refrigeration Technology (HVACR)",
+        "BIT with specialization in Mechanical",
+        "BIT with specialization in Mechatronics Technology",
+        "BIT with specialization in Welding Technology",
+      ],
+      "College of Nursing (CON)": ["BS Nursing"],
+      "College of Engineering (COE)": [
+        "BS Civil Engineering",
+        "BS Computer Engineering",
+        "BS Electrical Engineering",
+        "BS Electronics Engineering",
+        "BS Industrial Engineering",
+        "BS Manufacturing Engineering",
+        "BS Mechanical Engineering",
+        "BS Mechatronics Engineering",
+      ],
+      "College of Education (COED)": [
+        "B Early Childhood Education",
+        "B Elementary Education",
+        "B Physical Education",
+        "BSEd Major in English Minor in Mandarin",
+        "BSEd in Filipino",
+        "BSEd in Mathematics",
+        "BSEd in Sciences",
+        "BSEd in Social Studies",
+        "BSEd in Values Education",
+        "BTLEd Major in Home Economics",
+        "BTLEd Major in Industrial Arts",
+        "BTLEd Major in Information and Communication Technology",
+      ],
+      "College of Science (CS)": [
+        "BS Biology",
+        "BS Environmental Science",
+        "BS Food Technology",
+        "BS Math with Specialization in Applied Statistics",
+        "BS Math with Specialization in Business Applications",
+        "BS Math with Specialization in Computer Science",
+      ],
+      "College of Sports, Exercise and Recreation (CSER)": [
+        "BS ESS with specialization in Fitness and Sports Coaching",
+        "BS ESS with specialization in Fitness and Sports Management",
+      ],
+      "College of Social Sciences and Philosophy (CSSP)": [
+        "B Public Administration",
+        "BS Psychology",
+        "BS Social Work",
+      ]
     };
 
     const collegeSelect = document.getElementById('student_college');
@@ -573,7 +686,6 @@
       populatePrograms(e.target.value);
     });
 
-    // ✅ Refactored fetchProfile to use apiCall
     async function fetchProfile() {
       try {
         const data = await apiCall("/auth/profile");
@@ -586,7 +698,7 @@
 
         // Text fields
         document.getElementById("msc_id").textContent = user.msc_id;
-        generateQRCode(user.msc_id || user.student_no);
+        generateQRCode(user.msc_id || user.student_no || "UNKNOWN");
         document.getElementById("fullName").textContent = `${user.first_name} ${user.last_name}`;
         document.getElementById("studentID").textContent = user.student_no;
         document.getElementById("program").textContent = user.program;
@@ -608,15 +720,18 @@
         document.getElementById("username").value = user.username || "";
         document.getElementById("email").value = user.email || "";
 
+        // Populate and pre-select college + program
         populateColleges(user.college || "");
         populatePrograms(user.college || "", user.program || "");
 
+        // Member since
         const createdDate = new Date(user.created_at);
         document.getElementById("member_since").textContent = createdDate.toLocaleDateString("en-US", {
           year: "numeric", month: "long", day: "numeric"
         });
         document.getElementById("member_since2").textContent = createdDate.toLocaleDateString("en-US");
 
+        // Profile picture initials
         const initials = `${user.first_name?.charAt(0) || ""}${user.last_name?.charAt(0) || ""}`.toUpperCase();
         renderProfilePicture(user.profile_image_path, initials);
 
@@ -627,6 +742,7 @@
       }
     }
 
+    // Format YYYY-MM-DD
     function formatDateInput(dateStr) {
       if (!dateStr) return "";
       const date = new Date(dateStr);
@@ -696,7 +812,6 @@
       }
     }
 
-    // ✅ Refactored updateProfile to use apiCall for JSON
     async function updateProfile() {
       const saveBtn = document.getElementById("saveBtn");
 
@@ -716,11 +831,11 @@
         const user = profileData.data;
         const studentId = user.id;
 
-        // Upload profile picture separately
+        // Upload profile picture separately (if changed)
         const fileInput = document.getElementById("profile");
         let uploadedImagePath = user.profile_image_path;
 
-        if (fileInput.files.length > 0) {
+        if (fileInput && fileInput.files.length > 0) {
           uploadedImagePath = await uploadProfilePicture(studentId);
           if (!uploadedImagePath) {
             showToast("Failed to upload image", "error");
@@ -743,7 +858,7 @@
           address: document.getElementById("address").value.trim(),
           phone: document.getElementById("phone").value.trim(),
           facebook_link: document.getElementById("facebook_link").value.trim(),
-          profile_image_path: uploadedImagePath
+          profile_image_path: uploadedImagePath || null
         };
 
         const updateResult = await apiCall(`/students/profile/${studentId}`, "PUT", payload);
@@ -752,8 +867,11 @@
           showToast("Profile updated successfully!", "success");
 
           originalProfile = { ...originalProfile, ...payload };
+
+          // Disable Save button
           saveBtn.classList.add("pointer-events-none", "opacity-50");
 
+          // Reload after toast disappears
           setTimeout(() => {
             location.reload();
           }, 1500);
@@ -768,6 +886,7 @@
       }
     }
 
+    //Profile Pic Generator
     function renderProfilePicture(profilePictureUrl, initials) {
       const container = document.getElementById("profile-picture-container");
       if (!container) return;
@@ -797,7 +916,7 @@
 
     function generateQRCode(data) {
       const qrContainer = document.getElementById("qr-code");
-      qrContainer.innerHTML = "";
+      qrContainer.innerHTML = ""; // Clear previous QR
 
       new QRCode(qrContainer, {
         text: data,
@@ -811,15 +930,16 @@
 
     document.addEventListener("DOMContentLoaded", fetchProfile);
 
-    // ✅ Refactored fetchAndDisplayEventBadges to use apiCall
     async function fetchAndDisplayEventBadges(studentId) {
       try {
         const data = await apiCall(`/events/student/${studentId}`);
+
         if (data && data.success && Array.isArray(data.data)) {
           const events = data.data;
           const badgeContainer = document.getElementById("badgeContainer");
 
           const staticBadge = badgeContainer.firstElementChild;
+
           while (badgeContainer.children.length > 1) {
             badgeContainer.removeChild(badgeContainer.lastChild);
           }
@@ -840,7 +960,7 @@
             card.className =
               "flex flex-col items-center p-6 bg-[#011538] border border-white/20 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300";
 
-            card.innerHTML = ` 
+            card.innerHTML = `
             <div class="w-14 h-14 flex items-center justify-center ${randomIcon.bg} rounded-full mb-3">
               <i class="fas ${randomIcon.icon} ${randomIcon.color} text-xl"></i>
             </div>
@@ -882,36 +1002,43 @@
 
       toast.classList.remove("hidden");
 
+      // Auto-hide after 3 seconds
       setTimeout(() => {
         toast.classList.add("hidden");
       }, 1000);
     }
 
-    // Still raw fetch because of FormData
+    // Profile picture upload function (uses FormData, so raw fetch)
     async function uploadProfilePicture(studentId) {
-      const fileInput = document.getElementById("profileInput");
+      const fileInput = document.getElementById("profile");
       const file = fileInput?.files?.[0];
       if (!file) return null;
 
       const formData = new FormData();
       formData.append("profile", file);
 
-      const res = await fetch(`${API_BASE}/students/upload-profile/${studentId}`, {
-        method: "POST",
-        credentials: "include",
-        body: formData
-      });
+      try {
+        const res = await fetch(`${API_BASE}/students/upload-profile/${studentId}`, {
+          method: "POST",
+          credentials: "include",
+          body: formData
+        });
 
-      const result = await res.json();
+        const result = await res.json();
 
-      if (res.ok && result.success) {
-        return result.data.path;
-      } else {
-        console.error(result.message || "Profile image upload failed.");
+        if (res.ok && result.success) {
+          return result.data.path;
+        } else {
+          console.error(result.message || "Profile image upload failed.");
+          return null;
+        }
+      } catch (error) {
+        console.error("Error uploading profile picture:", error);
         return null;
       }
     }
   </script>
+
 
 </body>
 

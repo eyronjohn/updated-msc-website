@@ -36,6 +36,15 @@
         input[type="time"]::-webkit-calendar-picker-indicator:hover {
             filter: invert(64%) sepia(95%) saturate(600%) hue-rotate(25deg) brightness(95%) contrast(90%);
         }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #b9da05;
+            border-radius: 3px;
+        }
     </style>
 </head>
 
@@ -93,12 +102,12 @@
                 </div>
 
                 <button onclick="openNewEventModal()"
-                    class="bg-[#b9da05] text-[#011538] px-3 py-1 rounded hover:bg-white hover:text-[#011538]">
-                    + Create
+                    class="w-36 bg-[#b9da05] text-[#011538] px-3 py-1 rounded hover:bg-white hover:text-[#011538]">
+                    Create <i class="fa-solid fa-plus text-sm"></i>
                 </button>
             </div>
 
-            <div class="border border-white/20 rounded-lg overflow-y-auto flex-grow">
+            <div class="border border-white/20 rounded-lg overflow-hidden">
                 <div
                     class="grid grid-cols-7 bg-[#0b1035] text-center text-sm font-medium text-gray-300 border-b border-white/20">
                     <div>Sun</div>
@@ -110,7 +119,7 @@
                     <div>Sat</div>
                 </div>
 
-                <div id="calendar-grid" class="grid grid-cols-7 text-xs text-gray-200 bg-[#0f133f]"></div>
+                <div id="calendar-grid" class="grid grid-cols-7 text-xs text-gray-200"></div>
             </div>
         </div>
 
@@ -135,7 +144,7 @@
                             <p id="event-location" class="text-lg text-gray-200 mt-0.5"></p>
                         </div>
                         <button
-                            class="p-2 bg-[#b9da05] text-[#011538] w-full rounded-sm hover:bg-white hover:text-[#011538]">View
+                            class="w-full p-2 bg-[#b9da05] text-[#011538] font-semibold rounded-sm hover:bg-[#9abc04]">View
                             Participants</button>
                     </div>
                 </div>
@@ -154,7 +163,8 @@
         <!-- Modal: Create Event -->
         <div id="new-event-modal"
             class="flex fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-2 overflow-auto">
-            <div class="bg-[#0b1035] text-white p-4 sm:p-6 rounded-2xl shadow-xl w-full max-w-md border border-[#b9da05] ">
+            <div
+                class="bg-[#0b1035] text-white p-4 sm:p-6 rounded-2xl shadow-xl w-full max-w-md border border-[#b9da05] ">
                 <h2 class="text-lg sm:text-xl font-bold mb-4 text-center">Create New Event</h2>
 
                 <form id="new-event-form" class="space-y-3 sm:space-y-4">

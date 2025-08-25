@@ -8,9 +8,11 @@ function navigateCalendar(monthOffset) {
 
 function getColorByType(type) {
   switch (type) {
-    case 'onsite': return 'bg-[#b9da05] text-gray-700';
-    case 'online': return 'bg-[#044cd1] text-gray-400';
-    default: return 'bg-white/20 text-white';
+    case "onsite": return "bg-[#b9da05] text-[#011538]";
+    case "online": return "bg-blue-600 text-white";
+    case "assembly": return "bg-purple-600 text-white";
+    case "seminar": return "bg-green-600 text-white";
+    default: return "bg-white/20 text-white";
   }
 }
 
@@ -68,8 +70,9 @@ function renderUniversityCalendar() {
     const events = calendarEvents.filter(e => e.date === dateStr);
 
     cell.classList.add(
-      "p-2", "border", "border-white/10", "relative", "h-20",
-      "bg-[#011538]", "hover:bg-white/10", "transition-colors"
+      "p-4", "border", "border-white/10", "relative",
+      "bg-[#011538]", "hover:bg-white/10", "transition-colors",
+      "overflow-y-auto", "day-cell"
     );
 
     const dayLabel = document.createElement("div");

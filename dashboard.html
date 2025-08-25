@@ -13,7 +13,9 @@
     <link href="./Logos/Bulsu MSC Logo-02.png" rel="icon" type="image/png" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Segoe+UI:wght@400;700&display=swap"
+        rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -97,6 +99,42 @@
             transform: scale(1.1);
         }
 
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            background-color: #1e293b;
+            /* bg-slate-800 */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #b9da05;
+            /* green-400 */
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #d1d5db;
+            /* gray-300 */
+        }
+
+        /* Calendar: day cell */
+        .day-cell {
+            min-height: 6rem;
+            max-height: 7rem;
+        }
+
+        .day-cell::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .day-cell::-webkit-scrollbar-thumb {
+            background: #b9da05;
+            border-radius: 4px;
+        }
+
+        .day-cell::-webkit-scrollbar-track {
+            background: transparent;
+        }
     </style>
 </head>
 
@@ -256,8 +294,7 @@
 
                 <div class="flex justify-center gap-4 m-4">
                     <span class="w-5/12 bg-[#03850a] text-m text-white py-1 px-2 rounded-full text-center">Active</span>
-                    <span
-                        class="w-5/12 bg-[#011538] border border-white/20 text-white py-1 px-2 rounded-full text-center"
+                    <span class="w-5/12 bg-[#03378f] text-white text-white py-1 px-2 rounded-full text-center"
                         id="role"></span>
                 </div>
 
@@ -324,10 +361,13 @@
 
                 <!-- Tab Contents -->
                 <div class="mt-6 space-y-4">
-                    <div class="tab-content" id="tab-announcements">
+                    <div class="tab-content" id="tab-announcements"
+                        style="max-height: 35rem; overflow-y: auto; padding-right: .5rem;">
                         <p class="text-gray-300"></p>
                     </div>
-                    <div class="tab-content hidden" id="tab-events">
+
+                    <div class="tab-content hidden" id="tab-events"
+                        style="max-height: 35rem; overflow-y: auto; padding-right: .5rem;">
                         <p class="text-gray-300"></p>
                     </div>
                     <div class="tab-content hidden" id="tab-calendar">
@@ -335,7 +375,7 @@
                             <div id="calendar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
                             <!-- UNIV/MSC CALENDAR -->
-                            <div class="mt-4">
+                            <div class="mt-4 h-[37rem] overflow-y-auto">
                                 <div class="flex justify-between items-center mb-4">
                                     <button onclick="goToToday()"
                                         class="bg-white/10 border border-white/20 text-white rounded px-3 py-1 hover:bg-[#b9da05] hover:text-[#011538]">Today</button>
@@ -402,7 +442,7 @@
                                         <p id="event-location" class="text-lg text-gray-200 mt-0.5"></p>
                                     </div>
                                     <button
-                                        class="p-2 bg-[#b9da05] text-[#011538] w-full rounded-sm hover:bg-white hover:text-[#011538]">Register</button>
+                                        class="w-full p-2 bg-[#b9da05] text-[#011538] text-lg font-semibold rounded-sm hover:bg-[#9abc04]">Register</button>
                                 </div>
                             </div>
                         </div>
@@ -460,17 +500,31 @@
     <!-- Footer -->
     <footer class="bg-[#00071c] text-center p-6 border-t border-gray-800">
         <div class="flex justify-center space-x-1 mb-1">
-            <a href="https://www.bulsu.edu.ph" target="_blank" rel="noopener noreferrer"><img src="./Logos/BulSU.png" alt="Bulacan State University Logo" class="h-10"></a>
-            <a href="https://www.facebook.com/osobulsu" target="_blank" rel="noopener noreferrer"><img src="./Logos/OSOA.png" alt="Bulacan State University OSOA Logo" class="h-10 w-10"></a>
+            <a href="https://www.bulsu.edu.ph" target="_blank" rel="noopener noreferrer"><img src="./Logos/BulSU.png"
+                    alt="Bulacan State University Logo" class="h-10"></a>
+            <a href="https://www.facebook.com/osobulsu" target="_blank" rel="noopener noreferrer"><img
+                    src="./Logos/OSOA.png" alt="Bulacan State University OSOA Logo" class="h-10 w-10"></a>
         </div>
         <p class="text-gray-500 text-sm">&copy; 2025 BulSU Microsoft Student Community. All rights reserved.</p>
         <div class="flex justify-center space-x-4 mt-2">
-            <a href="https://www.facebook.com/bulsu.officialmsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/bulsumsc/" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.threads.com/@bulsumsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-threads"></i></a>
-            <a href="https://www.tiktok.com/@bulsumsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-tiktok"></i></a>
-            <a href="https://www.linkedin.com/company/bulsumsc/" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.github.com/bulsumsc" target="_blank" class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i class="fab fa-github"></i></a>
+            <a href="https://www.facebook.com/bulsu.officialmsc" target="_blank"
+                class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/bulsumsc/" target="_blank"
+                class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://www.threads.com/@bulsumsc" target="_blank"
+                class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i
+                    class="fab fa-threads"></i></a>
+            <a href="https://www.tiktok.com/@bulsumsc" target="_blank"
+                class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i
+                    class="fab fa-tiktok"></i></a>
+            <a href="https://www.linkedin.com/company/bulsumsc/" target="_blank"
+                class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i
+                    class="fab fa-linkedin"></i></a>
+            <a href="https://www.github.com/bulsumsc" target="_blank"
+                class="text-gray-400 hover:text-[#b9da05] transition-colors duration-300"><i
+                    class="fab fa-github"></i></a>
         </div>
     </footer>
 
@@ -756,7 +810,7 @@
                     const day = date.getDate();
 
                     const html = `
-        <div class="relative flex flex-col md:flex-row gap-4 p-5 bg-[#011538] border border-white/20 rounded-xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-white">
+        <div class="relative flex flex-col md:flex-row gap-4 p-5 m-4 bg-[#011538] border border-white/20 rounded-xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-white">
           
           <!-- Date block -->
           <div class="w-full md:w-16 h-16 md:h-auto bg-[#b9da05] text-[#011538] rounded-lg flex flex-col items-center justify-center md:flex-shrink-0 font-bold">

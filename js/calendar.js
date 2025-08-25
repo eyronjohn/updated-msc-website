@@ -84,8 +84,9 @@ function renderUniversityCalendar() {
     const events = calendarEvents.filter(e => e.date === dateStr);
 
     cell.classList.add(
-      "p-2", "border", "border-white/10", "relative", "h-20",
-      "bg-[#011538]", "hover:bg-white/10", "transition-colors"
+      "p-2", "border", "border-white/10", "relative",
+      "bg-[#011538]", "hover:bg-white/10", "transition-colors",
+      "overflow-y-auto", "day-cell"
     );
 
     const dayLabel = document.createElement("div");
